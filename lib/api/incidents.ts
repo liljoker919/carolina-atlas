@@ -88,6 +88,7 @@ export async function fetchIncidents(
       outSR: String(outSR),
       resultRecordCount: String(pageSize),
       resultOffset: String(resultOffset),
+      orderByFields: "OBJECTID ASC",
       f: "json",
     });
 
