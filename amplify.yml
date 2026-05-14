@@ -1,0 +1,29 @@
+# Carolina Atlas — AWS Amplify Build Configuration
+# Deploys the Next.js 14+ App Router app using Amplify Hosting
+
+version: 1
+
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - node --version
+        - npm --version
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    # Next.js SSR / standalone output
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
+
+  # Environment variable configuration (set values in Amplify Console)
+  # environment:
+  #   variables:
+  #     NEXT_PUBLIC_RALEIGH_INCIDENTS_API_URL: https://services.arcgis.com/...
