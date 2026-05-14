@@ -3,9 +3,15 @@
  * Uses the public Raleigh Daily Police Incidents endpoint.
  *
  * API Docs: https://services.arcgis.com/v400IkDOw1ad7Yad/arcgis/rest/services/Daily_Police_Incidents/FeatureServer/0
+ *
+ * Privacy: All requests include returnGeometry=false to ensure that precise
+ * geographic coordinates are never returned or stored. Only block-level address
+ * text (LOCATION field) is used, which protects individual privacy while still
+ * allowing district- and city-level analysis.
  */
 
 import type { ArcGISErrorBody, ArcGISResponse, PoliceIncident } from "@/types";
+import { localDateToMs } from "@/lib/utils";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_RALEIGH_INCIDENTS_API_URL ||
@@ -40,13 +46,12 @@ export interface FetchIncidentsOptions {
   where?: string;
   /** Comma-separated field names to return (default: *) */
   outFields?: string;
-  /** Spatial reference for coordinates (default: 4326 = WGS84) */
-  outSR?: number;
 }
 
 /**
  * Fetch police incidents from the Raleigh ArcGIS FeatureServer.
- * Returns an array of PoliceIncident objects (attributes + optional geometry).
+ * Returns an array of PoliceIncident objects (attributes only; geometry is
+ * explicitly excluded via returnGeometry=false for privacy).
  *
  * When the server signals exceededTransferLimit the function automatically
  * paginates until all requested records have been retrieved (up to MAX_PAGES
@@ -61,7 +66,6 @@ export async function fetchIncidents(
     fetchAll = false,
     where = "1=1",
     outFields = "*",
-    outSR = 4326,
   } = options;
 
   const incidents: PoliceIncident[] = [];
@@ -85,7 +89,7 @@ export async function fetchIncidents(
     const params = new URLSearchParams({
       where,
       outFields,
-      outSR: String(outSR),
+      returnGeometry: "false",
       resultRecordCount: String(pageSize),
       resultOffset: String(resultOffset),
       orderByFields: "OBJECTID ASC",
@@ -129,10 +133,12 @@ export async function fetchIncidents(
       );
     }
 
-    console.warn(
-      `[fetchIncidents] exceededTransferLimit at offset ${resultOffset} (page ${pages}); ` +
-        `fetching next page.`
-    );
+    if (process.env.NODE_ENV !== "production") {
+      console.info(
+        `[fetchIncidents] exceededTransferLimit at offset ${resultOffset} (page ${pages}); ` +
+          `fetching next page.`
+      );
+    }
 
     resultOffset += data.features.length;
   }
@@ -145,16 +151,18 @@ export async function fetchIncidents(
 /**
  * Fetch incidents with a date range filter.
  * Dates should be ISO date strings like "2024-01-01".
+ * Date boundaries are computed using the runtime's local timezone so that
+ * "2024-01-15" means midnight–midnight in local time, not UTC.
  */
 export async function fetchIncidentsByDateRange(
   dateFrom: string,
   dateTo: string,
   limit?: number
 ): Promise<PoliceIncident[]> {
-  // ArcGIS timestamp filter uses epoch milliseconds
-  const fromMs = new Date(dateFrom).getTime();
+  // Parse dates as local-timezone midnight to match user intent
+  const fromMs = localDateToMs(dateFrom);
   const MS_PER_DAY = 86_400_000;
-  const toMs = new Date(dateTo).getTime() + MS_PER_DAY; // include full last day
+  const toMs = localDateToMs(dateTo) + MS_PER_DAY; // include full last day
   const where = `INC_DATETIME >= ${fromMs} AND INC_DATETIME <= ${toMs}`;
   return fetchIncidents({ where, limit });
 }
