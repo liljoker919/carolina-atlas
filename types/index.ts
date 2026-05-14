@@ -59,6 +59,18 @@ export interface ArcGISField {
   length?: number;
 }
 
+/**
+ * Shape of an ArcGIS REST API error response (returned with HTTP 200).
+ * Always check for this before accessing `features`.
+ */
+export interface ArcGISErrorBody {
+  error: {
+    code: number;
+    message: string;
+    details?: string[];
+  };
+}
+
 // ─── Filter / Search Types ────────────────────────────────────────────────
 
 export interface IncidentFilters {
