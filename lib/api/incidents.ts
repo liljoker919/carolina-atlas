@@ -39,34 +39,56 @@ export async function fetchIncidents(
     outSR = 4326,
   } = options;
 
-  const params = new URLSearchParams({
-    where,
-    outFields,
-    outSR: String(outSR),
-    resultRecordCount: String(limit),
-    f: "json",
-  });
+  const incidents: PoliceIncident[] = [];
+  let resultOffset = 0;
 
-  const url = `${BASE_URL}?${params.toString()}`;
+  while (incidents.length < limit) {
+    const remaining = limit - incidents.length;
+    const params = new URLSearchParams({
+      where,
+      outFields,
+      outSR: String(outSR),
+      resultRecordCount: String(remaining),
+      resultOffset: String(resultOffset),
+      f: "json",
+    });
 
-  const res = await fetch(url, {
-    // Revalidate every 30 minutes in production, no-store in dev
-    next: { revalidate: process.env.NODE_ENV === "production" ? 1800 : 0 },
-  });
+    const url = `${BASE_URL}?${params.toString()}`;
 
-  if (!res.ok) {
-    throw new Error(
-      `Failed to fetch incidents: ${res.status} ${res.statusText}`
-    );
+    const res = await fetch(url, {
+      // Revalidate every 30 minutes in production, no-store in dev
+      next: { revalidate: process.env.NODE_ENV === "production" ? 1800 : 0 },
+    });
+
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch incidents: ${res.status} ${res.statusText}`
+      );
+    }
+
+    const data: ArcGISResponse & { exceededTransferLimit?: boolean } =
+      await res.json();
+
+    if (!data.features) {
+      throw new Error("Unexpected API response: no features field");
+    }
+
+    incidents.push(...data.features);
+
+    if (!data.exceededTransferLimit) {
+      break;
+    }
+
+    if (data.features.length === 0) {
+      throw new Error(
+        "Unexpected API response: exceededTransferLimit was set but no additional features were returned"
+      );
+    }
+
+    resultOffset += data.features.length;
   }
 
-  const data: ArcGISResponse = await res.json();
-
-  if (!data.features) {
-    throw new Error("Unexpected API response: no features field");
-  }
-
-  return data.features;
+  return incidents;
 }
 
 /**
