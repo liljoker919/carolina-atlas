@@ -18,9 +18,14 @@ export default function LoadingSpinner({
   }[size];
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-16">
+    <div
+      className="flex flex-col items-center justify-center gap-4 py-16"
+      role="status"
+      aria-live="polite"
+    >
       <div
         className={`${sizeClass} rounded-full border-[#4B9CD3] border-t-transparent animate-spin`}
+        aria-hidden="true"
       />
       {label && <p className="text-sm text-gray-500">{label}</p>}
     </div>
