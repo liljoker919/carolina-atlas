@@ -22,7 +22,6 @@ export default function LoadingSpinner({
       className="flex flex-col items-center justify-center gap-4 py-16"
       role="status"
       aria-live="polite"
-      aria-label={label}
     >
       <div
         className={`${sizeClass} rounded-full border-[#4B9CD3] border-t-transparent animate-spin`}
