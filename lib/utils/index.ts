@@ -79,8 +79,11 @@ export function filterIncidents(
     if (district && attr.DISTRICT !== district) return false;
 
     // Date range filter
-    if (fromMs && attr.INC_DATETIME && attr.INC_DATETIME < fromMs) return false;
-    if (toMs && attr.INC_DATETIME && attr.INC_DATETIME > toMs) return false;
+    if (fromMs || toMs) {
+      if (!attr.INC_DATETIME) return false;
+      if (fromMs && attr.INC_DATETIME < fromMs) return false;
+      if (toMs && attr.INC_DATETIME > toMs) return false;
+    }
 
     return true;
   });
