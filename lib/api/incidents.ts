@@ -80,7 +80,7 @@ export async function fetchIncidents(
 
     const pageSize = fetchAll
       ? ARCGIS_PAGE_SIZE
-      : limit - incidents.length;
+      : Math.min(limit - incidents.length, ARCGIS_PAGE_SIZE);
 
     const params = new URLSearchParams({
       where,
