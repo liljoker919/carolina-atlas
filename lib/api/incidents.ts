@@ -80,7 +80,8 @@ export async function fetchIncidentsByDateRange(
 ): Promise<PoliceIncident[]> {
   // ArcGIS timestamp filter uses epoch milliseconds
   const fromMs = new Date(dateFrom).getTime();
-  const toMs = new Date(dateTo).getTime() + 86400000; // include full last day
+  const MS_PER_DAY = 86_400_000;
+  const toMs = new Date(dateTo).getTime() + MS_PER_DAY; // include full last day
   const where = `INC_DATETIME >= ${fromMs} AND INC_DATETIME <= ${toMs}`;
   return fetchIncidents({ where, limit });
 }

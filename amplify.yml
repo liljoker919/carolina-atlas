@@ -1,5 +1,5 @@
 # Carolina Atlas — AWS Amplify Build Configuration
-# Deploys the Next.js 14+ App Router app using Amplify Hosting
+# Deploys the Next.js 16 App Router app using Amplify Hosting
 
 version: 1
 

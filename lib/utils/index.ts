@@ -4,6 +4,9 @@
 
 import type { PoliceIncident, IncidentFilters } from "@/types";
 
+/** Milliseconds in one day — used for inclusive date range filtering */
+const MS_PER_DAY = 86_400_000;
+
 /**
  * Formats an epoch millisecond timestamp to a human-readable date/time string.
  * Returns "N/A" for falsy values.
@@ -50,7 +53,7 @@ export function filterIncidents(
 
   const query = searchQuery.toLowerCase().trim();
   const fromMs = dateFrom ? new Date(dateFrom).getTime() : null;
-  const toMs = dateTo ? new Date(dateTo).getTime() + 86400000 : null;
+  const toMs = dateTo ? new Date(dateTo).getTime() + MS_PER_DAY : null;
 
   return incidents.filter((incident) => {
     const attr = incident.attributes;
