@@ -1,5 +1,5 @@
 /**
- * IncidentTable — displays police incidents in a sortable data table.
+ * IncidentTable — displays police incidents in a data table.
  * Used in the Crime Explorer table view.
  */
 
