@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Carolina Atlas – Custom Design Tokens */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Brand colours */
+  --color-navy:    #123047;
+  --color-carolina: #4B9CD3;
+  --color-gold:    #E0A93B;
+  --color-light:   #F5F7FA;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+/* Base body styles */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', 'Open Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', 'Montserrat', system-ui, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #4B9CD3;
+  outline-offset: 2px;
+}
