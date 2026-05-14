@@ -154,7 +154,7 @@ The project includes an `amplify.yml` configuration file. To deploy:
 - Framework: Next.js - SSR
 - Build command: `npm run build`
 - Build output directory: `.next`
-- Node.js version: 18 or 20
+- Node.js version: 20.9.0 or higher
 
 ---
 
