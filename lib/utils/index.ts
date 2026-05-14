@@ -23,12 +23,34 @@ export function formatDateTime(epochMs: number | undefined | null): string {
 }
 
 /**
- * Formats an epoch millisecond timestamp to a date-only string (YYYY-MM-DD).
+ * Formats an epoch millisecond timestamp to a date-only string (YYYY-MM-DD)
+ * using the runtime's **local** timezone.
  * Returns "" for falsy values — useful for <input type="date"> default values.
+ *
+ * NOTE: Intentionally avoids toISOString() which always returns a UTC date
+ * and would show the wrong calendar day for users in western-hemisphere timezones.
  */
 export function formatDateInput(epochMs: number | undefined | null): string {
   if (!epochMs) return "";
-  return new Date(epochMs).toISOString().slice(0, 10);
+  const d = new Date(epochMs);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Parses a "YYYY-MM-DD" date string as **local-timezone** midnight,
+ * returning the corresponding epoch milliseconds.
+ *
+ * NOTE: `new Date("YYYY-MM-DD")` always parses as UTC midnight per the
+ * ECMAScript spec, which is incorrect when the intent is a user-entered
+ * local date. Using `new Date(year, month, day)` (no timezone suffix) uses
+ * the runtime's local timezone — matching what the user typed in a date input.
+ */
+export function localDateToMs(dateStr: string): number {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day).getTime();
 }
 
 /**
@@ -52,8 +74,8 @@ export function filterIncidents(
   const { searchQuery, crimeType, district, dateFrom, dateTo } = filters;
 
   const query = searchQuery.toLowerCase().trim();
-  const fromMs = dateFrom ? new Date(dateFrom).getTime() : null;
-  const toMs = dateTo ? new Date(dateTo).getTime() + MS_PER_DAY : null;
+  const fromMs = dateFrom ? localDateToMs(dateFrom) : null;
+  const toMs = dateTo ? localDateToMs(dateTo) + MS_PER_DAY : null;
 
   return incidents.filter((incident) => {
     const attr = incident.attributes;

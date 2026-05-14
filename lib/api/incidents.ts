@@ -11,6 +11,7 @@
  */
 
 import type { ArcGISResponse, PoliceIncident } from "@/types";
+import { localDateToMs } from "@/lib/utils";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_RALEIGH_INCIDENTS_API_URL ||
@@ -97,16 +98,18 @@ export async function fetchIncidents(
 /**
  * Fetch incidents with a date range filter.
  * Dates should be ISO date strings like "2024-01-01".
+ * Date boundaries are computed using the runtime's local timezone so that
+ * "2024-01-15" means midnight–midnight in local time, not UTC.
  */
 export async function fetchIncidentsByDateRange(
   dateFrom: string,
   dateTo: string,
   limit?: number
 ): Promise<PoliceIncident[]> {
-  // ArcGIS timestamp filter uses epoch milliseconds
-  const fromMs = new Date(dateFrom).getTime();
+  // Parse dates as local-timezone midnight to match user intent
+  const fromMs = localDateToMs(dateFrom);
   const MS_PER_DAY = 86_400_000;
-  const toMs = new Date(dateTo).getTime() + MS_PER_DAY; // include full last day
+  const toMs = localDateToMs(dateTo) + MS_PER_DAY; // include full last day
   const where = `INC_DATETIME >= ${fromMs} AND INC_DATETIME <= ${toMs}`;
   return fetchIncidents({ where, limit });
 }
