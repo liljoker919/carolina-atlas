@@ -32,8 +32,8 @@ Carolina Atlas is a modern civic-tech platform that brings public government dat
 
 ### Prerequisites
 
-- Node.js 18+ (LTS recommended)
-- npm 9+
+- Node.js 20.9.0+ (LTS recommended)
+- npm 10+
 
 ### Installation
 
