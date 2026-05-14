@@ -3,6 +3,11 @@
  * Uses the public Raleigh Daily Police Incidents endpoint.
  *
  * API Docs: https://services.arcgis.com/v400IkDOw1ad7Yad/arcgis/rest/services/Daily_Police_Incidents/FeatureServer/0
+ *
+ * Privacy: All requests include returnGeometry=false to ensure that precise
+ * geographic coordinates are never returned or stored. Only block-level address
+ * text (LOCATION field) is used, which protects individual privacy while still
+ * allowing district- and city-level analysis.
  */
 
 import type { ArcGISResponse, PoliceIncident } from "@/types";
@@ -21,13 +26,12 @@ export interface FetchIncidentsOptions {
   where?: string;
   /** Comma-separated field names to return (default: *) */
   outFields?: string;
-  /** Spatial reference for coordinates (default: 4326 = WGS84) */
-  outSR?: number;
 }
 
 /**
  * Fetch police incidents from the Raleigh ArcGIS FeatureServer.
- * Returns an array of PoliceIncident objects (attributes + optional geometry).
+ * Returns an array of PoliceIncident objects (attributes only; geometry is
+ * explicitly excluded via returnGeometry=false for privacy).
  */
 export async function fetchIncidents(
   options: FetchIncidentsOptions = {}
@@ -36,7 +40,6 @@ export async function fetchIncidents(
     limit = DEFAULT_RESULT_LIMIT,
     where = "1=1",
     outFields = "*",
-    outSR = 4326,
   } = options;
 
   const incidents: PoliceIncident[] = [];
@@ -47,7 +50,7 @@ export async function fetchIncidents(
     const params = new URLSearchParams({
       where,
       outFields,
-      outSR: String(outSR),
+      returnGeometry: "false",
       resultRecordCount: String(remaining),
       resultOffset: String(resultOffset),
       f: "json",

@@ -36,14 +36,8 @@ export interface PoliceIncidentAttributes {
   ZIP?: string;
 }
 
-export interface PoliceIncidentGeometry {
-  x: number;
-  y: number;
-}
-
 export interface PoliceIncident {
   attributes: PoliceIncidentAttributes;
-  geometry?: PoliceIncidentGeometry;
 }
 
 export interface ArcGISResponse {
