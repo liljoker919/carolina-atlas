@@ -1,18 +1,22 @@
 "use client";
 
 /**
- * CrimeExplorer — client-side Crime Explorer for Raleigh Police Incidents.
+ * CrimeExplorer — Crime Explorer for Raleigh Police Incidents.
  *
- * Fetches live data from the ArcGIS endpoint on mount.
- * Provides filters (search, crime type, district, date range).
+ * Fetches filtered data from the /api/incidents server-side route.
+ * Filtering (crime type, district, date range, free-text search) is applied
+ * server-side via ArcGIS WHERE clauses — only matching records are sent to
+ * the client. The free-text search is debounced to avoid excess round-trips.
+ *
+ * Dropdown options (crime types, districts) are loaded once from
+ * /api/incidents/options and remain stable across filter changes.
+ *
  * Toggle between card and table views.
  * Includes placeholders for future map and chart integrations.
  */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import type { PoliceIncident, IncidentFilters } from "@/types";
-import { fetchIncidents, extractCrimeTypes, extractDistricts } from "@/lib/api/incidents";
-import { filterIncidents } from "@/lib/utils";
 import IncidentCard from "@/components/dashboard/IncidentCard";
 import IncidentTable from "@/components/dashboard/IncidentTable";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -29,30 +33,55 @@ const EMPTY_FILTERS: IncidentFilters = {
   dateTo: "",
 };
 
+/** Delay (ms) before a free-text search triggers a server fetch. */
+const SEARCH_DEBOUNCE_MS = 400;
+
 export default function CrimeExplorer() {
   // ── Data state ──────────────────────────────────────────────────────────
   const [incidents, setIncidents] = useState<PoliceIncident[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // ── Options state (crime types / districts for dropdowns) ───────────────
+  const [crimeTypes, setCrimeTypes] = useState<string[]>([]);
+  const [districts, setDistricts] = useState<string[]>([]);
+
   // ── UI state ────────────────────────────────────────────────────────────
   const [filters, setFilters] = useState<IncidentFilters>(EMPTY_FILTERS);
   const [viewMode, setViewMode] = useState<"cards" | "table">("table");
 
-  // Retry counter — incrementing triggers a re-fetch via useEffect
+  // Debounced search — only used for the server fetch; the input reflects `filters.searchQuery` immediately.
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  // Retry counter — incrementing triggers a re-fetch
   const [retryCount, setRetryCount] = useState(0);
 
-  // ── Derived options ─────────────────────────────────────────────────────
-  const crimeTypes = useMemo(() => extractCrimeTypes(incidents), [incidents]);
-  const districts = useMemo(() => extractDistricts(incidents), [incidents]);
+  // ── Debounce free-text search ────────────────────────────────────────────
+  useEffect(() => {
+    const timer = setTimeout(
+      () => setDebouncedSearch(filters.searchQuery),
+      SEARCH_DEBOUNCE_MS
+    );
+    return () => clearTimeout(timer);
+  }, [filters.searchQuery]);
 
-  // ── Filtered incidents ──────────────────────────────────────────────────
-  const filtered = useMemo(
-    () => filterIncidents(incidents, filters),
-    [incidents, filters]
-  );
+  // ── Load dropdown options once on mount ──────────────────────────────────
+  useEffect(() => {
+    async function loadOptions() {
+      try {
+        const res = await fetch("/api/incidents/options");
+        if (!res.ok) return; // non-fatal — dropdowns will be empty
+        const data = await res.json() as { crimeTypes: string[]; districts: string[] };
+        setCrimeTypes(data.crimeTypes ?? []);
+        setDistricts(data.districts ?? []);
+      } catch {
+        // non-fatal — dropdowns will be empty
+      }
+    }
+    loadOptions();
+  }, []);
 
-  // ── Fetch data ──────────────────────────────────────────────────────────
+  // ── Fetch incidents from server whenever effective filters change ─────────
   useEffect(() => {
     let cancelled = false;
 
@@ -60,16 +89,30 @@ export default function CrimeExplorer() {
       setLoading(true);
       setError(null);
       try {
-        const data = await fetchIncidents({ limit: 500 });
+        const params = new URLSearchParams();
+        if (filters.crimeType) params.set("crimeType",   filters.crimeType);
+        if (filters.district)  params.set("district",    filters.district);
+        if (filters.dateFrom)  params.set("dateFrom",    filters.dateFrom);
+        if (filters.dateTo)    params.set("dateTo",      filters.dateTo);
+        if (debouncedSearch)   params.set("searchQuery", debouncedSearch);
+
+        const res = await fetch(`/api/incidents?${params.toString()}`);
+        if (!res.ok) {
+          const body = await res.json().catch((parseErr: unknown) => {
+            console.error("[CrimeExplorer] Failed to parse error response:", parseErr);
+            return {} as { error?: string };
+          }) as { error?: string };
+          throw new Error(body.error ?? `Server error: ${res.status}`);
+        }
+        const data = await res.json() as PoliceIncident[];
         if (!cancelled) setIncidents(data);
       } catch (err) {
-        if (!cancelled) {
+        if (!cancelled)
           setError(
             err instanceof Error
               ? err.message
               : "Failed to load incident data. Please try again."
           );
-        }
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -77,7 +120,14 @@ export default function CrimeExplorer() {
 
     load();
     return () => { cancelled = true; };
-  }, [retryCount]);
+  }, [
+    filters.crimeType,
+    filters.district,
+    filters.dateFrom,
+    filters.dateTo,
+    debouncedSearch,
+    retryCount,
+  ]);
 
   // ── Handlers ────────────────────────────────────────────────────────────
   const handleFilterChange = (key: keyof IncidentFilters, value: string) => {
@@ -236,11 +286,22 @@ export default function CrimeExplorer() {
               </h2>
               {!loading && !error && (
                 <p className="text-sm text-gray-500">
-                  Showing{" "}
-                  <span className="font-medium text-[#123047]">
-                    {filtered.length}
-                  </span>{" "}
-                  of {incidents.length} incidents
+                  {hasActiveFilters ? (
+                    <>
+                      <span className="font-medium text-[#123047]">
+                        {incidents.length}
+                      </span>{" "}
+                      matching incidents
+                    </>
+                  ) : (
+                    <>
+                      Showing{" "}
+                      <span className="font-medium text-[#123047]">
+                        {incidents.length}
+                      </span>{" "}
+                      incidents
+                    </>
+                  )}
                 </p>
               )}
             </div>
@@ -281,17 +342,17 @@ export default function CrimeExplorer() {
           )}
 
           {!loading && !error && viewMode === "table" && (
-            <IncidentTable incidents={filtered} />
+            <IncidentTable incidents={incidents} />
           )}
 
           {!loading && !error && viewMode === "cards" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filtered.length === 0 ? (
+              {incidents.length === 0 ? (
                 <div className="col-span-full text-center py-12 text-gray-500">
                   No incidents found matching your filters.
                 </div>
               ) : (
-                filtered.map((incident, idx) => (
+                incidents.map((incident, idx) => (
                   <IncidentCard
                     key={incident.attributes.OBJECTID ?? idx}
                     incident={incident}
