@@ -105,11 +105,11 @@ export async function fetchIncidents(
       );
     }
 
-    const data: ArcGISResponse = await res.json();
+    const data: ArcGISResponse | ArcGISErrorBody = await res.json();
 
     // ArcGIS services can return HTTP 200 with a JSON error body.
     if ("error" in data) {
-      const { code, message } = (data as unknown as ArcGISErrorBody).error;
+      const { code, message } = data.error;
       throw new Error(`ArcGIS API error ${code}: ${message}`);
     }
 
