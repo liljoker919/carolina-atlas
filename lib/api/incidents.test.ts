@@ -261,7 +261,7 @@ describe("fetchIncidentsByDateRange", () => {
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
     // URLSearchParams encodes spaces as + and > / < as %3E / %3C — replace both
     const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
-    // The end timestamp should be the final millisecond of the same local day.
+    // The end timestamp should be the final millisecond of the dateTo day.
     const match = decodedUrl.match(/reported_date >= (\d+) AND reported_date <= (\d+)/);
     expect(match).not.toBeNull();
     const fromMs = Number(match![1]);

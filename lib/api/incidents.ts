@@ -172,7 +172,7 @@ export async function fetchIncidentsByDateRange(
 ): Promise<PoliceIncident[]> {
   // Parse dates as local-timezone midnight to match user intent
   const fromMs = localDateToMs(dateFrom);
-  const toMs = localDateToMs(dateTo) + MS_PER_DAY - 1; // include full last day
+  const toMs = localDateToMs(dateTo) + MS_PER_DAY - 1; // final millisecond of the dateTo day
   const where = `${REPORTED_DATE_FIELD} >= ${fromMs} AND ${REPORTED_DATE_FIELD} <= ${toMs}`;
   return fetchIncidents({ where, limit });
 }
