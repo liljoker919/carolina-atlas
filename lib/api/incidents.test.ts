@@ -189,6 +189,22 @@ describe("fetchIncidents", () => {
     const result = await fetchIncidents({ fetchAll: true });
     expect(result).toHaveLength(3);
   });
+
+  it("stops after the pagination safety cap and returns records gathered so far", async () => {
+    let objectId = 0;
+    const mockFetch = vi.fn(async () => ({
+      ok: true,
+      json: async () =>
+        makeArcGISResponse([makeIncident({ OBJECTID: ++objectId })], true),
+    }));
+
+    vi.stubGlobal("fetch", mockFetch);
+
+    const result = await fetchIncidents({ fetchAll: true });
+
+    expect(result).toHaveLength(50);
+    expect(mockFetch).toHaveBeenCalledTimes(50);
+  });
 });
 
 // ---------------------------------------------------------------------------
