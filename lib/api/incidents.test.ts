@@ -196,6 +196,16 @@ describe("fetchIncidents", () => {
     expect(calledUrl).toContain("where=CRIME_TYPE+%3D+%27THEFT%27");
   });
 
+  it("does not double-encode the where parameter", async () => {
+    const mockFetch = mockFetchOnce(makeArcGISResponse([]));
+    vi.stubGlobal("fetch", mockFetch);
+
+    await fetchIncidents({ where: "CRIME_TYPE = 'THEFT'" });
+
+    const calledUrl: string = mockFetch.mock.calls[0][0] as string;
+    expect(calledUrl).not.toContain("where=where%3D");
+  });
+
   it("fetches all records when fetchAll is true", async () => {
     const page1 = Array.from({ length: 2 }, (_, i) => makeIncident({ OBJECTID: i + 1 }));
     const page2 = Array.from({ length: 1 }, (_, i) => makeIncident({ OBJECTID: i + 3 }));
@@ -248,25 +258,33 @@ describe("fetchIncidentsByDateRange", () => {
     expect(result).toEqual(incidents);
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
-    // The WHERE clause should reference reported_date with numeric epoch timestamps
-    expect(calledUrl).toContain("reported_date");
+    const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
+    expect(decodedUrl).toContain(
+      "where=reported_date >= DATE '2024-01-01' AND reported_date <= DATE '2024-01-31'"
+    );
   });
 
-  it("includes the full last day in the date range", async () => {
+  it("uses DATE literals for an inclusive same-day date range", async () => {
     const mockFetch = mockFetchOnce(makeArcGISResponse([]));
     vi.stubGlobal("fetch", mockFetch);
 
     await fetchIncidentsByDateRange("2024-01-01", "2024-01-01");
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
-    // URLSearchParams encodes spaces as + and > / < as %3E / %3C — replace both
     const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
-    // The end timestamp should be the final millisecond of the dateTo day.
-    const match = decodedUrl.match(/reported_date >= (\d+) AND reported_date <= (\d+)/);
-    expect(match).not.toBeNull();
-    const fromMs = Number(match![1]);
-    const toMs = Number(match![2]);
-    expect(toMs - fromMs).toBe(86_399_999);
+    expect(decodedUrl).toContain(
+      "where=reported_date >= DATE '2024-01-01' AND reported_date <= DATE '2024-01-01'"
+    );
+  });
+
+  it("rejects invalid dates before executing an ArcGIS request", async () => {
+    const mockFetch = mockFetchOnce(makeArcGISResponse([]));
+    vi.stubGlobal("fetch", mockFetch);
+
+    await expect(fetchIncidentsByDateRange("2024-99-01", "2024-01-31")).rejects.toThrow(
+      'Invalid date format: "2024-99-01". Expected YYYY-MM-DD.'
+    );
+    expect(mockFetch).not.toHaveBeenCalled();
   });
 });
 
@@ -367,14 +385,14 @@ describe("buildWhereClause", () => {
     expect(buildWhereClause({ district: "NORTH" })).toBe("DISTRICT = 'NORTH'");
   });
 
-  it("builds a dateFrom clause with epoch milliseconds", () => {
+  it("builds a dateFrom clause with ArcGIS DATE syntax", () => {
     const result = buildWhereClause({ dateFrom: "2024-01-15" });
-    expect(result).toMatch(/^reported_date >= \d+$/);
+    expect(result).toBe("reported_date >= DATE '2024-01-15'");
   });
 
-  it("builds a dateTo clause with epoch milliseconds (inclusive end of day)", () => {
+  it("builds a dateTo clause with ArcGIS DATE syntax", () => {
     const result = buildWhereClause({ dateTo: "2024-01-15" });
-    expect(result).toMatch(/^reported_date <= \d+$/);
+    expect(result).toBe("reported_date <= DATE '2024-01-15'");
   });
 
   it("builds a searchQuery LIKE clause across multiple fields", () => {
@@ -407,13 +425,17 @@ describe("buildWhereClause", () => {
     expect(result).toContain("LOCATION LIKE '%O''Brien%'");
   });
 
-  it("dateFrom <= dateTo epoch values when same day", () => {
+  it("builds dateFrom/dateTo DATE literals for same-day ranges", () => {
     const result = buildWhereClause({ dateFrom: "2024-06-01", dateTo: "2024-06-01" });
-    const fromMatch = result.match(/reported_date >= (\d+)/);
-    const toMatch = result.match(/reported_date <= (\d+)/);
-    expect(fromMatch).not.toBeNull();
-    expect(toMatch).not.toBeNull();
-    expect(Number(fromMatch![1])).toBeLessThanOrEqual(Number(toMatch![1]));
+    expect(result).toBe(
+      "reported_date >= DATE '2024-06-01' AND reported_date <= DATE '2024-06-01'"
+    );
+  });
+
+  it("throws for invalid date filters before building WHERE clauses", () => {
+    expect(() => buildWhereClause({ dateFrom: "2024-02-30" })).toThrow(
+      'Invalid date format: "2024-02-30". Expected YYYY-MM-DD.'
+    );
   });
 });
 
