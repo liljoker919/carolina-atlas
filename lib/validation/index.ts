@@ -142,8 +142,14 @@ export function validateLimit(
   defaultLimit: number,
   maxLimit: number
 ): number {
-  if (rawValue === null || rawValue.trim() === "") return defaultLimit;
-  const parsed = parseInt(rawValue, 10);
-  if (!Number.isFinite(parsed)) return defaultLimit;
+  if (rawValue === null) return defaultLimit;
+
+  const trimmedValue = rawValue.trim();
+  if (trimmedValue === "") return defaultLimit;
+  if (!/^[+-]?\d+$/.test(trimmedValue)) return defaultLimit;
+
+  const parsed = Number(trimmedValue);
+  if (!Number.isFinite(parsed) || !Number.isInteger(parsed)) return defaultLimit;
+
   return Math.min(Math.max(parsed, 1), maxLimit);
 }
