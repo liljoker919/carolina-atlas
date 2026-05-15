@@ -83,11 +83,11 @@ export function filterIncidents(
     // Full-text search across key fields
     if (query) {
       const searchable = [
-        attr.LOCATION,
-        attr.CRIME_TYPE,
-        attr.CRIME_CATEGORY,
-        attr.DISTRICT,
-        attr.INC_NO,
+        attr.reported_block_address,
+        attr.crime_type,
+        attr.crime_category,
+        attr.district,
+        attr.case_number,
       ]
         .join(" ")
         .toLowerCase();
@@ -95,16 +95,16 @@ export function filterIncidents(
     }
 
     // Crime type filter
-    if (crimeType && attr.CRIME_TYPE !== crimeType) return false;
+    if (crimeType && attr.crime_type !== crimeType) return false;
 
     // District filter
-    if (district && attr.DISTRICT !== district) return false;
+    if (district && attr.district !== district) return false;
 
     // Date range filter
     if (fromMs || toMs) {
-      if (!attr.INC_DATETIME) return false;
-      if (fromMs && attr.INC_DATETIME < fromMs) return false;
-      if (toMs && attr.INC_DATETIME > toMs) return false;
+      if (!attr.reported_date) return false;
+      if (fromMs && attr.reported_date < fromMs) return false;
+      if (toMs && attr.reported_date > toMs) return false;
     }
 
     return true;

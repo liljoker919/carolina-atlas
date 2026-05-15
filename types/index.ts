@@ -9,31 +9,25 @@ export interface PoliceIncidentAttributes {
   OBJECTID: number;
   GlobalID?: string;
   /** Incident number / case number */
-  INC_NO?: string;
+  case_number?: string;
   /** Block-level address */
-  LOCATION?: string;
+  reported_block_address?: string;
   /** Crime type / offense description */
-  CRIME_TYPE?: string;
+  crime_type?: string;
   /** Crime category */
-  CRIME_CATEGORY?: string;
+  crime_category?: string;
+  /** Crime description */
+  crime_description?: string;
   /** Police district */
-  DISTRICT?: string;
-  /** Reporting officer's beat */
-  BEAT?: string;
+  district?: string;
   /** Date/time reported (epoch ms) */
-  INC_DATETIME?: number;
-  /** Date/time dispatched (epoch ms) */
-  DISPATCH_DATETIME?: number;
-  /** Response type */
-  RESPONSE_TYPE?: string;
-  /** Status of incident */
-  STATUS?: string;
+  reported_date?: number;
   /** City */
-  CITY?: string;
-  /** State */
-  STATE?: string;
-  /** ZIP code */
-  ZIP?: string;
+  city?: string;
+  /** Reporting agency */
+  agency?: string;
+  /** Date/time last updated (epoch ms) */
+  updated_date?: number;
 }
 
 export interface PoliceIncident {

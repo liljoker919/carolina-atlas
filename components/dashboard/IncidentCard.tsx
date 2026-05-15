@@ -12,7 +12,7 @@ interface IncidentCardProps {
 
 export default function IncidentCard({ incident }: IncidentCardProps) {
   const attr = incident.attributes;
-  const badgeColor = getCrimeBadgeColor(attr.CRIME_TYPE);
+  const badgeColor = getCrimeBadgeColor(attr.crime_type);
 
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow flex flex-col gap-3">
@@ -21,11 +21,11 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
         <span
           className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${badgeColor}`}
         >
-          {attr.CRIME_TYPE || "Unknown"}
+          {attr.crime_type || "Unknown"}
         </span>
-        {attr.DISTRICT && (
+        {attr.district && (
           <span className="text-xs text-gray-400 whitespace-nowrap">
-            District {attr.DISTRICT}
+            District {attr.district}
           </span>
         )}
       </div>
@@ -33,22 +33,22 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
       {/* Location */}
       <div>
         <p className="text-sm font-semibold text-[#123047] leading-snug">
-          {attr.LOCATION || "Location unavailable"}
+          {attr.reported_block_address || "Location unavailable"}
         </p>
-        {attr.CRIME_CATEGORY && (
-          <p className="text-xs text-gray-500 mt-0.5">{attr.CRIME_CATEGORY}</p>
+        {attr.crime_category && (
+          <p className="text-xs text-gray-500 mt-0.5">{attr.crime_category}</p>
         )}
       </div>
 
       {/* Date/Time */}
       <div className="text-xs text-gray-400">
-        {formatDateTime(attr.INC_DATETIME)}
+        {formatDateTime(attr.reported_date)}
       </div>
 
       {/* Incident Number */}
-      {attr.INC_NO && (
+      {attr.case_number && (
         <div className="text-xs text-gray-400 border-t border-gray-50 pt-2">
-          Case #{attr.INC_NO}
+          Case #{attr.case_number}
         </div>
       )}
     </div>

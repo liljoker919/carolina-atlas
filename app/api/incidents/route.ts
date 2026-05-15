@@ -6,8 +6,8 @@
  * fetches only the matching records from the upstream FeatureServer.
  *
  * Query parameters:
- *   crimeType   — exact CRIME_TYPE match
- *   district    — exact DISTRICT match
+ *   crimeType   — exact crime_type match
+ *   district    — exact district match
  *   dateFrom    — inclusive start date (YYYY-MM-DD)
  *   dateTo      — inclusive end date   (YYYY-MM-DD)
  *   searchQuery — free-text search across location, crime type, case #, etc.

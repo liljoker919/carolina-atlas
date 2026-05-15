@@ -1,7 +1,7 @@
 /**
  * GET /api/incidents/options
  *
- * Returns distinct CRIME_TYPE and DISTRICT values from the Raleigh ArcGIS
+ * Returns distinct crime_type and district values from the Raleigh ArcGIS
  * FeatureServer for populating Crime Explorer filter dropdowns.
  *
  * Response shape: { crimeTypes: string[], districts: string[] }
@@ -14,8 +14,8 @@ import { apiErrorFromUnknown } from "@/lib/api/errors";
 export async function GET() {
   try {
     const [crimeTypes, districts] = await Promise.all([
-      fetchDistinctValues("CRIME_TYPE"),
-      fetchDistinctValues("DISTRICT"),
+      fetchDistinctValues("crime_type"),
+      fetchDistinctValues("district"),
     ]);
     return NextResponse.json({ crimeTypes, districts });
   } catch (err) {

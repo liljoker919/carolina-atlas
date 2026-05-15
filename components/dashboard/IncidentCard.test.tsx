@@ -5,12 +5,12 @@ import type { PoliceIncident } from "@/types";
 const baseIncident: PoliceIncident = {
   attributes: {
     OBJECTID: 1,
-    INC_NO: "2024-001",
-    LOCATION: "100 MAIN ST",
-    CRIME_TYPE: "THEFT",
-    CRIME_CATEGORY: "PROPERTY",
-    DISTRICT: "2",
-    INC_DATETIME: 1700000000000,
+    case_number: "2024-001",
+    reported_block_address: "100 MAIN ST",
+    crime_type: "THEFT",
+    crime_category: "PROPERTY",
+    district: "2",
+    reported_date: 1700000000000,
   },
 };
 
@@ -45,45 +45,45 @@ describe("IncidentCard", () => {
     expect(screen.getByText("Case #2024-001")).toBeInTheDocument();
   });
 
-  it("renders 'Unknown' when CRIME_TYPE is missing", () => {
+  it("renders 'Unknown' when crime_type is missing", () => {
     const incident: PoliceIncident = {
-      attributes: { ...baseIncident.attributes, CRIME_TYPE: undefined },
+      attributes: { ...baseIncident.attributes, crime_type: undefined },
     };
     render(<IncidentCard incident={incident} />);
 
     expect(screen.getByText("Unknown")).toBeInTheDocument();
   });
 
-  it("renders 'Location unavailable' when LOCATION is missing", () => {
+  it("renders 'Location unavailable' when reported_block_address is missing", () => {
     const incident: PoliceIncident = {
-      attributes: { ...baseIncident.attributes, LOCATION: undefined },
+      attributes: { ...baseIncident.attributes, reported_block_address: undefined },
     };
     render(<IncidentCard incident={incident} />);
 
     expect(screen.getByText("Location unavailable")).toBeInTheDocument();
   });
 
-  it("does not render district when DISTRICT is missing", () => {
+  it("does not render district when district is missing", () => {
     const incident: PoliceIncident = {
-      attributes: { ...baseIncident.attributes, DISTRICT: undefined },
+      attributes: { ...baseIncident.attributes, district: undefined },
     };
     render(<IncidentCard incident={incident} />);
 
     expect(screen.queryByText(/District/)).not.toBeInTheDocument();
   });
 
-  it("does not render case number row when INC_NO is missing", () => {
+  it("does not render case number row when case_number is missing", () => {
     const incident: PoliceIncident = {
-      attributes: { ...baseIncident.attributes, INC_NO: undefined },
+      attributes: { ...baseIncident.attributes, case_number: undefined },
     };
     render(<IncidentCard incident={incident} />);
 
     expect(screen.queryByText(/Case #/)).not.toBeInTheDocument();
   });
 
-  it("does not render crime category when CRIME_CATEGORY is missing", () => {
+  it("does not render crime category when crime_category is missing", () => {
     const incident: PoliceIncident = {
-      attributes: { ...baseIncident.attributes, CRIME_CATEGORY: undefined },
+      attributes: { ...baseIncident.attributes, crime_category: undefined },
     };
     render(<IncidentCard incident={incident} />);
 

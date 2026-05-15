@@ -5,11 +5,11 @@ import type { PoliceIncident } from "@/types";
 const makeIncident = (overrides: Partial<PoliceIncident["attributes"]> = {}): PoliceIncident => ({
   attributes: {
     OBJECTID: 1,
-    INC_NO: "2024-001",
-    LOCATION: "100 MAIN ST",
-    CRIME_TYPE: "THEFT",
-    DISTRICT: "2",
-    INC_DATETIME: 1700000000000,
+    case_number: "2024-001",
+    reported_block_address: "100 MAIN ST",
+    crime_type: "THEFT",
+    district: "2",
+    reported_date: 1700000000000,
     ...overrides,
   },
 });
@@ -27,8 +27,8 @@ describe("IncidentTable", () => {
 
   it("renders a row for each incident", () => {
     const incidents = [
-      makeIncident({ OBJECTID: 1, CRIME_TYPE: "THEFT", LOCATION: "100 MAIN ST" }),
-      makeIncident({ OBJECTID: 2, CRIME_TYPE: "ASSAULT", LOCATION: "200 ELM ST" }),
+      makeIncident({ OBJECTID: 1, crime_type: "THEFT", reported_block_address: "100 MAIN ST" }),
+      makeIncident({ OBJECTID: 2, crime_type: "ASSAULT", reported_block_address: "200 ELM ST" }),
     ];
     render(<IncidentTable incidents={incidents} />);
 
@@ -38,11 +38,12 @@ describe("IncidentTable", () => {
     expect(screen.getByText("200 ELM ST")).toBeInTheDocument();
   });
 
-  it("renders '—' for missing location", () => {
-    const incident = makeIncident({ LOCATION: undefined });
+  it("renders '—' for missing reported_block_address", () => {
+    const incident = makeIncident({ reported_block_address: undefined });
     render(<IncidentTable incidents={[incident]} />);
 
-    const row = screen.getByText(incident.attributes.INC_NO).closest("tr");
+    const caseCell = screen.getByText(incident.attributes.case_number!);
+    const row = caseCell.closest("tr");
     expect(row).not.toBeNull();
 
     const cells = row?.querySelectorAll("td");
@@ -50,8 +51,8 @@ describe("IncidentTable", () => {
     expect(cells?.[2]).toHaveTextContent("—");
   });
 
-  it("renders 'Unknown' when CRIME_TYPE is missing", () => {
-    render(<IncidentTable incidents={[makeIncident({ CRIME_TYPE: undefined })]} />);
+  it("renders 'Unknown' when crime_type is missing", () => {
+    render(<IncidentTable incidents={[makeIncident({ crime_type: undefined })]} />);
 
     expect(screen.getByText("Unknown")).toBeInTheDocument();
   });
