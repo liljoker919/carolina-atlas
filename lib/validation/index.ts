@@ -85,8 +85,8 @@ export const SEARCH_MAX_LENGTH = 200;
 /**
  * Sanitizes a free-text search query for use in an API request:
  * 1. Trims leading/trailing whitespace.
- * 2. Strips SQL-injection-prone characters (single-quotes, semicolons, dashes
- *    in SQL-comment sequences).
+ * 2. Strips SQL-injection-prone characters: single-quotes, double-quotes,
+ *    semicolons, and backslashes.
  * 3. Truncates to {@link SEARCH_MAX_LENGTH} characters.
  *
  * A whitespace-only input is normalised to an empty string so it is treated

@@ -93,6 +93,22 @@ export interface FeaturedInsight {
   link?: string;
 }
 
+// ─── API Error Types ─────────────────────────────────────────────────────
+
+/**
+ * Standard error envelope returned by every Carolina Atlas API route.
+ *
+ * @example
+ *   { "error": { "message": "...", "code": "VALIDATION_ERROR", "status": 400 } }
+ */
+export interface ApiErrorResponse {
+  error: {
+    message: string;
+    code: string;
+    status: number;
+  };
+}
+
 // ─── Navigation Types ────────────────────────────────────────────────────
 
 export interface NavItem {

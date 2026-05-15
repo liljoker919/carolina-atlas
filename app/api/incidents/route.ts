@@ -28,6 +28,11 @@ import {
   sanitizeParam,
   sanitizeSearch,
 } from "@/lib/validation";
+import {
+  apiErrorFromUnknown,
+  apiErrorResponse,
+  ERROR_CODE_VALIDATION,
+} from "@/lib/api/errors";
 
 const DEFAULT_LIMIT = 500;
 const MAX_LIMIT = 2000;
@@ -46,28 +51,23 @@ export async function GET(request: NextRequest) {
   if (dateFrom) {
     const result = validateDate(dateFrom);
     if (!result.valid) {
-      return NextResponse.json(
-        { error: `Invalid dateFrom: ${result.error}` },
-        { status: 400 }
-      );
+      return apiErrorResponse(result.error!, ERROR_CODE_VALIDATION, 400);
     }
   }
 
   if (dateTo) {
     const result = validateDate(dateTo);
     if (!result.valid) {
-      return NextResponse.json(
-        { error: `Invalid dateTo: ${result.error}` },
-        { status: 400 }
-      );
+      return apiErrorResponse(result.error!, ERROR_CODE_VALIDATION, 400);
     }
   }
 
   // Validate that the date range is logically ordered.
   if (dateFrom && dateTo && dateFrom > dateTo) {
-    return NextResponse.json(
-      { error: `dateFrom (${dateFrom}) must not be later than dateTo (${dateTo}).` },
-      { status: 400 }
+    return apiErrorResponse(
+      `dateFrom (${dateFrom}) must not be later than dateTo (${dateTo}).`,
+      ERROR_CODE_VALIDATION,
+      400
     );
   }
 
@@ -79,8 +79,6 @@ export async function GET(request: NextRequest) {
     const incidents = await fetchIncidents({ where, limit });
     return NextResponse.json(incidents);
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "Failed to fetch incidents";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiErrorFromUnknown(err, "Failed to fetch incidents");
   }
 }
