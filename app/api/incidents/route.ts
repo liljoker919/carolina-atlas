@@ -23,6 +23,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildWhereClause, fetchIncidents } from "@/lib/api/incidents";
 import { isValidDateFormat, sanitizeParam } from "@/lib/utils/validation";
+import {
+  apiErrorFromUnknown,
+  apiErrorResponse,
+  ERROR_CODE_VALIDATION,
+} from "@/lib/api/errors";
 
 const DEFAULT_LIMIT = 500;
 const MAX_LIMIT = 2000;
@@ -39,24 +44,27 @@ export async function GET(request: NextRequest) {
 
   // Validate date formats and reject with HTTP 400 if malformed.
   if (dateFrom && !isValidDateFormat(dateFrom)) {
-    return NextResponse.json(
-      { error: `Invalid dateFrom: "${dateFrom}". Expected YYYY-MM-DD format.` },
-      { status: 400 }
+    return apiErrorResponse(
+      `Invalid dateFrom: "${dateFrom}". Expected YYYY-MM-DD format.`,
+      ERROR_CODE_VALIDATION,
+      400
     );
   }
 
   if (dateTo && !isValidDateFormat(dateTo)) {
-    return NextResponse.json(
-      { error: `Invalid dateTo: "${dateTo}". Expected YYYY-MM-DD format.` },
-      { status: 400 }
+    return apiErrorResponse(
+      `Invalid dateTo: "${dateTo}". Expected YYYY-MM-DD format.`,
+      ERROR_CODE_VALIDATION,
+      400
     );
   }
 
   // Validate that the date range is logically ordered.
   if (dateFrom && dateTo && dateFrom > dateTo) {
-    return NextResponse.json(
-      { error: `dateFrom (${dateFrom}) must not be later than dateTo (${dateTo}).` },
-      { status: 400 }
+    return apiErrorResponse(
+      `dateFrom (${dateFrom}) must not be later than dateTo (${dateTo}).`,
+      ERROR_CODE_VALIDATION,
+      400
     );
   }
 
@@ -71,8 +79,6 @@ export async function GET(request: NextRequest) {
     const incidents = await fetchIncidents({ where, limit });
     return NextResponse.json(incidents);
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "Failed to fetch incidents";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiErrorFromUnknown(err, "Failed to fetch incidents");
   }
 }
