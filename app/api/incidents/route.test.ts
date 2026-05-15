@@ -1,12 +1,13 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { GET } from "./route";
-import { buildWhereClause, fetchIncidents } from "@/lib/api/incidents";
+import { buildWhereClause, fetchIncidents, filterIncidentsByDateParts } from "@/lib/api/incidents";
 import { ApiError, ERROR_CODE_UPSTREAM, ERROR_CODE_VALIDATION } from "@/lib/api/errors";
 
 vi.mock("@/lib/api/incidents", () => ({
   buildWhereClause: vi.fn(() => "1=1"),
   fetchIncidents: vi.fn(),
+  filterIncidentsByDateParts: vi.fn((incidents) => incidents),
 }));
 
 describe("GET /api/incidents", () => {
@@ -50,7 +51,13 @@ describe("GET /api/incidents", () => {
     expect(vi.mocked(fetchIncidents)).toHaveBeenCalledWith({
       where: "1=1",
       limit: 500,
+      fetchAll: true,
     });
+    expect(vi.mocked(filterIncidentsByDateParts)).toHaveBeenCalledWith(
+      [],
+      "2026-05-01",
+      "2026-05-10"
+    );
     await expect(response.json()).resolves.toEqual([]);
   });
 

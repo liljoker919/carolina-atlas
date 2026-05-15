@@ -13,7 +13,6 @@
 import type { ArcGISErrorBody, ArcGISResponse, PoliceIncident } from "@/types";
 import { ApiError, ERROR_CODE_UPSTREAM } from "@/lib/api/errors";
 import { isValidDateFormat } from "@/lib/validation";
-const REPORTED_DATE_FIELD = "reported_date";
 const INCIDENTS_UPSTREAM_ERROR_MESSAGE =
   "Failed to fetch data from the Raleigh incidents service.";
 
@@ -21,12 +20,32 @@ function createIncidentsUpstreamError(): ApiError {
   return new ApiError(INCIDENTS_UPSTREAM_ERROR_MESSAGE, ERROR_CODE_UPSTREAM, 502);
 }
 
-function toArcGISDateLiteral(date: string): string {
+function toDateKey(date: string): number {
   if (!isValidDateFormat(date)) {
     throw new Error(`Invalid date format: "${date}". Expected YYYY-MM-DD.`);
   }
 
-  return `DATE '${date}'`;
+  const [year, month, day] = date.split("-").map(Number);
+  return year * 10_000 + month * 100 + day;
+}
+
+function toIncidentDateKey(incident: PoliceIncident): number | null {
+  const { reported_year, reported_month, reported_day, reported_date } = incident.attributes;
+
+  if (
+    Number.isFinite(reported_year) &&
+    Number.isFinite(reported_month) &&
+    Number.isFinite(reported_day)
+  ) {
+    return Number(reported_year) * 10_000 + Number(reported_month) * 100 + Number(reported_day);
+  }
+
+  if (!reported_date) {
+    return null;
+  }
+
+  const date = new Date(reported_date);
+  return date.getFullYear() * 10_000 + (date.getMonth() + 1) * 100 + date.getDate();
 }
 
 const BASE_URL =
@@ -171,17 +190,17 @@ export async function fetchIncidents(
 /**
  * Fetch incidents with a date range filter.
  * Dates should be ISO date strings like "2024-01-01".
- * Uses ArcGIS SQL DATE literals to match FeatureServer date filter syntax.
  */
 export async function fetchIncidentsByDateRange(
   dateFrom: string,
   dateTo: string,
   limit?: number
 ): Promise<PoliceIncident[]> {
-  const where =
-    `${REPORTED_DATE_FIELD} >= ${toArcGISDateLiteral(dateFrom)} ` +
-    `AND ${REPORTED_DATE_FIELD} <= ${toArcGISDateLiteral(dateTo)}`;
-  return fetchIncidents({ where, limit });
+  toDateKey(dateFrom);
+  toDateKey(dateTo);
+  const effectiveLimit = limit ?? DEFAULT_RESULT_LIMIT;
+  const incidents = await fetchIncidents({ where: "1=1", fetchAll: true });
+  return filterIncidentsByDateParts(incidents, dateFrom, dateTo).slice(0, effectiveLimit);
 }
 
 /**
@@ -218,6 +237,37 @@ export interface IncidentQueryFilters {
 }
 
 /**
+ * Filters incidents using ArcGIS numeric date part fields.
+ * Falls back to reported_date when date parts are unavailable.
+ */
+export function filterIncidentsByDateParts(
+  incidents: PoliceIncident[],
+  dateFrom?: string,
+  dateTo?: string
+): PoliceIncident[] {
+  const fromKey = dateFrom ? toDateKey(dateFrom) : null;
+  const toKey = dateTo ? toDateKey(dateTo) : null;
+
+  if (fromKey == null && toKey == null) {
+    return incidents;
+  }
+
+  return incidents.filter((incident) => {
+    const incidentKey = toIncidentDateKey(incident);
+    if (incidentKey == null) {
+      return false;
+    }
+    if (fromKey != null && incidentKey < fromKey) {
+      return false;
+    }
+    if (toKey != null && incidentKey > toKey) {
+      return false;
+    }
+    return true;
+  });
+}
+
+/**
  * Builds an ArcGIS SQL WHERE clause from UI filter values.
  * Returns "1=1" (match everything) when no filters are active.
  *
@@ -235,14 +285,6 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
   if (filters.district) {
     const safe = filters.district.replace(/'/g, "''");
     parts.push(`district = '${safe}'`);
-  }
-
-  if (filters.dateFrom) {
-    parts.push(`${REPORTED_DATE_FIELD} >= ${toArcGISDateLiteral(filters.dateFrom)}`);
-  }
-
-  if (filters.dateTo) {
-    parts.push(`${REPORTED_DATE_FIELD} <= ${toArcGISDateLiteral(filters.dateTo)}`);
   }
 
   if (filters.searchQuery) {
@@ -310,6 +352,6 @@ export async function fetchDistinctValues(field: string): Promise<string[]> {
 
       return typeof value === "string" ? value.trim() : String(value).trim();
     })
-    .filter(Boolean)
+    .filter((value) => value && value.toUpperCase() !== "NULL")
     .sort();
 }

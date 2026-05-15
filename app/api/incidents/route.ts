@@ -21,7 +21,11 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { buildWhereClause, fetchIncidents } from "@/lib/api/incidents";
+import {
+  buildWhereClause,
+  fetchIncidents,
+  filterIncidentsByDateParts,
+} from "@/lib/api/incidents";
 import {
   validateDate,
   validateLimit,
@@ -72,12 +76,19 @@ export async function GET(request: NextRequest) {
   }
 
   const limit = validateLimit(searchParams.get("limit"), DEFAULT_LIMIT, MAX_LIMIT);
+  const hasDateFilter = Boolean(dateFrom || dateTo);
 
   const where = buildWhereClause({ crimeType, district, dateFrom, dateTo, searchQuery });
 
   try {
-    const incidents = await fetchIncidents({ where, limit });
-    return NextResponse.json(incidents);
+    const incidents = await fetchIncidents({ where, limit, fetchAll: hasDateFilter });
+    const filteredIncidents = hasDateFilter
+      ? filterIncidentsByDateParts(incidents, dateFrom || undefined, dateTo || undefined).slice(
+          0,
+          limit
+        )
+      : incidents;
+    return NextResponse.json(filteredIncidents);
   } catch (err) {
     return apiErrorFromUnknown(err, "Failed to fetch incidents");
   }
