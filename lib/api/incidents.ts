@@ -285,7 +285,15 @@ export async function fetchDistinctValues(field: string): Promise<string[]> {
   }
 
   return data.features
-    .map((f) => (f.attributes[field as keyof typeof f.attributes] as string | undefined)?.trim() ?? "")
+    .map((f) => {
+      const value = f.attributes[field as keyof typeof f.attributes];
+
+      if (value == null) {
+        return "";
+      }
+
+      return typeof value === "string" ? value.trim() : String(value).trim();
+    })
     .filter(Boolean)
     .sort();
 }
