@@ -12,12 +12,21 @@
 
 import type { ArcGISErrorBody, ArcGISResponse, PoliceIncident } from "@/types";
 import { ApiError, ERROR_CODE_UPSTREAM } from "@/lib/api/errors";
+import { isValidDateFormat } from "@/lib/validation";
 const REPORTED_DATE_FIELD = "reported_date";
 const INCIDENTS_UPSTREAM_ERROR_MESSAGE =
   "Failed to fetch data from the Raleigh incidents service.";
 
 function createIncidentsUpstreamError(): ApiError {
   return new ApiError(INCIDENTS_UPSTREAM_ERROR_MESSAGE, ERROR_CODE_UPSTREAM, 502);
+}
+
+function toArcGISDateLiteral(date: string): string {
+  if (!isValidDateFormat(date)) {
+    throw new Error(`Invalid date format: "${date}". Expected YYYY-MM-DD.`);
+  }
+
+  return `DATE '${date}'`;
 }
 
 const BASE_URL =
@@ -75,10 +84,6 @@ export async function fetchIncidents(
     outFields = "*",
   } = options;
 
-  if (process.env.NODE_ENV !== "production") {
-    console.info(`[fetchIncidents] ArcGIS WHERE clause: ${where}`);
-  }
-
   const incidents: PoliceIncident[] = [];
   let resultOffset = 0;
   let pages = 0;
@@ -96,6 +101,10 @@ export async function fetchIncidents(
     const pageSize = fetchAll
       ? ARCGIS_PAGE_SIZE
       : Math.min(limit - incidents.length, ARCGIS_PAGE_SIZE);
+
+    if (process.env.NODE_ENV !== "production" && pages === 1) {
+      console.info(`[fetchIncidents] ArcGIS WHERE clause: ${where}`);
+    }
 
     const params = new URLSearchParams({
       where,
@@ -170,8 +179,8 @@ export async function fetchIncidentsByDateRange(
   limit?: number
 ): Promise<PoliceIncident[]> {
   const where =
-    `${REPORTED_DATE_FIELD} >= DATE '${dateFrom}' ` +
-    `AND ${REPORTED_DATE_FIELD} <= DATE '${dateTo}'`;
+    `${REPORTED_DATE_FIELD} >= ${toArcGISDateLiteral(dateFrom)} ` +
+    `AND ${REPORTED_DATE_FIELD} <= ${toArcGISDateLiteral(dateTo)}`;
   return fetchIncidents({ where, limit });
 }
 
@@ -229,11 +238,11 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
   }
 
   if (filters.dateFrom) {
-    parts.push(`${REPORTED_DATE_FIELD} >= DATE '${filters.dateFrom}'`);
+    parts.push(`${REPORTED_DATE_FIELD} >= ${toArcGISDateLiteral(filters.dateFrom)}`);
   }
 
   if (filters.dateTo) {
-    parts.push(`${REPORTED_DATE_FIELD} <= DATE '${filters.dateTo}'`);
+    parts.push(`${REPORTED_DATE_FIELD} <= ${toArcGISDateLiteral(filters.dateTo)}`);
   }
 
   if (filters.searchQuery) {

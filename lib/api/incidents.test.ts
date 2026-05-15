@@ -194,6 +194,15 @@ describe("fetchIncidents", () => {
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
     expect(calledUrl).toContain("where=CRIME_TYPE+%3D+%27THEFT%27");
+  });
+
+  it("does not double-encode the where parameter", async () => {
+    const mockFetch = mockFetchOnce(makeArcGISResponse([]));
+    vi.stubGlobal("fetch", mockFetch);
+
+    await fetchIncidents({ where: "CRIME_TYPE = 'THEFT'" });
+
+    const calledUrl: string = mockFetch.mock.calls[0][0] as string;
     expect(calledUrl).not.toContain("where=where%3D");
   });
 
@@ -266,6 +275,16 @@ describe("fetchIncidentsByDateRange", () => {
     expect(decodedUrl).toContain(
       "where=reported_date >= DATE '2024-01-01' AND reported_date <= DATE '2024-01-01'"
     );
+  });
+
+  it("rejects invalid dates before executing an ArcGIS request", async () => {
+    const mockFetch = mockFetchOnce(makeArcGISResponse([]));
+    vi.stubGlobal("fetch", mockFetch);
+
+    await expect(fetchIncidentsByDateRange("2024-99-01", "2024-01-31")).rejects.toThrow(
+      'Invalid date format: "2024-99-01". Expected YYYY-MM-DD.'
+    );
+    expect(mockFetch).not.toHaveBeenCalled();
   });
 });
 
@@ -410,6 +429,12 @@ describe("buildWhereClause", () => {
     const result = buildWhereClause({ dateFrom: "2024-06-01", dateTo: "2024-06-01" });
     expect(result).toBe(
       "reported_date >= DATE '2024-06-01' AND reported_date <= DATE '2024-06-01'"
+    );
+  });
+
+  it("throws for invalid date filters before building WHERE clauses", () => {
+    expect(() => buildWhereClause({ dateFrom: "2024-02-30" })).toThrow(
+      'Invalid date format: "2024-02-30". Expected YYYY-MM-DD.'
     );
   });
 });
