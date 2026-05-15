@@ -51,8 +51,7 @@ describe("ComingSoon", () => {
   it("renders the default icon when no icon prop is provided", () => {
     const { container } = render(<ComingSoon title="Analytics Dashboard" />);
 
-    // The default icon SVG is rendered inside a rounded bg container
-    const defaultIconWrapper = container.querySelector(".rounded-full.bg-\\[\\#F5F7FA\\]");
-    expect(defaultIconWrapper).toBeInTheDocument();
+    expect(screen.queryByTestId("custom-icon")).not.toBeInTheDocument();
+    expect(container.querySelector("svg")).toBeInTheDocument();
   });
 });
