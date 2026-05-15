@@ -34,10 +34,10 @@ function makeIncident(
   return {
     attributes: {
       OBJECTID: 1,
-      INC_NO: "INC-001",
-      CRIME_TYPE: "THEFT",
-      DISTRICT: "NORTH",
-      INC_DATETIME: 1_700_000_000_000,
+      case_number: "INC-001",
+      crime_type: "THEFT",
+      district: "NORTH",
+      reported_date: 1_700_000_000_000,
       ...overrides,
     },
   };
@@ -190,17 +190,17 @@ describe("fetchIncidents", () => {
     const mockFetch = mockFetchOnce(makeArcGISResponse([]));
     vi.stubGlobal("fetch", mockFetch);
 
-    await fetchIncidents({ where: "CRIME_TYPE = 'THEFT'" });
+    await fetchIncidents({ where: "crime_type = 'THEFT'" });
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
-    expect(calledUrl).toContain("where=CRIME_TYPE+%3D+%27THEFT%27");
+    expect(calledUrl).toContain("where=crime_type+%3D+%27THEFT%27");
   });
 
   it("does not double-encode the where parameter", async () => {
     const mockFetch = mockFetchOnce(makeArcGISResponse([]));
     vi.stubGlobal("fetch", mockFetch);
 
-    await fetchIncidents({ where: "CRIME_TYPE = 'THEFT'" });
+    await fetchIncidents({ where: "crime_type = 'THEFT'" });
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
     expect(calledUrl).not.toContain("where=where%3D");
@@ -299,31 +299,31 @@ describe("extractCrimeTypes", () => {
 
   it("returns sorted unique crime types", () => {
     const incidents = [
-      makeIncident({ CRIME_TYPE: "THEFT" }),
-      makeIncident({ CRIME_TYPE: "ASSAULT" }),
-      makeIncident({ CRIME_TYPE: "THEFT" }),
+      makeIncident({ crime_type: "THEFT" }),
+      makeIncident({ crime_type: "ASSAULT" }),
+      makeIncident({ crime_type: "THEFT" }),
     ];
     expect(extractCrimeTypes(incidents)).toEqual(["ASSAULT", "THEFT"]);
   });
 
   it("trims whitespace from crime types", () => {
     const incidents = [
-      makeIncident({ CRIME_TYPE: "  THEFT  " }),
-      makeIncident({ CRIME_TYPE: "THEFT" }),
+      makeIncident({ crime_type: "  THEFT  " }),
+      makeIncident({ crime_type: "THEFT" }),
     ];
     expect(extractCrimeTypes(incidents)).toEqual(["THEFT"]);
   });
 
-  it("ignores incidents with null or undefined CRIME_TYPE", () => {
+  it("ignores incidents with null or undefined crime_type", () => {
     const incidents = [
-      makeIncident({ CRIME_TYPE: undefined }),
-      makeIncident({ CRIME_TYPE: "ROBBERY" }),
+      makeIncident({ crime_type: undefined }),
+      makeIncident({ crime_type: "ROBBERY" }),
     ];
     expect(extractCrimeTypes(incidents)).toEqual(["ROBBERY"]);
   });
 
-  it("ignores blank CRIME_TYPE strings", () => {
-    const incidents = [makeIncident({ CRIME_TYPE: "   " })];
+  it("ignores blank crime_type strings", () => {
+    const incidents = [makeIncident({ crime_type: "   " })];
     expect(extractCrimeTypes(incidents)).toEqual([]);
   });
 });
@@ -339,31 +339,31 @@ describe("extractDistricts", () => {
 
   it("returns sorted unique districts", () => {
     const incidents = [
-      makeIncident({ DISTRICT: "SOUTH" }),
-      makeIncident({ DISTRICT: "NORTH" }),
-      makeIncident({ DISTRICT: "SOUTH" }),
+      makeIncident({ district: "SOUTH" }),
+      makeIncident({ district: "NORTH" }),
+      makeIncident({ district: "SOUTH" }),
     ];
     expect(extractDistricts(incidents)).toEqual(["NORTH", "SOUTH"]);
   });
 
   it("trims whitespace from district names", () => {
     const incidents = [
-      makeIncident({ DISTRICT: "  EAST  " }),
-      makeIncident({ DISTRICT: "EAST" }),
+      makeIncident({ district: "  EAST  " }),
+      makeIncident({ district: "EAST" }),
     ];
     expect(extractDistricts(incidents)).toEqual(["EAST"]);
   });
 
-  it("ignores incidents with null or undefined DISTRICT", () => {
+  it("ignores incidents with null or undefined district", () => {
     const incidents = [
-      makeIncident({ DISTRICT: undefined }),
-      makeIncident({ DISTRICT: "WEST" }),
+      makeIncident({ district: undefined }),
+      makeIncident({ district: "WEST" }),
     ];
     expect(extractDistricts(incidents)).toEqual(["WEST"]);
   });
 
-  it("ignores blank DISTRICT strings", () => {
-    const incidents = [makeIncident({ DISTRICT: "   " })];
+  it("ignores blank district strings", () => {
+    const incidents = [makeIncident({ district: "   " })];
     expect(extractDistricts(incidents)).toEqual([]);
   });
 });
@@ -377,12 +377,12 @@ describe("buildWhereClause", () => {
     expect(buildWhereClause({})).toBe("1=1");
   });
 
-  it("builds a CRIME_TYPE clause", () => {
-    expect(buildWhereClause({ crimeType: "THEFT" })).toBe("CRIME_TYPE = 'THEFT'");
+  it("builds a crime_type clause", () => {
+    expect(buildWhereClause({ crimeType: "THEFT" })).toBe("crime_type = 'THEFT'");
   });
 
-  it("builds a DISTRICT clause", () => {
-    expect(buildWhereClause({ district: "NORTH" })).toBe("DISTRICT = 'NORTH'");
+  it("builds a district clause", () => {
+    expect(buildWhereClause({ district: "NORTH" })).toBe("district = 'NORTH'");
   });
 
   it("builds a dateFrom clause with ArcGIS DATE syntax", () => {
@@ -397,32 +397,32 @@ describe("buildWhereClause", () => {
 
   it("builds a searchQuery LIKE clause across multiple fields", () => {
     const result = buildWhereClause({ searchQuery: "Oak" });
-    expect(result).toContain("LOCATION LIKE '%Oak%'");
-    expect(result).toContain("CRIME_TYPE LIKE '%Oak%'");
-    expect(result).toContain("INC_NO LIKE '%Oak%'");
-    expect(result).toContain("CRIME_CATEGORY LIKE '%Oak%'");
-    expect(result).toContain("DISTRICT LIKE '%Oak%'");
+    expect(result).toContain("reported_block_address LIKE '%Oak%'");
+    expect(result).toContain("crime_type LIKE '%Oak%'");
+    expect(result).toContain("case_number LIKE '%Oak%'");
+    expect(result).toContain("crime_category LIKE '%Oak%'");
+    expect(result).toContain("district LIKE '%Oak%'");
     expect(result).toMatch(/^\(/);
   });
 
   it("combines multiple filters with AND", () => {
     const result = buildWhereClause({ crimeType: "THEFT", district: "NORTH" });
-    expect(result).toBe("CRIME_TYPE = 'THEFT' AND DISTRICT = 'NORTH'");
+    expect(result).toBe("crime_type = 'THEFT' AND district = 'NORTH'");
   });
 
   it("escapes single quotes in crimeType to prevent SQL injection", () => {
     const result = buildWhereClause({ crimeType: "O'CONNELL ASSAULT" });
-    expect(result).toBe("CRIME_TYPE = 'O''CONNELL ASSAULT'");
+    expect(result).toBe("crime_type = 'O''CONNELL ASSAULT'");
   });
 
   it("escapes single quotes in district", () => {
     const result = buildWhereClause({ district: "D'TOWN" });
-    expect(result).toBe("DISTRICT = 'D''TOWN'");
+    expect(result).toBe("district = 'D''TOWN'");
   });
 
   it("escapes single quotes in searchQuery", () => {
     const result = buildWhereClause({ searchQuery: "O'Brien" });
-    expect(result).toContain("LOCATION LIKE '%O''Brien%'");
+    expect(result).toContain("reported_block_address LIKE '%O''Brien%'");
   });
 
   it("builds dateFrom/dateTo DATE literals for same-day ranges", () => {
@@ -451,54 +451,54 @@ describe("fetchDistinctValues", () => {
   it("returns sorted non-null distinct values for a field", async () => {
     const response: ArcGISResponse = {
       features: [
-        { attributes: { OBJECTID: 1, DISTRICT: "SOUTH" } },
-        { attributes: { OBJECTID: 2, DISTRICT: "NORTH" } },
-        { attributes: { OBJECTID: 3, DISTRICT: "EAST" } },
+        { attributes: { OBJECTID: 1, district: "SOUTH" } },
+        { attributes: { OBJECTID: 2, district: "NORTH" } },
+        { attributes: { OBJECTID: 3, district: "EAST" } },
       ],
     };
     vi.stubGlobal("fetch", mockFetchOnce(response));
 
-    const result = await fetchDistinctValues("DISTRICT");
+    const result = await fetchDistinctValues("district");
     expect(result).toEqual(["EAST", "NORTH", "SOUTH"]);
   });
 
   it("filters out null values from the response", async () => {
     const response: ArcGISResponse = {
       features: [
-        { attributes: { OBJECTID: 1, DISTRICT: "NORTH" } },
-        { attributes: { OBJECTID: 2, DISTRICT: null as unknown as string } },
+        { attributes: { OBJECTID: 1, district: "NORTH" } },
+        { attributes: { OBJECTID: 2, district: null as unknown as string } },
       ],
     };
     vi.stubGlobal("fetch", mockFetchOnce(response));
 
-    const result = await fetchDistinctValues("DISTRICT");
+    const result = await fetchDistinctValues("district");
     expect(result).toEqual(["NORTH"]);
   });
 
   it("filters out empty string values from the response", async () => {
     const response: ArcGISResponse = {
       features: [
-        { attributes: { OBJECTID: 1, DISTRICT: "NORTH" } },
-        { attributes: { OBJECTID: 2, DISTRICT: "  " } },
+        { attributes: { OBJECTID: 1, district: "NORTH" } },
+        { attributes: { OBJECTID: 2, district: "  " } },
       ],
     };
     vi.stubGlobal("fetch", mockFetchOnce(response));
 
-    const result = await fetchDistinctValues("DISTRICT");
+    const result = await fetchDistinctValues("district");
     expect(result).toEqual(["NORTH"]);
   });
 
   it("returns an empty array when there are no features", async () => {
     vi.stubGlobal("fetch", mockFetchOnce(makeArcGISResponse([])));
 
-    const result = await fetchDistinctValues("DISTRICT");
+    const result = await fetchDistinctValues("district");
     expect(result).toEqual([]);
   });
 
   it("throws when the HTTP response is not OK", async () => {
     vi.stubGlobal("fetch", mockFetchOnce({}, false, 500));
 
-    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+    await expect(fetchDistinctValues("district")).rejects.toMatchObject({
       message: "Failed to fetch data from the Raleigh incidents service.",
       code: ERROR_CODE_UPSTREAM,
       status: 502,
@@ -508,7 +508,7 @@ describe("fetchDistinctValues", () => {
   it("throws a safe upstream error when fetch itself fails", async () => {
     vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new TypeError("fetch failed"))));
 
-    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+    await expect(fetchDistinctValues("district")).rejects.toMatchObject({
       message: "Failed to fetch data from the Raleigh incidents service.",
       code: ERROR_CODE_UPSTREAM,
       status: 502,
@@ -518,7 +518,7 @@ describe("fetchDistinctValues", () => {
   it("throws when the ArcGIS response contains an error body", async () => {
     vi.stubGlobal("fetch", mockFetchOnce(makeArcGISError(499, "Field not found")));
 
-    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+    await expect(fetchDistinctValues("district")).rejects.toMatchObject({
       message: "Failed to fetch data from the Raleigh incidents service.",
       code: ERROR_CODE_UPSTREAM,
       status: 502,
@@ -528,7 +528,7 @@ describe("fetchDistinctValues", () => {
   it("throws when features array is missing from the response", async () => {
     vi.stubGlobal("fetch", mockFetchOnce({ objectIdField: "OBJECTID" }));
 
-    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+    await expect(fetchDistinctValues("district")).rejects.toMatchObject({
       message: "Failed to fetch data from the Raleigh incidents service.",
       code: ERROR_CODE_UPSTREAM,
       status: 502,
@@ -537,11 +537,11 @@ describe("fetchDistinctValues", () => {
 
   it("trims whitespace from returned values", async () => {
     const response: ArcGISResponse = {
-      features: [{ attributes: { OBJECTID: 1, DISTRICT: "  NORTH  " } }],
+      features: [{ attributes: { OBJECTID: 1, district: "  NORTH  " } }],
     };
     vi.stubGlobal("fetch", mockFetchOnce(response));
 
-    const result = await fetchDistinctValues("DISTRICT");
+    const result = await fetchDistinctValues("district");
     expect(result).toEqual(["NORTH"]);
   });
 });

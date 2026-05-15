@@ -6,7 +6,7 @@
  *
  * Privacy: All requests include returnGeometry=false to ensure that precise
  * geographic coordinates are never returned or stored. Only block-level address
- * text (LOCATION field) is used, which protects individual privacy while still
+ * text (reported_block_address field) is used, which protects individual privacy while still
  * allowing district- and city-level analysis.
  */
 
@@ -190,7 +190,7 @@ export async function fetchIncidentsByDateRange(
 export function extractCrimeTypes(incidents: PoliceIncident[]): string[] {
   const types = new Set<string>();
   for (const incident of incidents) {
-    const type = incident.attributes.CRIME_TYPE?.trim();
+    const type = incident.attributes.crime_type?.trim();
     if (type) types.add(type);
   }
   return Array.from(types).sort();
@@ -202,7 +202,7 @@ export function extractCrimeTypes(incidents: PoliceIncident[]): string[] {
 export function extractDistricts(incidents: PoliceIncident[]): string[] {
   const districts = new Set<string>();
   for (const incident of incidents) {
-    const district = incident.attributes.DISTRICT?.trim();
+    const district = incident.attributes.district?.trim();
     if (district) districts.add(district);
   }
   return Array.from(districts).sort();
@@ -213,7 +213,7 @@ export interface IncidentQueryFilters {
   district?: string;
   dateFrom?: string;
   dateTo?: string;
-  /** Free-text keyword applied across LOCATION, CRIME_TYPE, INC_NO, CRIME_CATEGORY, DISTRICT */
+  /** Free-text keyword applied across reported_block_address, crime_type, case_number, crime_category, district */
   searchQuery?: string;
 }
 
@@ -229,12 +229,12 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
 
   if (filters.crimeType) {
     const safe = filters.crimeType.replace(/'/g, "''");
-    parts.push(`CRIME_TYPE = '${safe}'`);
+    parts.push(`crime_type = '${safe}'`);
   }
 
   if (filters.district) {
     const safe = filters.district.replace(/'/g, "''");
-    parts.push(`DISTRICT = '${safe}'`);
+    parts.push(`district = '${safe}'`);
   }
 
   if (filters.dateFrom) {
@@ -248,11 +248,11 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
   if (filters.searchQuery) {
     const q = filters.searchQuery.replace(/'/g, "''");
     const likeExpr = [
-      `LOCATION LIKE '%${q}%'`,
-      `CRIME_TYPE LIKE '%${q}%'`,
-      `INC_NO LIKE '%${q}%'`,
-      `CRIME_CATEGORY LIKE '%${q}%'`,
-      `DISTRICT LIKE '%${q}%'`,
+      `reported_block_address LIKE '%${q}%'`,
+      `crime_type LIKE '%${q}%'`,
+      `case_number LIKE '%${q}%'`,
+      `crime_category LIKE '%${q}%'`,
+      `district LIKE '%${q}%'`,
     ].join(" OR ");
     parts.push(`(${likeExpr})`);
   }
