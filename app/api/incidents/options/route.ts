@@ -9,6 +9,7 @@
 
 import { NextResponse } from "next/server";
 import { fetchDistinctValues } from "@/lib/api/incidents";
+import { apiErrorFromUnknown } from "@/lib/api/errors";
 
 export async function GET() {
   try {
@@ -18,8 +19,6 @@ export async function GET() {
     ]);
     return NextResponse.json({ crimeTypes, districts });
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "Failed to fetch filter options";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiErrorFromUnknown(err, "Failed to fetch filter options");
   }
 }

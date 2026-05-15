@@ -100,9 +100,9 @@ export default function CrimeExplorer() {
         if (!res.ok) {
           const body = await res.json().catch((parseErr: unknown) => {
             console.error("[CrimeExplorer] Failed to parse error response:", parseErr);
-            return {} as { error?: string };
-          }) as { error?: string };
-          throw new Error(body.error ?? `Server error: ${res.status}`);
+            return {} as { error?: { message?: string } };
+          }) as { error?: { message?: string } };
+          throw new Error(body.error?.message ?? `Server error: ${res.status}`);
         }
         const data = await res.json() as PoliceIncident[];
         if (!cancelled) setIncidents(data);
