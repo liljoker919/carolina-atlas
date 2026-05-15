@@ -70,6 +70,16 @@ npm start
 npm run lint
 ```
 
+### Unit Tests
+
+```bash
+npm run test
+```
+
+### CI
+
+GitHub Actions runs lint, unit tests, and a production build verification on every pull request.
+
 ---
 
 ## 📁 Project Structure
