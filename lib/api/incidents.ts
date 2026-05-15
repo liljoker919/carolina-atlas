@@ -11,10 +11,18 @@
  */
 
 import type { ArcGISErrorBody, ArcGISResponse, PoliceIncident } from "@/types";
+import { ApiError, ERROR_CODE_UPSTREAM } from "@/lib/api/errors";
 import { localDateToMs } from "@/lib/utils";
 
 /** Milliseconds in one day — used for inclusive end-of-day date range boundary */
 const MS_PER_DAY = 86_400_000;
+const REPORTED_DATE_FIELD = "reported_date";
+const INCIDENTS_UPSTREAM_ERROR_MESSAGE =
+  "Failed to fetch data from the Raleigh incidents service.";
+
+function createIncidentsUpstreamError(): ApiError {
+  return new ApiError(INCIDENTS_UPSTREAM_ERROR_MESSAGE, ERROR_CODE_UPSTREAM, 502);
+}
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_RALEIGH_INCIDENTS_API_URL ||
@@ -101,27 +109,29 @@ export async function fetchIncidents(
 
     const url = `${BASE_URL}?${params.toString()}`;
 
-    const res = await fetch(url, {
-      // Revalidate every 30 minutes in production, no-store in dev
-      next: { revalidate: process.env.NODE_ENV === "production" ? 1800 : 0 },
-    });
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        // Revalidate every 30 minutes in production, no-store in dev
+        next: { revalidate: process.env.NODE_ENV === "production" ? 1800 : 0 },
+      });
+    } catch {
+      throw createIncidentsUpstreamError();
+    }
 
     if (!res.ok) {
-      throw new Error(
-        `Failed to fetch incidents: ${res.status} ${res.statusText}`
-      );
+      throw createIncidentsUpstreamError();
     }
 
     const data: ArcGISResponse | ArcGISErrorBody = await res.json();
 
     // ArcGIS services can return HTTP 200 with a JSON error body.
     if ("error" in data) {
-      const { code, message } = data.error;
-      throw new Error(`ArcGIS API error ${code}: ${message}`);
+      throw createIncidentsUpstreamError();
     }
 
     if (!data.features) {
-      throw new Error("Unexpected API response: missing features array");
+      throw createIncidentsUpstreamError();
     }
 
     incidents.push(...data.features);
@@ -131,9 +141,7 @@ export async function fetchIncidents(
     }
 
     if (data.features.length === 0) {
-      throw new Error(
-        "Unexpected API response: exceededTransferLimit set but no features returned"
-      );
+      throw createIncidentsUpstreamError();
     }
 
     if (process.env.NODE_ENV !== "production") {
@@ -164,9 +172,8 @@ export async function fetchIncidentsByDateRange(
 ): Promise<PoliceIncident[]> {
   // Parse dates as local-timezone midnight to match user intent
   const fromMs = localDateToMs(dateFrom);
-  const MS_PER_DAY = 86_400_000;
-  const toMs = localDateToMs(dateTo) + MS_PER_DAY; // include full last day
-  const where = `INC_DATETIME >= ${fromMs} AND INC_DATETIME <= ${toMs}`;
+  const toMs = localDateToMs(dateTo) + MS_PER_DAY - 1; // final millisecond of the dateTo day
+  const where = `${REPORTED_DATE_FIELD} >= ${fromMs} AND ${REPORTED_DATE_FIELD} <= ${toMs}`;
   return fetchIncidents({ where, limit });
 }
 
@@ -224,11 +231,13 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
   }
 
   if (filters.dateFrom) {
-    parts.push(`INC_DATETIME >= ${localDateToMs(filters.dateFrom)}`);
+    parts.push(`${REPORTED_DATE_FIELD} >= ${localDateToMs(filters.dateFrom)}`);
   }
 
   if (filters.dateTo) {
-    parts.push(`INC_DATETIME <= ${localDateToMs(filters.dateTo) + MS_PER_DAY - 1}`);
+    parts.push(
+      `${REPORTED_DATE_FIELD} <= ${localDateToMs(filters.dateTo) + MS_PER_DAY - 1}`
+    );
   }
 
   if (filters.searchQuery) {
@@ -263,25 +272,27 @@ export async function fetchDistinctValues(field: string): Promise<string[]> {
 
   const url = `${BASE_URL}?${params.toString()}`;
 
-  const res = await fetch(url, {
-    next: { revalidate: process.env.NODE_ENV === "production" ? 3600 : 0 },
-  });
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      next: { revalidate: process.env.NODE_ENV === "production" ? 3600 : 0 },
+    });
+  } catch {
+    throw createIncidentsUpstreamError();
+  }
 
   if (!res.ok) {
-    throw new Error(
-      `Failed to fetch distinct ${field} values: ${res.status} ${res.statusText}`
-    );
+    throw createIncidentsUpstreamError();
   }
 
   const data: ArcGISResponse | ArcGISErrorBody = await res.json();
 
   if ("error" in data) {
-    const { code, message } = data.error;
-    throw new Error(`ArcGIS API error ${code}: ${message}`);
+    throw createIncidentsUpstreamError();
   }
 
   if (!data.features) {
-    throw new Error("Unexpected API response: missing features array");
+    throw createIncidentsUpstreamError();
   }
 
   return data.features
