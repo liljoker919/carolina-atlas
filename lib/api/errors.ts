@@ -101,5 +101,9 @@ export function apiErrorFromUnknown(
     return apiErrorResponse(err.message, err.code, err.status);
   }
 
+  if (err instanceof Error) {
+    return apiErrorResponse(err.message, ERROR_CODE_INTERNAL, 500);
+  }
+
   return apiErrorResponse(fallbackMessage, ERROR_CODE_INTERNAL, 500);
 }

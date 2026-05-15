@@ -22,7 +22,12 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { buildWhereClause, fetchIncidents } from "@/lib/api/incidents";
-import { isValidDateFormat, sanitizeParam } from "@/lib/utils/validation";
+import {
+  validateDate,
+  validateLimit,
+  sanitizeParam,
+  sanitizeSearch,
+} from "@/lib/validation";
 import {
   apiErrorFromUnknown,
   apiErrorResponse,
@@ -40,23 +45,21 @@ export async function GET(request: NextRequest) {
   const district    = sanitizeParam(searchParams.get("district")    ?? "");
   const dateFrom    = sanitizeParam(searchParams.get("dateFrom")    ?? "");
   const dateTo      = sanitizeParam(searchParams.get("dateTo")      ?? "");
-  const searchQuery = sanitizeParam(searchParams.get("searchQuery") ?? "");
+  const searchQuery = sanitizeSearch(searchParams.get("searchQuery") ?? "");
 
   // Validate date formats and reject with HTTP 400 if malformed.
-  if (dateFrom && !isValidDateFormat(dateFrom)) {
-    return apiErrorResponse(
-      `Invalid dateFrom: "${dateFrom}". Expected YYYY-MM-DD format.`,
-      ERROR_CODE_VALIDATION,
-      400
-    );
+  if (dateFrom) {
+    const result = validateDate(dateFrom);
+    if (!result.valid) {
+      return apiErrorResponse(result.error!, ERROR_CODE_VALIDATION, 400);
+    }
   }
 
-  if (dateTo && !isValidDateFormat(dateTo)) {
-    return apiErrorResponse(
-      `Invalid dateTo: "${dateTo}". Expected YYYY-MM-DD format.`,
-      ERROR_CODE_VALIDATION,
-      400
-    );
+  if (dateTo) {
+    const result = validateDate(dateTo);
+    if (!result.valid) {
+      return apiErrorResponse(result.error!, ERROR_CODE_VALIDATION, 400);
+    }
   }
 
   // Validate that the date range is logically ordered.
@@ -68,10 +71,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const rawLimit = parseInt(searchParams.get("limit") ?? String(DEFAULT_LIMIT), 10);
-  const limit = Number.isFinite(rawLimit)
-    ? Math.min(Math.max(rawLimit, 1), MAX_LIMIT)
-    : DEFAULT_LIMIT;
+  const limit = validateLimit(searchParams.get("limit"), DEFAULT_LIMIT, MAX_LIMIT);
 
   const where = buildWhereClause({ crimeType, district, dateFrom, dateTo, searchQuery });
 
