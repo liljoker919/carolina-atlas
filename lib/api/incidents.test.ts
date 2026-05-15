@@ -89,6 +89,7 @@ describe("fetchIncidents", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it("returns an empty array when the API returns no features", async () => {
