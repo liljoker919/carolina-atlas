@@ -14,6 +14,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ArcGISErrorBody, ArcGISResponse, PoliceIncident } from "@/types";
+import { ApiError, ERROR_CODE_UPSTREAM } from "@/lib/api/errors";
 import {
   buildWhereClause,
   extractCrimeTypes,
@@ -138,31 +139,51 @@ describe("fetchIncidents", () => {
   it("throws when the HTTP response is not OK", async () => {
     vi.stubGlobal("fetch", mockFetchOnce({}, false, 503));
 
-    await expect(fetchIncidents()).rejects.toThrow("Failed to fetch incidents: 503");
+    await expect(fetchIncidents()).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
+  });
+
+  it("throws a safe upstream error when fetch itself fails", async () => {
+    vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new TypeError("fetch failed"))));
+
+    await expect(fetchIncidents()).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
   });
 
   it("throws when the ArcGIS response contains an error body", async () => {
     vi.stubGlobal("fetch", mockFetchOnce(makeArcGISError(400, "Invalid WHERE clause")));
 
-    await expect(fetchIncidents()).rejects.toThrow(
-      "ArcGIS API error 400: Invalid WHERE clause"
-    );
+    await expect(fetchIncidents()).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
   });
 
   it("throws when features array is missing from the response", async () => {
     vi.stubGlobal("fetch", mockFetchOnce({ /* no features key */ }));
 
-    await expect(fetchIncidents()).rejects.toThrow(
-      "Unexpected API response: missing features array"
-    );
+    await expect(fetchIncidents()).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
   });
 
   it("throws when exceededTransferLimit is true but features is empty", async () => {
     vi.stubGlobal("fetch", mockFetchOnce(makeArcGISResponse([], true)));
 
-    await expect(fetchIncidents()).rejects.toThrow(
-      "Unexpected API response: exceededTransferLimit set but no features returned"
-    );
+    await expect(fetchIncidents()).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
   });
 
   it("passes the custom where clause to the request URL", async () => {
@@ -227,8 +248,8 @@ describe("fetchIncidentsByDateRange", () => {
     expect(result).toEqual(incidents);
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
-    // The WHERE clause should reference INC_DATETIME with numeric epoch timestamps
-    expect(calledUrl).toContain("INC_DATETIME");
+    // The WHERE clause should reference reported_date with numeric epoch timestamps
+    expect(calledUrl).toContain("reported_date");
   });
 
   it("includes the full last day in the date range", async () => {
@@ -240,12 +261,12 @@ describe("fetchIncidentsByDateRange", () => {
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
     // URLSearchParams encodes spaces as + and > / < as %3E / %3C — replace both
     const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
-    // The end timestamp should be startOfDay + 86400000 (next-day midnight) — i.e. > the start
-    const match = decodedUrl.match(/INC_DATETIME >= (\d+) AND INC_DATETIME <= (\d+)/);
+    // The end timestamp should be the final millisecond of the same local day.
+    const match = decodedUrl.match(/reported_date >= (\d+) AND reported_date <= (\d+)/);
     expect(match).not.toBeNull();
     const fromMs = Number(match![1]);
     const toMs = Number(match![2]);
-    expect(toMs - fromMs).toBe(86_400_000);
+    expect(toMs - fromMs).toBe(86_399_999);
   });
 });
 
@@ -348,12 +369,12 @@ describe("buildWhereClause", () => {
 
   it("builds a dateFrom clause with epoch milliseconds", () => {
     const result = buildWhereClause({ dateFrom: "2024-01-15" });
-    expect(result).toMatch(/^INC_DATETIME >= \d+$/);
+    expect(result).toMatch(/^reported_date >= \d+$/);
   });
 
   it("builds a dateTo clause with epoch milliseconds (inclusive end of day)", () => {
     const result = buildWhereClause({ dateTo: "2024-01-15" });
-    expect(result).toMatch(/^INC_DATETIME <= \d+$/);
+    expect(result).toMatch(/^reported_date <= \d+$/);
   });
 
   it("builds a searchQuery LIKE clause across multiple fields", () => {
@@ -388,8 +409,8 @@ describe("buildWhereClause", () => {
 
   it("dateFrom <= dateTo epoch values when same day", () => {
     const result = buildWhereClause({ dateFrom: "2024-06-01", dateTo: "2024-06-01" });
-    const fromMatch = result.match(/INC_DATETIME >= (\d+)/);
-    const toMatch = result.match(/INC_DATETIME <= (\d+)/);
+    const fromMatch = result.match(/reported_date >= (\d+)/);
+    const toMatch = result.match(/reported_date <= (\d+)/);
     expect(fromMatch).not.toBeNull();
     expect(toMatch).not.toBeNull();
     expect(Number(fromMatch![1])).toBeLessThanOrEqual(Number(toMatch![1]));
@@ -455,25 +476,41 @@ describe("fetchDistinctValues", () => {
   it("throws when the HTTP response is not OK", async () => {
     vi.stubGlobal("fetch", mockFetchOnce({}, false, 500));
 
-    await expect(fetchDistinctValues("DISTRICT")).rejects.toThrow(
-      "Failed to fetch distinct DISTRICT values: 500"
-    );
+    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
+  });
+
+  it("throws a safe upstream error when fetch itself fails", async () => {
+    vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new TypeError("fetch failed"))));
+
+    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
   });
 
   it("throws when the ArcGIS response contains an error body", async () => {
     vi.stubGlobal("fetch", mockFetchOnce(makeArcGISError(499, "Field not found")));
 
-    await expect(fetchDistinctValues("DISTRICT")).rejects.toThrow(
-      "ArcGIS API error 499: Field not found"
-    );
+    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
   });
 
   it("throws when features array is missing from the response", async () => {
     vi.stubGlobal("fetch", mockFetchOnce({ objectIdField: "OBJECTID" }));
 
-    await expect(fetchDistinctValues("DISTRICT")).rejects.toThrow(
-      "Unexpected API response: missing features array"
-    );
+    await expect(fetchDistinctValues("DISTRICT")).rejects.toMatchObject({
+      message: "Failed to fetch data from the Raleigh incidents service.",
+      code: ERROR_CODE_UPSTREAM,
+      status: 502,
+    } satisfies Partial<ApiError>);
   });
 
   it("trims whitespace from returned values", async () => {
