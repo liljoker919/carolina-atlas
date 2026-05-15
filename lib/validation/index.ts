@@ -94,13 +94,14 @@ export const SEARCH_MAX_LENGTH = 200;
  *
  * @example
  * sanitizeSearch("  robbery  ") // "robbery"
- * sanitizeSearch("'; DROP TABLE incidents; --") // " DROP TABLE incidents --"
+ * sanitizeSearch("'; DROP TABLE incidents; --") // "DROP TABLE incidents --"
  * sanitizeSearch("a".repeat(300)) // 200-character string
  */
 export function sanitizeSearch(value: string): string {
   return value
     .trim()
     .replace(/['";\\]/g, "") // strip SQL-sensitive characters
+    .trim()
     .slice(0, SEARCH_MAX_LENGTH);
 }
 
