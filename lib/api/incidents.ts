@@ -13,6 +13,9 @@
 import type { ArcGISErrorBody, ArcGISResponse, PoliceIncident } from "@/types";
 import { localDateToMs } from "@/lib/utils";
 
+/** Milliseconds in one day — used for inclusive end-of-day date range boundary */
+const MS_PER_DAY = 86_400_000;
+
 const BASE_URL =
   process.env.NEXT_PUBLIC_RALEIGH_INCIDENTS_API_URL ||
   "https://services.arcgis.com/v400IkDOw1ad7Yad/arcgis/rest/services/Daily_Police_Incidents/FeatureServer/0/query";
@@ -189,4 +192,108 @@ export function extractDistricts(incidents: PoliceIncident[]): string[] {
     if (district) districts.add(district);
   }
   return Array.from(districts).sort();
+}
+
+export interface IncidentQueryFilters {
+  crimeType?: string;
+  district?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  /** Free-text keyword applied across LOCATION, CRIME_TYPE, INC_NO, CRIME_CATEGORY, DISTRICT */
+  searchQuery?: string;
+}
+
+/**
+ * Builds an ArcGIS SQL WHERE clause from UI filter values.
+ * Returns "1=1" (match everything) when no filters are active.
+ *
+ * Single quotes inside user-supplied strings are escaped by doubling them,
+ * which is the standard SQL escaping approach supported by the ArcGIS REST API.
+ */
+export function buildWhereClause(filters: IncidentQueryFilters): string {
+  const parts: string[] = [];
+
+  if (filters.crimeType) {
+    const safe = filters.crimeType.replace(/'/g, "''");
+    parts.push(`CRIME_TYPE = '${safe}'`);
+  }
+
+  if (filters.district) {
+    const safe = filters.district.replace(/'/g, "''");
+    parts.push(`DISTRICT = '${safe}'`);
+  }
+
+  if (filters.dateFrom) {
+    parts.push(`INC_DATETIME >= ${localDateToMs(filters.dateFrom)}`);
+  }
+
+  if (filters.dateTo) {
+    parts.push(`INC_DATETIME <= ${localDateToMs(filters.dateTo) + MS_PER_DAY - 1}`);
+  }
+
+  if (filters.searchQuery) {
+    const q = filters.searchQuery.replace(/'/g, "''");
+    const likeExpr = [
+      `LOCATION LIKE '%${q}%'`,
+      `CRIME_TYPE LIKE '%${q}%'`,
+      `INC_NO LIKE '%${q}%'`,
+      `CRIME_CATEGORY LIKE '%${q}%'`,
+      `DISTRICT LIKE '%${q}%'`,
+    ].join(" OR ");
+    parts.push(`(${likeExpr})`);
+  }
+
+  return parts.length > 0 ? parts.join(" AND ") : "1=1";
+}
+
+/**
+ * Fetches all distinct non-null values for a single ArcGIS field.
+ * Returns a sorted array of strings suitable for populating filter dropdowns.
+ */
+export async function fetchDistinctValues(field: string): Promise<string[]> {
+  const params = new URLSearchParams({
+    where: "1=1",
+    outFields: field,
+    returnDistinctValues: "true",
+    returnGeometry: "false",
+    orderByFields: field,
+    resultRecordCount: "2000",
+    f: "json",
+  });
+
+  const url = `${BASE_URL}?${params.toString()}`;
+
+  const res = await fetch(url, {
+    next: { revalidate: process.env.NODE_ENV === "production" ? 3600 : 0 },
+  });
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch distinct ${field} values: ${res.status} ${res.statusText}`
+    );
+  }
+
+  const data: ArcGISResponse | ArcGISErrorBody = await res.json();
+
+  if ("error" in data) {
+    const { code, message } = data.error;
+    throw new Error(`ArcGIS API error ${code}: ${message}`);
+  }
+
+  if (!data.features) {
+    throw new Error("Unexpected API response: missing features array");
+  }
+
+  return data.features
+    .map((f) => {
+      const value = f.attributes[field as keyof typeof f.attributes];
+
+      if (value == null) {
+        return "";
+      }
+
+      return typeof value === "string" ? value.trim() : String(value).trim();
+    })
+    .filter(Boolean)
+    .sort();
 }
