@@ -15,9 +15,9 @@ describe("PageHeader", () => {
   });
 
   it("does not render a subtitle element when subtitle is omitted", () => {
-    render(<PageHeader title="Crime Explorer" />);
+    const { container } = render(<PageHeader title="Crime Explorer" />);
 
-    expect(screen.queryByText("Browse Raleigh police incidents.")).not.toBeInTheDocument();
+    expect(container.querySelector("p")).not.toBeInTheDocument();
   });
 
   it("renders the badge when provided", () => {
