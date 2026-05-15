@@ -101,6 +101,5 @@ export function apiErrorFromUnknown(
     return apiErrorResponse(err.message, err.code, err.status);
   }
 
-  const message = err instanceof Error ? err.message : fallbackMessage;
-  return apiErrorResponse(message, ERROR_CODE_INTERNAL, 500);
+  return apiErrorResponse(fallbackMessage, ERROR_CODE_INTERNAL, 500);
 }
