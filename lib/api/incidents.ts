@@ -12,10 +12,6 @@
 
 import type { ArcGISErrorBody, ArcGISResponse, PoliceIncident } from "@/types";
 import { ApiError, ERROR_CODE_UPSTREAM } from "@/lib/api/errors";
-import { localDateToMs } from "@/lib/utils";
-
-/** Milliseconds in one day — used for inclusive end-of-day date range boundary */
-const MS_PER_DAY = 86_400_000;
 const REPORTED_DATE_FIELD = "reported_date";
 const INCIDENTS_UPSTREAM_ERROR_MESSAGE =
   "Failed to fetch data from the Raleigh incidents service.";
@@ -78,6 +74,10 @@ export async function fetchIncidents(
     where = "1=1",
     outFields = "*",
   } = options;
+
+  if (process.env.NODE_ENV !== "production") {
+    console.info(`[fetchIncidents] ArcGIS WHERE clause: ${where}`);
+  }
 
   const incidents: PoliceIncident[] = [];
   let resultOffset = 0;
@@ -162,18 +162,16 @@ export async function fetchIncidents(
 /**
  * Fetch incidents with a date range filter.
  * Dates should be ISO date strings like "2024-01-01".
- * Date boundaries are computed using the runtime's local timezone so that
- * "2024-01-15" means midnight–midnight in local time, not UTC.
+ * Uses ArcGIS SQL DATE literals to match FeatureServer date filter syntax.
  */
 export async function fetchIncidentsByDateRange(
   dateFrom: string,
   dateTo: string,
   limit?: number
 ): Promise<PoliceIncident[]> {
-  // Parse dates as local-timezone midnight to match user intent
-  const fromMs = localDateToMs(dateFrom);
-  const toMs = localDateToMs(dateTo) + MS_PER_DAY - 1; // final millisecond of the dateTo day
-  const where = `${REPORTED_DATE_FIELD} >= ${fromMs} AND ${REPORTED_DATE_FIELD} <= ${toMs}`;
+  const where =
+    `${REPORTED_DATE_FIELD} >= DATE '${dateFrom}' ` +
+    `AND ${REPORTED_DATE_FIELD} <= DATE '${dateTo}'`;
   return fetchIncidents({ where, limit });
 }
 
@@ -231,13 +229,11 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
   }
 
   if (filters.dateFrom) {
-    parts.push(`${REPORTED_DATE_FIELD} >= ${localDateToMs(filters.dateFrom)}`);
+    parts.push(`${REPORTED_DATE_FIELD} >= DATE '${filters.dateFrom}'`);
   }
 
   if (filters.dateTo) {
-    parts.push(
-      `${REPORTED_DATE_FIELD} <= ${localDateToMs(filters.dateTo) + MS_PER_DAY - 1}`
-    );
+    parts.push(`${REPORTED_DATE_FIELD} <= DATE '${filters.dateTo}'`);
   }
 
   if (filters.searchQuery) {
