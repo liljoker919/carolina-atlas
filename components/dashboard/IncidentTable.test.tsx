@@ -39,11 +39,15 @@ describe("IncidentTable", () => {
   });
 
   it("renders '—' for missing location", () => {
-    render(<IncidentTable incidents={[makeIncident({ LOCATION: undefined })]} />);
+    const incident = makeIncident({ LOCATION: undefined });
+    render(<IncidentTable incidents={[incident]} />);
 
-    // At least one em-dash placeholder should be present
-    const dashes = screen.getAllByText("—");
-    expect(dashes.length).toBeGreaterThan(0);
+    const row = screen.getByText(incident.attributes.INC_NO).closest("tr");
+    expect(row).not.toBeNull();
+
+    const cells = row?.querySelectorAll("td");
+    expect(cells).toHaveLength(5);
+    expect(cells?.[2]).toHaveTextContent("—");
   });
 
   it("renders 'Unknown' when CRIME_TYPE is missing", () => {
