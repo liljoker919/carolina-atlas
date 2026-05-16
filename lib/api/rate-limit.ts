@@ -39,8 +39,8 @@ function maybePruneExpiredBuckets(now: number) {
 function getClientIp(request: NextRequest): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (forwardedFor) {
-    const [firstIp] = forwardedFor.split(",");
-    const ip = firstIp?.trim();
+    const [firstForwardedEntry] = forwardedFor.split(",");
+    const ip = firstForwardedEntry?.trim();
     if (ip) {
       return ip;
     }
@@ -83,13 +83,4 @@ export function enforceApiRateLimit(
 
   bucket.count += 1;
   return null;
-}
-
-export function __resetRateLimitBucketsForTests() {
-  rateLimitBuckets.clear();
-  lastPrunedAt = 0;
-}
-
-export function __getRateLimitBucketCountForTests() {
-  return rateLimitBuckets.size;
 }
