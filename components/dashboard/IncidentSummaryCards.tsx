@@ -26,7 +26,7 @@ function topValue(values: (string | undefined)[], fallback = "—"): string {
   return best;
 }
 
-/** Count incidents reported within the last `days` calendar days. */
+/** Count incidents reported within the last `days` rolling 24-hour periods. */
 function countRecent(incidents: PoliceIncident[], days = 7): number {
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
   return incidents.filter(
