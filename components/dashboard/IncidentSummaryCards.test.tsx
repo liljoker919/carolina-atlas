@@ -56,7 +56,8 @@ describe("IncidentSummaryCards", () => {
   });
 
   it("shows recent incidents count for last 7 days", () => {
-    // incidents 1, 2, 3 are 1–3 days ago (within 7 days); incidents 4, 5 are older
+    // No fake timers needed: the `incidents` array uses module-level `NOW = Date.now()`,
+    // so incidents 1–3 (1–3 days ago) are always within 7 days of the real current time.
     render(<IncidentSummaryCards incidents={incidents} />);
 
     const card = getCardByLabel("Last 7 Days");

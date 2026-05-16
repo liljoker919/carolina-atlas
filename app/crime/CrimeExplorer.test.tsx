@@ -1,5 +1,3 @@
-"use client";
-
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { vi, afterEach } from "vitest";
 import CrimeExplorer from "./CrimeExplorer";
