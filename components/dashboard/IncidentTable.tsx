@@ -24,16 +24,21 @@ export default function IncidentTable({ incidents }: IncidentTableProps) {
       <table className="min-w-full divide-y divide-gray-100 bg-white text-sm">
         <thead className="bg-[#F5F7FA]">
           <tr>
-            {["Date/Time", "Crime Type", "Location", "District", "Case #"].map(
-              (col) => (
-                <th
-                  key={col}
-                  className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
-                >
-                  {col}
-                </th>
-              )
-            )}
+            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Date/Time
+            </th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Crime Type
+            </th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Location
+            </th>
+            <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              District
+            </th>
+            <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Case #
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-50">
@@ -56,13 +61,13 @@ export default function IncidentTable({ incidents }: IncidentTableProps) {
                     {attr.crime_type || "Unknown"}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-gray-700 max-w-xs truncate">
+                <td className="px-4 py-3 text-gray-700 max-w-[8rem] sm:max-w-xs truncate">
                   {attr.reported_block_address || "—"}
                 </td>
-                <td className="px-4 py-3 text-gray-600">
+                <td className="hidden sm:table-cell px-4 py-3 text-gray-600">
                   {attr.district || "—"}
                 </td>
-                <td className="px-4 py-3 text-gray-400">
+                <td className="hidden md:table-cell px-4 py-3 text-gray-400">
                   {attr.case_number || "—"}
                 </td>
               </tr>

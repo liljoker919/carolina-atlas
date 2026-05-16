@@ -177,7 +177,7 @@ export default function CrimeExplorer() {
         </section>
 
         {/* ── Filters ─────────────────────────────────────────────────── */}
-        <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+        <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-[#123047]">
               Search &amp; Filter
@@ -323,21 +323,23 @@ export default function CrimeExplorer() {
             <div className="flex rounded-lg border border-gray-200 overflow-hidden self-start">
               <button
                 onClick={() => setViewMode("table")}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors ${
+                className={`px-4 py-2 text-xs font-medium transition-colors ${
                   viewMode === "table"
                     ? "bg-[#123047] text-white"
                     : "bg-white text-gray-600 hover:bg-gray-50"
                 }`}
+                aria-pressed={viewMode === "table"}
               >
                 Table
               </button>
               <button
                 onClick={() => setViewMode("cards")}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors ${
+                className={`px-4 py-2 text-xs font-medium transition-colors ${
                   viewMode === "cards"
                     ? "bg-[#123047] text-white"
                     : "bg-white text-gray-600 hover:bg-gray-50"
                 }`}
+                aria-pressed={viewMode === "cards"}
               >
                 Cards
               </button>

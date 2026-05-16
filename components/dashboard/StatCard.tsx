@@ -21,7 +21,7 @@ export default function StatCard({
 }: StatCardProps) {
   return (
     <div
-      className={`bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col gap-3 hover:shadow-md transition-shadow ${className}`}
+      className={`bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 flex flex-col gap-3 hover:shadow-md transition-shadow ${className}`}
     >
       <div className="flex items-start justify-between">
         <span className="text-sm font-medium text-gray-500 uppercase tracking-wide">
