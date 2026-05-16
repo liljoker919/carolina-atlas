@@ -7,11 +7,17 @@
  * Response shape: { crimeTypes: string[], districts: string[] }
  */
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { fetchDistinctValues } from "@/lib/api/incidents";
 import { apiErrorFromUnknown } from "@/lib/api/errors";
+import { enforceApiRateLimit } from "@/lib/api/rate-limit";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const rateLimitResponse = enforceApiRateLimit(request, "api/incidents/options");
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     const [crimeTypes, districts] = await Promise.all([
       fetchDistinctValues("crime_type"),

@@ -2,7 +2,14 @@ import { describe, expect, it, beforeEach, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { GET } from "./route";
 import { buildWhereClause, fetchIncidents, filterIncidentsByDateParts } from "@/lib/api/incidents";
-import { ApiError, ERROR_CODE_UPSTREAM, ERROR_CODE_VALIDATION } from "@/lib/api/errors";
+import {
+  ApiError,
+  ERROR_CODE_RATE_LIMIT,
+  ERROR_CODE_UPSTREAM,
+  ERROR_CODE_VALIDATION,
+  apiErrorResponse,
+} from "@/lib/api/errors";
+import { enforceApiRateLimit } from "@/lib/api/rate-limit";
 
 vi.mock("@/lib/api/incidents", () => ({
   buildWhereClause: vi.fn(() => "1=1"),
@@ -10,10 +17,35 @@ vi.mock("@/lib/api/incidents", () => ({
   filterIncidentsByDateParts: vi.fn((incidents) => incidents),
 }));
 
+vi.mock("@/lib/api/rate-limit", () => ({
+  enforceApiRateLimit: vi.fn(() => null),
+}));
+
 describe("GET /api/incidents", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(buildWhereClause).mockReturnValue("1=1");
+    vi.mocked(enforceApiRateLimit).mockReturnValue(null);
+  });
+
+  it("returns 429 when the request rate limit is exceeded", async () => {
+    vi.mocked(enforceApiRateLimit).mockReturnValue(
+      apiErrorResponse(
+        "Too many requests. Please try again later.",
+        ERROR_CODE_RATE_LIMIT,
+        429
+      )
+    );
+
+    const request = new NextRequest("http://localhost/api/incidents");
+    const response = await GET(request);
+    const body = (await response.json()) as {
+      error: { code: string; status: number };
+    };
+
+    expect(response.status).toBe(429);
+    expect(body.error.code).toBe(ERROR_CODE_RATE_LIMIT);
+    expect(fetchIncidents).not.toHaveBeenCalled();
   });
 
   it("returns a safe 400 response for invalid date input", async () => {
