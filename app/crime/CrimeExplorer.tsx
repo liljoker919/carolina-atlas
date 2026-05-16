@@ -156,7 +156,11 @@ export default function CrimeExplorer() {
           <h2 className="text-lg font-semibold text-[#123047] mb-3">
             Summary
           </h2>
-          <IncidentSummaryCards incidents={incidents} loading={loading} />
+          {error ? (
+            <ErrorMessage message={error} />
+          ) : (
+            <IncidentSummaryCards incidents={incidents} loading={loading} />
+          )}
         </section>
 
         {/* ── Map Placeholder ─────────────────────────────────────────── */}
