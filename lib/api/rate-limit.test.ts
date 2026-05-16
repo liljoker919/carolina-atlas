@@ -102,7 +102,7 @@ describe("enforceApiRateLimit", () => {
     enforceApiRateLimit(firstIpRequest, "api/incidents", {
       limit: 1,
       windowMs: 1_000,
-      now: 3_000,
+      now: 12_000,
     });
 
     expect(__getRateLimitBucketCountForTests()).toBe(1);

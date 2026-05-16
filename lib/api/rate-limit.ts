@@ -18,14 +18,22 @@ interface RateLimitOptions {
 
 const DEFAULT_REQUEST_LIMIT = 60;
 const DEFAULT_WINDOW_MS = 60_000;
+const PRUNE_INTERVAL_MS = 10_000;
 const rateLimitBuckets = new Map<string, RateLimitBucket>();
+let lastPrunedAt = 0;
 
-function pruneExpiredBuckets(now: number) {
+function maybePruneExpiredBuckets(now: number) {
+  if (now - lastPrunedAt < PRUNE_INTERVAL_MS) {
+    return;
+  }
+
   for (const [key, bucket] of rateLimitBuckets.entries()) {
     if (now >= bucket.resetAt) {
       rateLimitBuckets.delete(key);
     }
   }
+
+  lastPrunedAt = now;
 }
 
 function getClientIp(request: NextRequest): string {
@@ -50,7 +58,7 @@ export function enforceApiRateLimit(
   const limit = options.limit ?? DEFAULT_REQUEST_LIMIT;
   const windowMs = options.windowMs ?? DEFAULT_WINDOW_MS;
   const now = options.now ?? Date.now();
-  pruneExpiredBuckets(now);
+  maybePruneExpiredBuckets(now);
   const key = `${routeKey}:${getClientIp(request)}`;
   const bucket = rateLimitBuckets.get(key);
 
@@ -79,6 +87,7 @@ export function enforceApiRateLimit(
 
 export function __resetRateLimitBucketsForTests() {
   rateLimitBuckets.clear();
+  lastPrunedAt = 0;
 }
 
 export function __getRateLimitBucketCountForTests() {
