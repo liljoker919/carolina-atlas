@@ -22,6 +22,7 @@ import IncidentTable from "@/components/dashboard/IncidentTable";
 import IncidentSummaryCards from "@/components/dashboard/IncidentSummaryCards";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorMessage from "@/components/ui/ErrorMessage";
+import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
 import MapPlaceholder from "@/components/maps/MapPlaceholder";
 import ChartPlaceholder from "@/components/charts/ChartPlaceholder";
@@ -363,8 +364,13 @@ export default function CrimeExplorer() {
           {!loading && !error && viewMode === "cards" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {incidents.length === 0 ? (
-                <div className="col-span-full text-center py-12 text-gray-500">
-                  No incidents found matching your filters.
+                <div className="col-span-full">
+                  <EmptyState
+                    title="No incidents found"
+                    description="No incidents match your current filters. Try adjusting or clearing your search."
+                    actionLabel={hasActiveFilters ? "Clear filters" : undefined}
+                    onAction={hasActiveFilters ? handleReset : undefined}
+                  />
                 </div>
               ) : (
                 incidents.map((incident, idx) => (

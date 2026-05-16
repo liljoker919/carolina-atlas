@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
+import { vi } from "vitest";
 import IncidentSummaryCards from "./IncidentSummaryCards";
 import type { PoliceIncident } from "@/types";
 
@@ -55,24 +56,18 @@ describe("IncidentSummaryCards", () => {
   });
 
   it("shows recent incidents count for last 7 days", () => {
-    const fixedNow = new Date("2024-01-15T12:00:00.000Z");
-    jest.useFakeTimers();
-    jest.setSystemTime(fixedNow);
+    // No fake timers needed: the `incidents` array uses module-level `NOW = Date.now()`,
+    // so incidents 1–3 (1–3 days ago) are always within 7 days of the real current time.
+    render(<IncidentSummaryCards incidents={incidents} />);
 
-    try {
-      render(<IncidentSummaryCards incidents={incidents} />);
-      // incidents 1, 2, 3 are within 7 days → 3
-      const card = getCardByLabel("Last 7 Days");
-      expect(within(card).getByText("3")).toBeInTheDocument();
-    } finally {
-      jest.useRealTimers();
-    }
+    const card = getCardByLabel("Last 7 Days");
+    expect(within(card).getByText("3")).toBeInTheDocument();
   });
 
   it("includes incidents at the 7-day cutoff and excludes older ones", () => {
     const fixedNow = new Date("2024-01-15T12:00:00.000Z");
-    jest.useFakeTimers();
-    jest.setSystemTime(fixedNow);
+    vi.useFakeTimers();
+    vi.setSystemTime(fixedNow);
 
     try {
       const boundaryIncidents: PoliceIncident[] = [
@@ -85,7 +80,7 @@ describe("IncidentSummaryCards", () => {
       const card = getCardByLabel("Last 7 Days");
       expect(within(card).getByText("2")).toBeInTheDocument();
     } finally {
-      jest.useRealTimers();
+      vi.useRealTimers();
     }
   });
 
