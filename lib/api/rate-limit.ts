@@ -20,6 +20,14 @@ const DEFAULT_REQUEST_LIMIT = 60;
 const DEFAULT_WINDOW_MS = 60_000;
 const rateLimitBuckets = new Map<string, RateLimitBucket>();
 
+function pruneExpiredBuckets(now: number) {
+  for (const [key, bucket] of rateLimitBuckets.entries()) {
+    if (now >= bucket.resetAt) {
+      rateLimitBuckets.delete(key);
+    }
+  }
+}
+
 function getClientIp(request: NextRequest): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (forwardedFor) {
@@ -42,6 +50,7 @@ export function enforceApiRateLimit(
   const limit = options.limit ?? DEFAULT_REQUEST_LIMIT;
   const windowMs = options.windowMs ?? DEFAULT_WINDOW_MS;
   const now = options.now ?? Date.now();
+  pruneExpiredBuckets(now);
   const key = `${routeKey}:${getClientIp(request)}`;
   const bucket = rateLimitBuckets.get(key);
 
@@ -70,4 +79,8 @@ export function enforceApiRateLimit(
 
 export function __resetRateLimitBucketsForTests() {
   rateLimitBuckets.clear();
+}
+
+export function __getRateLimitBucketCountForTests() {
+  return rateLimitBuckets.size;
 }

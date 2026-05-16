@@ -1,6 +1,10 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
-import { enforceApiRateLimit, __resetRateLimitBucketsForTests } from "./rate-limit";
+import {
+  __getRateLimitBucketCountForTests,
+  __resetRateLimitBucketsForTests,
+  enforceApiRateLimit,
+} from "./rate-limit";
 import { ERROR_CODE_RATE_LIMIT } from "./errors";
 
 describe("enforceApiRateLimit", () => {
@@ -72,5 +76,35 @@ describe("enforceApiRateLimit", () => {
     });
 
     expect(differentRoute).toBeNull();
+  });
+
+  it("prunes expired buckets to avoid unbounded memory growth", () => {
+    const firstIpRequest = new NextRequest("http://localhost/api/incidents", {
+      headers: { "x-forwarded-for": "203.0.113.1" },
+    });
+    const secondIpRequest = new NextRequest("http://localhost/api/incidents", {
+      headers: { "x-forwarded-for": "203.0.113.2" },
+    });
+
+    enforceApiRateLimit(firstIpRequest, "api/incidents", {
+      limit: 1,
+      windowMs: 1_000,
+      now: 1_000,
+    });
+    enforceApiRateLimit(secondIpRequest, "api/incidents", {
+      limit: 1,
+      windowMs: 1_000,
+      now: 1_500,
+    });
+
+    expect(__getRateLimitBucketCountForTests()).toBe(2);
+
+    enforceApiRateLimit(firstIpRequest, "api/incidents", {
+      limit: 1,
+      windowMs: 1_000,
+      now: 3_000,
+    });
+
+    expect(__getRateLimitBucketCountForTests()).toBe(1);
   });
 });
