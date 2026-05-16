@@ -352,6 +352,6 @@ export async function fetchDistinctValues(field: string): Promise<string[]> {
 
       return typeof value === "string" ? value.trim() : String(value).trim();
     })
-    .filter((value) => value && value.toUpperCase() !== "NULL")
+    .filter((value) => value && value !== "NULL")
     .sort();
 }
