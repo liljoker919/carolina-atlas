@@ -5,6 +5,7 @@
 
 import type { PoliceIncident } from "@/types";
 import { formatDateTime, getCrimeBadgeColor } from "@/lib/utils";
+import EmptyState from "@/components/ui/EmptyState";
 
 interface IncidentTableProps {
   incidents: PoliceIncident[];
@@ -13,9 +14,10 @@ interface IncidentTableProps {
 export default function IncidentTable({ incidents }: IncidentTableProps) {
   if (incidents.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
-        No incidents found matching your filters.
-      </div>
+      <EmptyState
+        title="No incidents found"
+        description="No incidents match your current filters. Try adjusting or clearing your search."
+      />
     );
   }
 

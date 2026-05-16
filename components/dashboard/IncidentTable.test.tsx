@@ -61,7 +61,7 @@ describe("IncidentTable", () => {
     render(<IncidentTable incidents={[]} />);
 
     expect(
-      screen.getByText("No incidents found matching your filters.")
+      screen.getByText("No incidents found")
     ).toBeInTheDocument();
   });
 
