@@ -22,6 +22,12 @@ export interface PoliceIncidentAttributes {
   district?: string;
   /** Date/time reported (epoch ms) */
   reported_date?: number;
+  /** Reported date year (numeric ArcGIS field) */
+  reported_year?: number;
+  /** Reported date month (numeric ArcGIS field, 1-12) */
+  reported_month?: number;
+  /** Reported date day (numeric ArcGIS field, 1-31) */
+  reported_day?: number;
   /** City */
   city?: string;
   /** Reporting agency */

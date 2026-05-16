@@ -19,6 +19,7 @@ import {
   buildWhereClause,
   extractCrimeTypes,
   extractDistricts,
+  filterIncidentsByDateParts,
   fetchDistinctValues,
   fetchIncidents,
   fetchIncidentsByDateRange,
@@ -248,23 +249,25 @@ describe("fetchIncidentsByDateRange", () => {
     vi.restoreAllMocks();
   });
 
-  it("calls fetchIncidents with a date-range WHERE clause", async () => {
-    const incidents = [makeIncident()];
+  it("fetches broadly and filters by numeric date parts in TypeScript", async () => {
+    const incidents = [
+      makeIncident({ OBJECTID: 1, reported_year: 2024, reported_month: 1, reported_day: 10 }),
+      makeIncident({ OBJECTID: 2, reported_year: 2024, reported_month: 2, reported_day: 1 }),
+    ];
     const mockFetch = mockFetchOnce(makeArcGISResponse(incidents));
     vi.stubGlobal("fetch", mockFetch);
 
     const result = await fetchIncidentsByDateRange("2024-01-01", "2024-01-31");
 
-    expect(result).toEqual(incidents);
+    expect(result.map((r) => r.attributes.OBJECTID)).toEqual([1]);
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
     const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
-    expect(decodedUrl).toContain(
-      "where=reported_date >= DATE '2024-01-01' AND reported_date <= DATE '2024-01-31'"
-    );
+    expect(decodedUrl).toContain("where=1=1");
+    expect(decodedUrl).not.toContain("reported_date >=");
   });
 
-  it("uses DATE literals for an inclusive same-day date range", async () => {
+  it("supports inclusive same-day date ranges via reported_year/month/day", async () => {
     const mockFetch = mockFetchOnce(makeArcGISResponse([]));
     vi.stubGlobal("fetch", mockFetch);
 
@@ -272,9 +275,7 @@ describe("fetchIncidentsByDateRange", () => {
 
     const calledUrl: string = mockFetch.mock.calls[0][0] as string;
     const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
-    expect(decodedUrl).toContain(
-      "where=reported_date >= DATE '2024-01-01' AND reported_date <= DATE '2024-01-01'"
-    );
+    expect(decodedUrl).toContain("where=1=1");
   });
 
   it("rejects invalid dates before executing an ArcGIS request", async () => {
@@ -285,6 +286,33 @@ describe("fetchIncidentsByDateRange", () => {
       'Invalid date format: "2024-99-01". Expected YYYY-MM-DD.'
     );
     expect(mockFetch).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// filterIncidentsByDateParts
+// ---------------------------------------------------------------------------
+
+describe("filterIncidentsByDateParts", () => {
+  it("filters inclusively using reported_year/reported_month/reported_day", () => {
+    const incidents = [
+      makeIncident({ OBJECTID: 1, reported_year: 2026, reported_month: 5, reported_day: 1 }),
+      makeIncident({ OBJECTID: 2, reported_year: 2026, reported_month: 5, reported_day: 2 }),
+      makeIncident({ OBJECTID: 3, reported_year: 2026, reported_month: 5, reported_day: 3 }),
+    ];
+
+    const result = filterIncidentsByDateParts(incidents, "2026-05-01", "2026-05-02");
+    expect(result.map((r) => r.attributes.OBJECTID)).toEqual([1, 2]);
+  });
+
+  it("falls back to reported_date when date part fields are unavailable", () => {
+    const incidents = [
+      makeIncident({ OBJECTID: 1, reported_date: new Date(2026, 4, 14, 10, 0, 0).getTime() }),
+      makeIncident({ OBJECTID: 2, reported_date: new Date(2026, 4, 16, 10, 0, 0).getTime() }),
+    ];
+
+    const result = filterIncidentsByDateParts(incidents, "2026-05-14", "2026-05-14");
+    expect(result.map((r) => r.attributes.OBJECTID)).toEqual([1]);
   });
 });
 
@@ -385,14 +413,9 @@ describe("buildWhereClause", () => {
     expect(buildWhereClause({ district: "NORTH" })).toBe("district = 'NORTH'");
   });
 
-  it("builds a dateFrom clause with ArcGIS DATE syntax", () => {
-    const result = buildWhereClause({ dateFrom: "2024-01-15" });
-    expect(result).toBe("reported_date >= DATE '2024-01-15'");
-  });
-
-  it("builds a dateTo clause with ArcGIS DATE syntax", () => {
-    const result = buildWhereClause({ dateTo: "2024-01-15" });
-    expect(result).toBe("reported_date <= DATE '2024-01-15'");
+  it("does not add ArcGIS reported_date predicates for dateFrom/dateTo", () => {
+    const result = buildWhereClause({ dateFrom: "2024-01-15", dateTo: "2024-01-31" });
+    expect(result).toBe("1=1");
   });
 
   it("builds a searchQuery LIKE clause across multiple fields", () => {
@@ -405,8 +428,13 @@ describe("buildWhereClause", () => {
     expect(result).toMatch(/^\(/);
   });
 
-  it("combines multiple filters with AND", () => {
-    const result = buildWhereClause({ crimeType: "THEFT", district: "NORTH" });
+  it("combines non-date filters with AND", () => {
+    const result = buildWhereClause({
+      crimeType: "THEFT",
+      district: "NORTH",
+      dateFrom: "2024-06-01",
+      dateTo: "2024-06-01",
+    });
     expect(result).toBe("crime_type = 'THEFT' AND district = 'NORTH'");
   });
 
@@ -423,19 +451,6 @@ describe("buildWhereClause", () => {
   it("escapes single quotes in searchQuery", () => {
     const result = buildWhereClause({ searchQuery: "O'Brien" });
     expect(result).toContain("reported_block_address LIKE '%O''Brien%'");
-  });
-
-  it("builds dateFrom/dateTo DATE literals for same-day ranges", () => {
-    const result = buildWhereClause({ dateFrom: "2024-06-01", dateTo: "2024-06-01" });
-    expect(result).toBe(
-      "reported_date >= DATE '2024-06-01' AND reported_date <= DATE '2024-06-01'"
-    );
-  });
-
-  it("throws for invalid date filters before building WHERE clauses", () => {
-    expect(() => buildWhereClause({ dateFrom: "2024-02-30" })).toThrow(
-      'Invalid date format: "2024-02-30". Expected YYYY-MM-DD.'
-    );
   });
 });
 
@@ -460,6 +475,19 @@ describe("fetchDistinctValues", () => {
 
     const result = await fetchDistinctValues("district");
     expect(result).toEqual(["EAST", "NORTH", "SOUTH"]);
+  });
+
+  it("filters out literal NULL values from the response", async () => {
+    const response: ArcGISResponse = {
+      features: [
+        { attributes: { OBJECTID: 1, crime_type: "THEFT" } },
+        { attributes: { OBJECTID: 2, crime_type: "NULL" } },
+      ],
+    };
+    vi.stubGlobal("fetch", mockFetchOnce(response));
+
+    const result = await fetchDistinctValues("crime_type");
+    expect(result).toEqual(["THEFT"]);
   });
 
   it("filters out null values from the response", async () => {
