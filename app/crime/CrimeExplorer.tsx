@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import type { PoliceIncident, IncidentFilters } from "@/types";
 import IncidentCard from "@/components/dashboard/IncidentCard";
 import IncidentTable from "@/components/dashboard/IncidentTable";
+import IncidentSummaryCards from "@/components/dashboard/IncidentSummaryCards";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import PageHeader from "@/components/ui/PageHeader";
@@ -149,6 +150,18 @@ export default function CrimeExplorer() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        {/* ── Summary Cards ───────────────────────────────────────────── */}
+        <section>
+          <h2 className="text-lg font-semibold text-[#123047] mb-3">
+            Summary
+          </h2>
+          {error ? (
+            <ErrorMessage message={error} />
+          ) : (
+            <IncidentSummaryCards incidents={incidents} loading={loading} />
+          )}
+        </section>
 
         {/* ── Map Placeholder ─────────────────────────────────────────── */}
         <section>
