@@ -55,10 +55,38 @@ describe("IncidentSummaryCards", () => {
   });
 
   it("shows recent incidents count for last 7 days", () => {
-    render(<IncidentSummaryCards incidents={incidents} />);
-    // incidents 1, 2, 3 are within 7 days → 3
-    const card = getCardByLabel("Last 7 Days");
-    expect(within(card).getByText("3")).toBeInTheDocument();
+    const fixedNow = new Date("2024-01-15T12:00:00.000Z");
+    jest.useFakeTimers();
+    jest.setSystemTime(fixedNow);
+
+    try {
+      render(<IncidentSummaryCards incidents={incidents} />);
+      // incidents 1, 2, 3 are within 7 days → 3
+      const card = getCardByLabel("Last 7 Days");
+      expect(within(card).getByText("3")).toBeInTheDocument();
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  it("includes incidents at the 7-day cutoff and excludes older ones", () => {
+    const fixedNow = new Date("2024-01-15T12:00:00.000Z");
+    jest.useFakeTimers();
+    jest.setSystemTime(fixedNow);
+
+    try {
+      const boundaryIncidents: PoliceIncident[] = [
+        makeIncident(101, "THEFT", "1", fixedNow.getTime() - DAYS(7)),
+        makeIncident(102, "ASSAULT", "2", fixedNow.getTime() - DAYS(7) + 1),
+        makeIncident(103, "ROBBERY", "3", fixedNow.getTime() - DAYS(7) - 1),
+      ];
+
+      render(<IncidentSummaryCards incidents={boundaryIncidents} />);
+      const card = getCardByLabel("Last 7 Days");
+      expect(within(card).getByText("2")).toBeInTheDocument();
+    } finally {
+      jest.useRealTimers();
+    }
   });
 
   it("renders all four card labels", () => {
