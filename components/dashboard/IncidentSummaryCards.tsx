@@ -67,8 +67,6 @@ export default function IncidentSummaryCards({
       <StatCard
         label="Top Crime Type"
         value={placeholder ?? mostCommonCrime}
-        trend={loading ? undefined : "most frequent"}
-        trendUp={false}
         icon={
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
