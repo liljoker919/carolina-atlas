@@ -51,6 +51,7 @@ function mockFetch(
 describe("CrimeExplorer", () => {
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it("shows a loading spinner while fetching data", async () => {
