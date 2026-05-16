@@ -76,9 +76,38 @@ npm run lint
 npm run test
 ```
 
+### Development Workflow
+
+Use this workflow when contributing:
+
+1. Create a feature branch from the latest default branch
+2. Make focused changes and keep commits small
+3. Run local quality checks before opening a PR:
+   ```bash
+   npm run lint
+   npm run test
+   npm run build
+   ```
+4. Open a pull request — CI runs the same verification steps automatically
+
 ### CI
 
 GitHub Actions runs lint, unit tests, and a production build verification on every pull request.
+
+---
+
+## 🏗️ Architecture Overview
+
+Carolina Atlas uses Next.js App Router with clear separation between UI, API routes, and data logic:
+
+- `app/` — Route segments and pages (UI entry points)
+- `app/api/` — Server API endpoints for incident queries and options
+- `components/` — Reusable UI pieces grouped by feature area
+- `lib/api/` — External data-fetching and transformation logic
+- `lib/validation/` — Shared validation/sanitization utilities for API inputs
+- `types/` — Shared TypeScript types used across app, API, and components
+
+This keeps route handlers thin while centralizing API integration and validation logic in `lib/`.
 
 ---
 
@@ -95,7 +124,11 @@ carolina-atlas/
 │   ├── schools/page.tsx
 │   ├── demographics/page.tsx
 │   ├── community-reports/page.tsx
-│   └── about/page.tsx
+│   ├── about/page.tsx
+│   └── api/
+│       └── incidents/
+│           ├── route.ts         # Incidents API with filtering
+│           └── options/route.ts # Distinct values for dropdown filters
 ├── components/
 │   ├── layout/
 │   │   ├── Navbar.tsx          # Responsive sticky navigation
@@ -116,10 +149,14 @@ carolina-atlas/
 ├── lib/
 │   ├── api/
 │   │   └── incidents.ts        # Raleigh Police Incidents API service
+│   ├── validation/
+│   │   └── index.ts            # Input validation and sanitization helpers
 │   └── utils/
-│       └── index.ts            # Shared utility functions
+│       ├── index.ts
+│       └── validation.ts       # Backward-compatible validation re-exports
 ├── types/
 │   └── index.ts                # TypeScript interfaces
+├── .github/workflows/ci.yml    # PR CI: lint + test + build
 ├── amplify.yml                 # AWS Amplify build configuration
 └── .env.example                # Environment variable template
 ```
