@@ -37,11 +37,17 @@ import {
   apiErrorResponse,
   ERROR_CODE_VALIDATION,
 } from "@/lib/api/errors";
+import { enforceApiRateLimit } from "@/lib/api/rate-limit";
 
 const DEFAULT_LIMIT = 500;
 const MAX_LIMIT = 2000;
 
 export async function GET(request: NextRequest) {
+  const rateLimitResponse = enforceApiRateLimit(request, "api/incidents");
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   const { searchParams } = request.nextUrl;
 
   // Trim whitespace from all string parameters; whitespace-only → empty string.

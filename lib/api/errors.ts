@@ -24,6 +24,9 @@ export const ERROR_CODE_UPSTREAM = "UPSTREAM_API_ERROR";
 /** An unexpected server-side failure occurred. */
 export const ERROR_CODE_INTERNAL = "INTERNAL_ERROR";
 
+/** The client exceeded the allowed request rate. */
+export const ERROR_CODE_RATE_LIMIT = "RATE_LIMITED";
+
 // ─── ApiError class ────────────────────────────────────────────────────────
 
 /**
