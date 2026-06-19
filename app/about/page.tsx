@@ -132,7 +132,7 @@ export default function AboutPage() {
           <p className="text-gray-600 leading-relaxed text-base mb-4">
             Carolina Atlas is built with modern open-source technologies
             including Next.js, TypeScript, Tailwind CSS, and is deployed on
-            Vercel. The source code reflects our commitment to open and
+            AWS Amplify. The source code reflects our commitment to open and
             transparent software.
           </p>
           <p className="text-gray-600 leading-relaxed text-base">
