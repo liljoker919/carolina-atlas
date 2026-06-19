@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "parse:schools": "npx tsx scripts/parse-src.ts"
+    "parse:schools": "npx tsx scripts/parse-src.ts",
+    "parse:demographics": "npx tsx scripts/parse-demographics.ts"
   },
   "engines": {
     "node": ">=20.9.0"

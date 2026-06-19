@@ -1,0 +1,3602 @@
+{
+  "37001": {
+    "fips": "37001",
+    "county": "Alamance",
+    "year": "2023",
+    "population": {
+      "total": 174286,
+      "median_age": 38.7,
+      "under18_pct": 22.3,
+      "over65_pct": 16.9
+    },
+    "economics": {
+      "median_household_income": 64445,
+      "poverty_pct": 14.1,
+      "unemployment_pct": 4.9
+    },
+    "housing": {
+      "median_home_value": 221200,
+      "median_gross_rent": 1007,
+      "owner_occupied_pct": 65.6,
+      "renter_occupied_pct": 34.4
+    },
+    "education": {
+      "hs_or_higher_pct": 88.5,
+      "bachelors_or_higher_pct": 27.7
+    },
+    "race": {
+      "white_pct": 62.8,
+      "black_pct": 19.9,
+      "aian_pct": 0.5,
+      "asian_pct": 1.7,
+      "nhpi_pct": 0,
+      "other_pct": 8.4,
+      "multiracial_pct": 6.7,
+      "hispanic_pct": 14.8
+    }
+  },
+  "37003": {
+    "fips": "37003",
+    "county": "Alexander",
+    "year": "2023",
+    "population": {
+      "total": 36440,
+      "median_age": 43.8,
+      "under18_pct": 19.6,
+      "over65_pct": 20.6
+    },
+    "economics": {
+      "median_household_income": 65268,
+      "poverty_pct": 12.1,
+      "unemployment_pct": 5.2
+    },
+    "housing": {
+      "median_home_value": 190000,
+      "median_gross_rent": 745,
+      "owner_occupied_pct": 81.7,
+      "renter_occupied_pct": 18.3
+    },
+    "education": {
+      "hs_or_higher_pct": 85.6,
+      "bachelors_or_higher_pct": 15.4
+    },
+    "race": {
+      "white_pct": 87.3,
+      "black_pct": 4,
+      "aian_pct": 0.9,
+      "asian_pct": 1.1,
+      "nhpi_pct": 0,
+      "other_pct": 2.2,
+      "multiracial_pct": 4.5,
+      "hispanic_pct": 5.4
+    }
+  },
+  "37005": {
+    "fips": "37005",
+    "county": "Alleghany",
+    "year": "2023",
+    "population": {
+      "total": 11075,
+      "median_age": 51.4,
+      "under18_pct": 16.6,
+      "over65_pct": 29.7
+    },
+    "economics": {
+      "median_household_income": 44272,
+      "poverty_pct": 17.4,
+      "unemployment_pct": 5.4
+    },
+    "housing": {
+      "median_home_value": 199000,
+      "median_gross_rent": 755,
+      "owner_occupied_pct": 77.1,
+      "renter_occupied_pct": 22.9
+    },
+    "education": {
+      "hs_or_higher_pct": 83.1,
+      "bachelors_or_higher_pct": 22.8
+    },
+    "race": {
+      "white_pct": 91.3,
+      "black_pct": 1.5,
+      "aian_pct": 0.2,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 0.2,
+      "multiracial_pct": 6,
+      "hispanic_pct": 11.5
+    }
+  },
+  "37007": {
+    "fips": "37007",
+    "county": "Anson",
+    "year": "2023",
+    "population": {
+      "total": 21903,
+      "median_age": 42.4,
+      "under18_pct": 20.3,
+      "over65_pct": 19.9
+    },
+    "economics": {
+      "median_household_income": 44245,
+      "poverty_pct": 21.2,
+      "unemployment_pct": 6.9
+    },
+    "housing": {
+      "median_home_value": 119300,
+      "median_gross_rent": 849,
+      "owner_occupied_pct": 65.6,
+      "renter_occupied_pct": 34.4
+    },
+    "education": {
+      "hs_or_higher_pct": 82.4,
+      "bachelors_or_higher_pct": 10.9
+    },
+    "race": {
+      "white_pct": 45.3,
+      "black_pct": 47.2,
+      "aian_pct": 0.4,
+      "asian_pct": 1.5,
+      "nhpi_pct": 0,
+      "other_pct": 1.6,
+      "multiracial_pct": 4,
+      "hispanic_pct": 3.6
+    }
+  },
+  "37009": {
+    "fips": "37009",
+    "county": "Ashe",
+    "year": "2023",
+    "population": {
+      "total": 26831,
+      "median_age": 49.8,
+      "under18_pct": 17,
+      "over65_pct": 27
+    },
+    "economics": {
+      "median_household_income": 50827,
+      "poverty_pct": 14.1,
+      "unemployment_pct": 5.4
+    },
+    "housing": {
+      "median_home_value": 221900,
+      "median_gross_rent": 774,
+      "owner_occupied_pct": 78.4,
+      "renter_occupied_pct": 21.6
+    },
+    "education": {
+      "hs_or_higher_pct": 87.5,
+      "bachelors_or_higher_pct": 22.4
+    },
+    "race": {
+      "white_pct": 94,
+      "black_pct": 1.1,
+      "aian_pct": 0.4,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0,
+      "other_pct": 0.7,
+      "multiracial_pct": 3.5,
+      "hispanic_pct": 5.8
+    }
+  },
+  "37011": {
+    "fips": "37011",
+    "county": "Avery",
+    "year": "2023",
+    "population": {
+      "total": 17643,
+      "median_age": 46.5,
+      "under18_pct": 14.6,
+      "over65_pct": 23
+    },
+    "economics": {
+      "median_household_income": 57657,
+      "poverty_pct": 11,
+      "unemployment_pct": 4.8
+    },
+    "housing": {
+      "median_home_value": 233200,
+      "median_gross_rent": 791,
+      "owner_occupied_pct": 80,
+      "renter_occupied_pct": 20
+    },
+    "education": {
+      "hs_or_higher_pct": 86.4,
+      "bachelors_or_higher_pct": 21.9
+    },
+    "race": {
+      "white_pct": 88.4,
+      "black_pct": 4.2,
+      "aian_pct": 0.2,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0.1,
+      "other_pct": 2.9,
+      "multiracial_pct": 3.7,
+      "hispanic_pct": 5.7
+    }
+  },
+  "37013": {
+    "fips": "37013",
+    "county": "Beaufort",
+    "year": "2023",
+    "population": {
+      "total": 44597,
+      "median_age": 47.1,
+      "under18_pct": 19.4,
+      "over65_pct": 25
+    },
+    "economics": {
+      "median_household_income": 57997,
+      "poverty_pct": 18,
+      "unemployment_pct": 5.4
+    },
+    "housing": {
+      "median_home_value": 181200,
+      "median_gross_rent": 859,
+      "owner_occupied_pct": 70.1,
+      "renter_occupied_pct": 29.9
+    },
+    "education": {
+      "hs_or_higher_pct": 88.1,
+      "bachelors_or_higher_pct": 20.6
+    },
+    "race": {
+      "white_pct": 68.8,
+      "black_pct": 22.8,
+      "aian_pct": 0.1,
+      "asian_pct": 0.3,
+      "nhpi_pct": 0,
+      "other_pct": 2.2,
+      "multiracial_pct": 5.7,
+      "hispanic_pct": 7.8
+    }
+  },
+  "37015": {
+    "fips": "37015",
+    "county": "Bertie",
+    "year": "2023",
+    "population": {
+      "total": 17482,
+      "median_age": 45.9,
+      "under18_pct": 16.4,
+      "over65_pct": 24.3
+    },
+    "economics": {
+      "median_household_income": 45931,
+      "poverty_pct": 19.8,
+      "unemployment_pct": 8.4
+    },
+    "housing": {
+      "median_home_value": 95800,
+      "median_gross_rent": 824,
+      "owner_occupied_pct": 74.5,
+      "renter_occupied_pct": 25.5
+    },
+    "education": {
+      "hs_or_higher_pct": 82,
+      "bachelors_or_higher_pct": 17.8
+    },
+    "race": {
+      "white_pct": 34.7,
+      "black_pct": 60.1,
+      "aian_pct": 0.5,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 1.2,
+      "multiracial_pct": 2.8,
+      "hispanic_pct": 2.2
+    }
+  },
+  "37017": {
+    "fips": "37017",
+    "county": "Bladen",
+    "year": "2023",
+    "population": {
+      "total": 29591,
+      "median_age": 44.8,
+      "under18_pct": 20.6,
+      "over65_pct": 23.2
+    },
+    "economics": {
+      "median_household_income": 44528,
+      "poverty_pct": 21.2,
+      "unemployment_pct": 4.2
+    },
+    "housing": {
+      "median_home_value": 125800,
+      "median_gross_rent": 752,
+      "owner_occupied_pct": 69.8,
+      "renter_occupied_pct": 30.2
+    },
+    "education": {
+      "hs_or_higher_pct": 88.6,
+      "bachelors_or_higher_pct": 20.6
+    },
+    "race": {
+      "white_pct": 54.9,
+      "black_pct": 33.6,
+      "aian_pct": 3.2,
+      "asian_pct": 0.2,
+      "nhpi_pct": 0,
+      "other_pct": 5.6,
+      "multiracial_pct": 2.5,
+      "hispanic_pct": 9
+    }
+  },
+  "37019": {
+    "fips": "37019",
+    "county": "Brunswick",
+    "year": "2023",
+    "population": {
+      "total": 145889,
+      "median_age": 56.1,
+      "under18_pct": 14.4,
+      "over65_pct": 33.3
+    },
+    "economics": {
+      "median_household_income": 74034,
+      "poverty_pct": 9.4,
+      "unemployment_pct": 5.2
+    },
+    "housing": {
+      "median_home_value": 314700,
+      "median_gross_rent": 1267,
+      "owner_occupied_pct": 83.8,
+      "renter_occupied_pct": 16.2
+    },
+    "education": {
+      "hs_or_higher_pct": 93.3,
+      "bachelors_or_higher_pct": 33.2
+    },
+    "race": {
+      "white_pct": 82.3,
+      "black_pct": 8.1,
+      "aian_pct": 0.3,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0,
+      "other_pct": 2.3,
+      "multiracial_pct": 6.2,
+      "hispanic_pct": 5.5
+    }
+  },
+  "37021": {
+    "fips": "37021",
+    "county": "Buncombe",
+    "year": "2023",
+    "population": {
+      "total": 271790,
+      "median_age": 42.4,
+      "under18_pct": 18.1,
+      "over65_pct": 20.8
+    },
+    "economics": {
+      "median_household_income": 70578,
+      "poverty_pct": 11.8,
+      "unemployment_pct": 3.5
+    },
+    "housing": {
+      "median_home_value": 360000,
+      "median_gross_rent": 1281,
+      "owner_occupied_pct": 64.4,
+      "renter_occupied_pct": 35.6
+    },
+    "education": {
+      "hs_or_higher_pct": 92.3,
+      "bachelors_or_higher_pct": 44.6
+    },
+    "race": {
+      "white_pct": 83.1,
+      "black_pct": 5.4,
+      "aian_pct": 0.2,
+      "asian_pct": 1.2,
+      "nhpi_pct": 0,
+      "other_pct": 2.1,
+      "multiracial_pct": 7.9,
+      "hispanic_pct": 8.3
+    }
+  },
+  "37023": {
+    "fips": "37023",
+    "county": "Burke",
+    "year": "2023",
+    "population": {
+      "total": 87863,
+      "median_age": 44.9,
+      "under18_pct": 18.6,
+      "over65_pct": 21.2
+    },
+    "economics": {
+      "median_household_income": 55684,
+      "poverty_pct": 17.9,
+      "unemployment_pct": 4.8
+    },
+    "housing": {
+      "median_home_value": 170500,
+      "median_gross_rent": 805,
+      "owner_occupied_pct": 74.8,
+      "renter_occupied_pct": 25.2
+    },
+    "education": {
+      "hs_or_higher_pct": 85.1,
+      "bachelors_or_higher_pct": 20.2
+    },
+    "race": {
+      "white_pct": 81.1,
+      "black_pct": 6.1,
+      "aian_pct": 1,
+      "asian_pct": 3.4,
+      "nhpi_pct": 0,
+      "other_pct": 4.4,
+      "multiracial_pct": 4,
+      "hispanic_pct": 8.2
+    }
+  },
+  "37025": {
+    "fips": "37025",
+    "county": "Cabarrus",
+    "year": "2023",
+    "population": {
+      "total": 231262,
+      "median_age": 37.7,
+      "under18_pct": 25.4,
+      "over65_pct": 13.4
+    },
+    "economics": {
+      "median_household_income": 86084,
+      "poverty_pct": 8.9,
+      "unemployment_pct": 4.5
+    },
+    "housing": {
+      "median_home_value": 318600,
+      "median_gross_rent": 1303,
+      "owner_occupied_pct": 72.1,
+      "renter_occupied_pct": 27.9
+    },
+    "education": {
+      "hs_or_higher_pct": 91.8,
+      "bachelors_or_higher_pct": 37.7
+    },
+    "race": {
+      "white_pct": 61.9,
+      "black_pct": 18.9,
+      "aian_pct": 0.2,
+      "asian_pct": 5.4,
+      "nhpi_pct": 0,
+      "other_pct": 5.6,
+      "multiracial_pct": 8.1,
+      "hispanic_pct": 12.4
+    }
+  },
+  "37027": {
+    "fips": "37027",
+    "county": "Caldwell",
+    "year": "2023",
+    "population": {
+      "total": 80618,
+      "median_age": 45.5,
+      "under18_pct": 19.9,
+      "over65_pct": 21.2
+    },
+    "economics": {
+      "median_household_income": 55401,
+      "poverty_pct": 12.7,
+      "unemployment_pct": 4.8
+    },
+    "housing": {
+      "median_home_value": 174000,
+      "median_gross_rent": 735,
+      "owner_occupied_pct": 74,
+      "renter_occupied_pct": 26
+    },
+    "education": {
+      "hs_or_higher_pct": 82.8,
+      "bachelors_or_higher_pct": 18.6
+    },
+    "race": {
+      "white_pct": 86.6,
+      "black_pct": 4.1,
+      "aian_pct": 0.1,
+      "asian_pct": 0.5,
+      "nhpi_pct": 0.1,
+      "other_pct": 3.8,
+      "multiracial_pct": 4.7,
+      "hispanic_pct": 6.4
+    }
+  },
+  "37029": {
+    "fips": "37029",
+    "county": "Camden",
+    "year": "2023",
+    "population": {
+      "total": 10743,
+      "median_age": 40.9,
+      "under18_pct": 24.3,
+      "over65_pct": 16
+    },
+    "economics": {
+      "median_household_income": 87781,
+      "poverty_pct": 5,
+      "unemployment_pct": 4.8
+    },
+    "housing": {
+      "median_home_value": 289800,
+      "median_gross_rent": 1220,
+      "owner_occupied_pct": 83.8,
+      "renter_occupied_pct": 16.2
+    },
+    "education": {
+      "hs_or_higher_pct": 93,
+      "bachelors_or_higher_pct": 25.8
+    },
+    "race": {
+      "white_pct": 79.5,
+      "black_pct": 8.3,
+      "aian_pct": 0.3,
+      "asian_pct": 0.7,
+      "nhpi_pct": 0.2,
+      "other_pct": 2.6,
+      "multiracial_pct": 8.4,
+      "hispanic_pct": 3.9
+    }
+  },
+  "37031": {
+    "fips": "37031",
+    "county": "Carteret",
+    "year": "2023",
+    "population": {
+      "total": 68652,
+      "median_age": 50.1,
+      "under18_pct": 17.1,
+      "over65_pct": 26.3
+    },
+    "economics": {
+      "median_household_income": 70235,
+      "poverty_pct": 10,
+      "unemployment_pct": 4.2
+    },
+    "housing": {
+      "median_home_value": 304200,
+      "median_gross_rent": 1062,
+      "owner_occupied_pct": 73.5,
+      "renter_occupied_pct": 26.5
+    },
+    "education": {
+      "hs_or_higher_pct": 92.7,
+      "bachelors_or_higher_pct": 32.3
+    },
+    "race": {
+      "white_pct": 86.7,
+      "black_pct": 4.4,
+      "aian_pct": 0.3,
+      "asian_pct": 0.9,
+      "nhpi_pct": 0,
+      "other_pct": 2.1,
+      "multiracial_pct": 5.6,
+      "hispanic_pct": 4.7
+    }
+  },
+  "37033": {
+    "fips": "37033",
+    "county": "Caswell",
+    "year": "2023",
+    "population": {
+      "total": 22689,
+      "median_age": 46.2,
+      "under18_pct": 18.3,
+      "over65_pct": 22.5
+    },
+    "economics": {
+      "median_household_income": 59407,
+      "poverty_pct": 15.7,
+      "unemployment_pct": 5.7
+    },
+    "housing": {
+      "median_home_value": 151200,
+      "median_gross_rent": 699,
+      "owner_occupied_pct": 76.1,
+      "renter_occupied_pct": 23.9
+    },
+    "education": {
+      "hs_or_higher_pct": 83.7,
+      "bachelors_or_higher_pct": 16
+    },
+    "race": {
+      "white_pct": 60.3,
+      "black_pct": 31.5,
+      "aian_pct": 0.1,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0,
+      "other_pct": 1.9,
+      "multiracial_pct": 5.9,
+      "hispanic_pct": 4.9
+    }
+  },
+  "37035": {
+    "fips": "37035",
+    "county": "Catawba",
+    "year": "2023",
+    "population": {
+      "total": 162051,
+      "median_age": 41.8,
+      "under18_pct": 21.9,
+      "over65_pct": 18.4
+    },
+    "economics": {
+      "median_household_income": 64544,
+      "poverty_pct": 12.8,
+      "unemployment_pct": 4.2
+    },
+    "housing": {
+      "median_home_value": 218100,
+      "median_gross_rent": 891,
+      "owner_occupied_pct": 72.7,
+      "renter_occupied_pct": 27.3
+    },
+    "education": {
+      "hs_or_higher_pct": 87.5,
+      "bachelors_or_higher_pct": 24.9
+    },
+    "race": {
+      "white_pct": 75.8,
+      "black_pct": 8,
+      "aian_pct": 0.5,
+      "asian_pct": 4.1,
+      "nhpi_pct": 0,
+      "other_pct": 4.2,
+      "multiracial_pct": 7.3,
+      "hispanic_pct": 11.1
+    }
+  },
+  "37037": {
+    "fips": "37037",
+    "county": "Chatham",
+    "year": "2023",
+    "population": {
+      "total": 78319,
+      "median_age": 47.6,
+      "under18_pct": 19.7,
+      "over65_pct": 24.9
+    },
+    "economics": {
+      "median_household_income": 88534,
+      "poverty_pct": 10.5,
+      "unemployment_pct": 3
+    },
+    "housing": {
+      "median_home_value": 397800,
+      "median_gross_rent": 1066,
+      "owner_occupied_pct": 80.4,
+      "renter_occupied_pct": 19.6
+    },
+    "education": {
+      "hs_or_higher_pct": 90.4,
+      "bachelors_or_higher_pct": 48
+    },
+    "race": {
+      "white_pct": 72.5,
+      "black_pct": 10.5,
+      "aian_pct": 0.1,
+      "asian_pct": 2,
+      "nhpi_pct": 0,
+      "other_pct": 7.4,
+      "multiracial_pct": 7.4,
+      "hispanic_pct": 13.4
+    }
+  },
+  "37039": {
+    "fips": "37039",
+    "county": "Cherokee",
+    "year": "2023",
+    "population": {
+      "total": 29197,
+      "median_age": 53.3,
+      "under18_pct": 16.1,
+      "over65_pct": 31.3
+    },
+    "economics": {
+      "median_household_income": 51496,
+      "poverty_pct": 14.6,
+      "unemployment_pct": 5.3
+    },
+    "housing": {
+      "median_home_value": 208700,
+      "median_gross_rent": 800,
+      "owner_occupied_pct": 83.6,
+      "renter_occupied_pct": 16.4
+    },
+    "education": {
+      "hs_or_higher_pct": 91.4,
+      "bachelors_or_higher_pct": 24.2
+    },
+    "race": {
+      "white_pct": 91.2,
+      "black_pct": 1.5,
+      "aian_pct": 1.6,
+      "asian_pct": 0.5,
+      "nhpi_pct": 0,
+      "other_pct": 0.9,
+      "multiracial_pct": 4.2,
+      "hispanic_pct": 3.5
+    }
+  },
+  "37041": {
+    "fips": "37041",
+    "county": "Chowan",
+    "year": "2023",
+    "population": {
+      "total": 13814,
+      "median_age": 47.9,
+      "under18_pct": 19.5,
+      "over65_pct": 27.3
+    },
+    "economics": {
+      "median_household_income": 56982,
+      "poverty_pct": 20.5,
+      "unemployment_pct": 5.9
+    },
+    "housing": {
+      "median_home_value": 204400,
+      "median_gross_rent": 766,
+      "owner_occupied_pct": 69.7,
+      "renter_occupied_pct": 30.3
+    },
+    "education": {
+      "hs_or_higher_pct": 87.4,
+      "bachelors_or_higher_pct": 24.5
+    },
+    "race": {
+      "white_pct": 60.2,
+      "black_pct": 33.2,
+      "aian_pct": 0.1,
+      "asian_pct": 0.1,
+      "nhpi_pct": 0,
+      "other_pct": 2.7,
+      "multiracial_pct": 3.6,
+      "hispanic_pct": 3.9
+    }
+  },
+  "37043": {
+    "fips": "37043",
+    "county": "Clay",
+    "year": "2023",
+    "population": {
+      "total": 11391,
+      "median_age": 54.5,
+      "under18_pct": 16.2,
+      "over65_pct": 32.3
+    },
+    "economics": {
+      "median_household_income": 53645,
+      "poverty_pct": 13.5,
+      "unemployment_pct": 4.2
+    },
+    "housing": {
+      "median_home_value": 263300,
+      "median_gross_rent": 791,
+      "owner_occupied_pct": 79.8,
+      "renter_occupied_pct": 20.2
+    },
+    "education": {
+      "hs_or_higher_pct": 89.9,
+      "bachelors_or_higher_pct": 31.4
+    },
+    "race": {
+      "white_pct": 93.1,
+      "black_pct": 1.8,
+      "aian_pct": 0.9,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 1.5,
+      "multiracial_pct": 1.9,
+      "hispanic_pct": 3.9
+    }
+  },
+  "37045": {
+    "fips": "37045",
+    "county": "Cleveland",
+    "year": "2023",
+    "population": {
+      "total": 100170,
+      "median_age": 41.2,
+      "under18_pct": 22.3,
+      "over65_pct": 18.7
+    },
+    "economics": {
+      "median_household_income": 55769,
+      "poverty_pct": 17.2,
+      "unemployment_pct": 5.7
+    },
+    "housing": {
+      "median_home_value": 180200,
+      "median_gross_rent": 835,
+      "owner_occupied_pct": 70.7,
+      "renter_occupied_pct": 29.3
+    },
+    "education": {
+      "hs_or_higher_pct": 87.5,
+      "bachelors_or_higher_pct": 21.1
+    },
+    "race": {
+      "white_pct": 72.5,
+      "black_pct": 18.4,
+      "aian_pct": 0.3,
+      "asian_pct": 1,
+      "nhpi_pct": 0.1,
+      "other_pct": 2.1,
+      "multiracial_pct": 5.7,
+      "hispanic_pct": 4.4
+    }
+  },
+  "37047": {
+    "fips": "37047",
+    "county": "Columbus",
+    "year": "2023",
+    "population": {
+      "total": 50453,
+      "median_age": 42.4,
+      "under18_pct": 20.7,
+      "over65_pct": 20.4
+    },
+    "economics": {
+      "median_household_income": 48184,
+      "poverty_pct": 18.8,
+      "unemployment_pct": 4.7
+    },
+    "housing": {
+      "median_home_value": 128300,
+      "median_gross_rent": 775,
+      "owner_occupied_pct": 72.3,
+      "renter_occupied_pct": 27.7
+    },
+    "education": {
+      "hs_or_higher_pct": 86.5,
+      "bachelors_or_higher_pct": 15.1
+    },
+    "race": {
+      "white_pct": 60.2,
+      "black_pct": 28.7,
+      "aian_pct": 3.1,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0,
+      "other_pct": 3.1,
+      "multiracial_pct": 4.5,
+      "hispanic_pct": 5.5
+    }
+  },
+  "37049": {
+    "fips": "37049",
+    "county": "Craven",
+    "year": "2023",
+    "population": {
+      "total": 101074,
+      "median_age": 39.2,
+      "under18_pct": 21.7,
+      "over65_pct": 20.5
+    },
+    "economics": {
+      "median_household_income": 64635,
+      "poverty_pct": 13.9,
+      "unemployment_pct": 4
+    },
+    "housing": {
+      "median_home_value": 206200,
+      "median_gross_rent": 1100,
+      "owner_occupied_pct": 69.9,
+      "renter_occupied_pct": 30.1
+    },
+    "education": {
+      "hs_or_higher_pct": 91.8,
+      "bachelors_or_higher_pct": 26
+    },
+    "race": {
+      "white_pct": 67.4,
+      "black_pct": 20.3,
+      "aian_pct": 0.3,
+      "asian_pct": 2.7,
+      "nhpi_pct": 0.2,
+      "other_pct": 2.3,
+      "multiracial_pct": 6.8,
+      "hispanic_pct": 7.4
+    }
+  },
+  "37051": {
+    "fips": "37051",
+    "county": "Cumberland",
+    "year": "2023",
+    "population": {
+      "total": 336749,
+      "median_age": 31.8,
+      "under18_pct": 25.1,
+      "over65_pct": 12.7
+    },
+    "economics": {
+      "median_household_income": 58780,
+      "poverty_pct": 17.2,
+      "unemployment_pct": 6.2
+    },
+    "housing": {
+      "median_home_value": 183700,
+      "median_gross_rent": 1156,
+      "owner_occupied_pct": 53.7,
+      "renter_occupied_pct": 46.3
+    },
+    "education": {
+      "hs_or_higher_pct": 92.6,
+      "bachelors_or_higher_pct": 27.2
+    },
+    "race": {
+      "white_pct": 43.9,
+      "black_pct": 37.3,
+      "aian_pct": 1.2,
+      "asian_pct": 2.6,
+      "nhpi_pct": 0.4,
+      "other_pct": 4.3,
+      "multiracial_pct": 10.2,
+      "hispanic_pct": 12.4
+    }
+  },
+  "37053": {
+    "fips": "37053",
+    "county": "Currituck",
+    "year": "2023",
+    "population": {
+      "total": 29612,
+      "median_age": 41.7,
+      "under18_pct": 22.1,
+      "over65_pct": 17.2
+    },
+    "economics": {
+      "median_household_income": 91548,
+      "poverty_pct": 7.6,
+      "unemployment_pct": 2.8
+    },
+    "housing": {
+      "median_home_value": 351200,
+      "median_gross_rent": 1126,
+      "owner_occupied_pct": 87.5,
+      "renter_occupied_pct": 12.5
+    },
+    "education": {
+      "hs_or_higher_pct": 93.9,
+      "bachelors_or_higher_pct": 29.3
+    },
+    "race": {
+      "white_pct": 85.6,
+      "black_pct": 5.1,
+      "aian_pct": 0.2,
+      "asian_pct": 1,
+      "nhpi_pct": 0,
+      "other_pct": 2.3,
+      "multiracial_pct": 5.7,
+      "hispanic_pct": 4.9
+    }
+  },
+  "37055": {
+    "fips": "37055",
+    "county": "Dare",
+    "year": "2023",
+    "population": {
+      "total": 37534,
+      "median_age": 48.5,
+      "under18_pct": 18.1,
+      "over65_pct": 24.3
+    },
+    "economics": {
+      "median_household_income": 81214,
+      "poverty_pct": 7.5,
+      "unemployment_pct": 5.8
+    },
+    "housing": {
+      "median_home_value": 425400,
+      "median_gross_rent": 1307,
+      "owner_occupied_pct": 77.8,
+      "renter_occupied_pct": 22.2
+    },
+    "education": {
+      "hs_or_higher_pct": 95.2,
+      "bachelors_or_higher_pct": 42.8
+    },
+    "race": {
+      "white_pct": 87.3,
+      "black_pct": 2.8,
+      "aian_pct": 0.2,
+      "asian_pct": 0.5,
+      "nhpi_pct": 0.1,
+      "other_pct": 3.7,
+      "multiracial_pct": 5.4,
+      "hispanic_pct": 7.1
+    }
+  },
+  "37057": {
+    "fips": "37057",
+    "county": "Davidson",
+    "year": "2023",
+    "population": {
+      "total": 171063,
+      "median_age": 42.3,
+      "under18_pct": 21.8,
+      "over65_pct": 18.6
+    },
+    "economics": {
+      "median_household_income": 62426,
+      "poverty_pct": 13.8,
+      "unemployment_pct": 4
+    },
+    "housing": {
+      "median_home_value": 200100,
+      "median_gross_rent": 863,
+      "owner_occupied_pct": 73.5,
+      "renter_occupied_pct": 26.5
+    },
+    "education": {
+      "hs_or_higher_pct": 87.7,
+      "bachelors_or_higher_pct": 20.7
+    },
+    "race": {
+      "white_pct": 79.1,
+      "black_pct": 9.3,
+      "aian_pct": 0.2,
+      "asian_pct": 1.5,
+      "nhpi_pct": 0,
+      "other_pct": 2.4,
+      "multiracial_pct": 7.5,
+      "hispanic_pct": 8.6
+    }
+  },
+  "37059": {
+    "fips": "37059",
+    "county": "Davie",
+    "year": "2023",
+    "population": {
+      "total": 43526,
+      "median_age": 45,
+      "under18_pct": 21,
+      "over65_pct": 21.8
+    },
+    "economics": {
+      "median_household_income": 73234,
+      "poverty_pct": 10,
+      "unemployment_pct": 4.5
+    },
+    "housing": {
+      "median_home_value": 235300,
+      "median_gross_rent": 889,
+      "owner_occupied_pct": 83.4,
+      "renter_occupied_pct": 16.6
+    },
+    "education": {
+      "hs_or_higher_pct": 90.7,
+      "bachelors_or_higher_pct": 26.8
+    },
+    "race": {
+      "white_pct": 84.2,
+      "black_pct": 4,
+      "aian_pct": 0.4,
+      "asian_pct": 0.7,
+      "nhpi_pct": 0,
+      "other_pct": 2.8,
+      "multiracial_pct": 7.8,
+      "hispanic_pct": 8
+    }
+  },
+  "37061": {
+    "fips": "37061",
+    "county": "Duplin",
+    "year": "2023",
+    "population": {
+      "total": 49053,
+      "median_age": 40.7,
+      "under18_pct": 23.7,
+      "over65_pct": 19.7
+    },
+    "economics": {
+      "median_household_income": 51880,
+      "poverty_pct": 17.9,
+      "unemployment_pct": 4.7
+    },
+    "housing": {
+      "median_home_value": 123200,
+      "median_gross_rent": 815,
+      "owner_occupied_pct": 70,
+      "renter_occupied_pct": 30
+    },
+    "education": {
+      "hs_or_higher_pct": 81.9,
+      "bachelors_or_higher_pct": 17.5
+    },
+    "race": {
+      "white_pct": 57.5,
+      "black_pct": 22.8,
+      "aian_pct": 0.4,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0.1,
+      "other_pct": 12,
+      "multiracial_pct": 6.6,
+      "hispanic_pct": 22.7
+    }
+  },
+  "37063": {
+    "fips": "37063",
+    "county": "Durham",
+    "year": "2023",
+    "population": {
+      "total": 329405,
+      "median_age": 35.8,
+      "under18_pct": 20.1,
+      "over65_pct": 14
+    },
+    "economics": {
+      "median_household_income": 79501,
+      "poverty_pct": 12,
+      "unemployment_pct": 4.1
+    },
+    "housing": {
+      "median_home_value": 351700,
+      "median_gross_rent": 1415,
+      "owner_occupied_pct": 55,
+      "renter_occupied_pct": 45
+    },
+    "education": {
+      "hs_or_higher_pct": 90.7,
+      "bachelors_or_higher_pct": 53.5
+    },
+    "race": {
+      "white_pct": 45.5,
+      "black_pct": 33.1,
+      "aian_pct": 0.5,
+      "asian_pct": 5.1,
+      "nhpi_pct": 0,
+      "other_pct": 7.1,
+      "multiracial_pct": 8.6,
+      "hispanic_pct": 15.3
+    }
+  },
+  "37065": {
+    "fips": "37065",
+    "county": "Edgecombe",
+    "year": "2023",
+    "population": {
+      "total": 48777,
+      "median_age": 41.7,
+      "under18_pct": 22.9,
+      "over65_pct": 20.5
+    },
+    "economics": {
+      "median_household_income": 48480,
+      "poverty_pct": 21.9,
+      "unemployment_pct": 7.9
+    },
+    "housing": {
+      "median_home_value": 116800,
+      "median_gross_rent": 818,
+      "owner_occupied_pct": 59.4,
+      "renter_occupied_pct": 40.6
+    },
+    "education": {
+      "hs_or_higher_pct": 84.4,
+      "bachelors_or_higher_pct": 16.7
+    },
+    "race": {
+      "white_pct": 37.8,
+      "black_pct": 55.9,
+      "aian_pct": 0.4,
+      "asian_pct": 0.3,
+      "nhpi_pct": 0.1,
+      "other_pct": 2,
+      "multiracial_pct": 3.5,
+      "hispanic_pct": 5.8
+    }
+  },
+  "37067": {
+    "fips": "37067",
+    "county": "Forsyth",
+    "year": "2023",
+    "population": {
+      "total": 386740,
+      "median_age": 38.3,
+      "under18_pct": 22.8,
+      "over65_pct": 16.6
+    },
+    "economics": {
+      "median_household_income": 65541,
+      "poverty_pct": 14.7,
+      "unemployment_pct": 5.3
+    },
+    "housing": {
+      "median_home_value": 227800,
+      "median_gross_rent": 1046,
+      "owner_occupied_pct": 62.7,
+      "renter_occupied_pct": 37.3
+    },
+    "education": {
+      "hs_or_higher_pct": 89.9,
+      "bachelors_or_higher_pct": 36.9
+    },
+    "race": {
+      "white_pct": 58.2,
+      "black_pct": 25.5,
+      "aian_pct": 0.4,
+      "asian_pct": 2.4,
+      "nhpi_pct": 0.1,
+      "other_pct": 5.8,
+      "multiracial_pct": 7.7,
+      "hispanic_pct": 14.6
+    }
+  },
+  "37069": {
+    "fips": "37069",
+    "county": "Franklin",
+    "year": "2023",
+    "population": {
+      "total": 71962,
+      "median_age": 40.9,
+      "under18_pct": 21.9,
+      "over65_pct": 17.1
+    },
+    "economics": {
+      "median_household_income": 71386,
+      "poverty_pct": 10.1,
+      "unemployment_pct": 5.5
+    },
+    "housing": {
+      "median_home_value": 240900,
+      "median_gross_rent": 988,
+      "owner_occupied_pct": 78.1,
+      "renter_occupied_pct": 21.9
+    },
+    "education": {
+      "hs_or_higher_pct": 87.7,
+      "bachelors_or_higher_pct": 24.4
+    },
+    "race": {
+      "white_pct": 63,
+      "black_pct": 23.7,
+      "aian_pct": 0.4,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 5.9,
+      "multiracial_pct": 6.2,
+      "hispanic_pct": 10.6
+    }
+  },
+  "37071": {
+    "fips": "37071",
+    "county": "Gaston",
+    "year": "2023",
+    "population": {
+      "total": 231485,
+      "median_age": 39.5,
+      "under18_pct": 22.6,
+      "over65_pct": 16.3
+    },
+    "economics": {
+      "median_household_income": 65472,
+      "poverty_pct": 12.8,
+      "unemployment_pct": 4.8
+    },
+    "housing": {
+      "median_home_value": 235000,
+      "median_gross_rent": 1085,
+      "owner_occupied_pct": 65.8,
+      "renter_occupied_pct": 34.2
+    },
+    "education": {
+      "hs_or_higher_pct": 88.1,
+      "bachelors_or_higher_pct": 26
+    },
+    "race": {
+      "white_pct": 70.4,
+      "black_pct": 17.6,
+      "aian_pct": 0.3,
+      "asian_pct": 1.7,
+      "nhpi_pct": 0,
+      "other_pct": 3.3,
+      "multiracial_pct": 6.7,
+      "hispanic_pct": 9.3
+    }
+  },
+  "37073": {
+    "fips": "37073",
+    "county": "Gates",
+    "year": "2023",
+    "population": {
+      "total": 10437,
+      "median_age": 47.7,
+      "under18_pct": 19.5,
+      "over65_pct": 22
+    },
+    "economics": {
+      "median_household_income": 61612,
+      "poverty_pct": 11.8,
+      "unemployment_pct": 8.9
+    },
+    "housing": {
+      "median_home_value": 163900,
+      "median_gross_rent": 940,
+      "owner_occupied_pct": 82.3,
+      "renter_occupied_pct": 17.7
+    },
+    "education": {
+      "hs_or_higher_pct": 89.6,
+      "bachelors_or_higher_pct": 10.8
+    },
+    "race": {
+      "white_pct": 63.5,
+      "black_pct": 31.2,
+      "aian_pct": 0.5,
+      "asian_pct": 0,
+      "nhpi_pct": 0,
+      "other_pct": 0.7,
+      "multiracial_pct": 4.3,
+      "hispanic_pct": 2.1
+    }
+  },
+  "37075": {
+    "fips": "37075",
+    "county": "Graham",
+    "year": "2023",
+    "population": {
+      "total": 8041,
+      "median_age": 45.5,
+      "under18_pct": 18.4,
+      "over65_pct": 24.8
+    },
+    "economics": {
+      "median_household_income": 49038,
+      "poverty_pct": 8.7,
+      "unemployment_pct": 6.4
+    },
+    "housing": {
+      "median_home_value": 155800,
+      "median_gross_rent": 581,
+      "owner_occupied_pct": 80.8,
+      "renter_occupied_pct": 19.2
+    },
+    "education": {
+      "hs_or_higher_pct": 84.8,
+      "bachelors_or_higher_pct": 16.8
+    },
+    "race": {
+      "white_pct": 85.2,
+      "black_pct": 0.7,
+      "aian_pct": 8.9,
+      "asian_pct": 1.1,
+      "nhpi_pct": 0,
+      "other_pct": 2,
+      "multiracial_pct": 2,
+      "hispanic_pct": 2.9
+    }
+  },
+  "37077": {
+    "fips": "37077",
+    "county": "Granville",
+    "year": "2023",
+    "population": {
+      "total": 61439,
+      "median_age": 42.5,
+      "under18_pct": 20.6,
+      "over65_pct": 17.3
+    },
+    "economics": {
+      "median_household_income": 70975,
+      "poverty_pct": 14.1,
+      "unemployment_pct": 4.4
+    },
+    "housing": {
+      "median_home_value": 235700,
+      "median_gross_rent": 1008,
+      "owner_occupied_pct": 76.6,
+      "renter_occupied_pct": 23.4
+    },
+    "education": {
+      "hs_or_higher_pct": 86.6,
+      "bachelors_or_higher_pct": 24
+    },
+    "race": {
+      "white_pct": 57.1,
+      "black_pct": 29.5,
+      "aian_pct": 0.4,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0.3,
+      "other_pct": 6,
+      "multiracial_pct": 6.2,
+      "hispanic_pct": 10.7
+    }
+  },
+  "37079": {
+    "fips": "37079",
+    "county": "Greene",
+    "year": "2023",
+    "population": {
+      "total": 20421,
+      "median_age": 39.6,
+      "under18_pct": 18.9,
+      "over65_pct": 16.9
+    },
+    "economics": {
+      "median_household_income": 50904,
+      "poverty_pct": 22.4,
+      "unemployment_pct": 5.6
+    },
+    "housing": {
+      "median_home_value": 114000,
+      "median_gross_rent": 845,
+      "owner_occupied_pct": 65.3,
+      "renter_occupied_pct": 34.7
+    },
+    "education": {
+      "hs_or_higher_pct": 77.8,
+      "bachelors_or_higher_pct": 12.2
+    },
+    "race": {
+      "white_pct": 49.3,
+      "black_pct": 32.2,
+      "aian_pct": 0.6,
+      "asian_pct": 0,
+      "nhpi_pct": 0,
+      "other_pct": 5.4,
+      "multiracial_pct": 12.4,
+      "hispanic_pct": 15.1
+    }
+  },
+  "37081": {
+    "fips": "37081",
+    "county": "Guilford",
+    "year": "2023",
+    "population": {
+      "total": 542987,
+      "median_age": 37.4,
+      "under18_pct": 22.2,
+      "over65_pct": 15.6
+    },
+    "economics": {
+      "median_household_income": 66027,
+      "poverty_pct": 15.2,
+      "unemployment_pct": 4.7
+    },
+    "housing": {
+      "median_home_value": 234900,
+      "median_gross_rent": 1108,
+      "owner_occupied_pct": 60,
+      "renter_occupied_pct": 40
+    },
+    "education": {
+      "hs_or_higher_pct": 90.3,
+      "bachelors_or_higher_pct": 38.1
+    },
+    "race": {
+      "white_pct": 49.1,
+      "black_pct": 34,
+      "aian_pct": 0.4,
+      "asian_pct": 5.2,
+      "nhpi_pct": 0,
+      "other_pct": 4,
+      "multiracial_pct": 7.3,
+      "hispanic_pct": 9.8
+    }
+  },
+  "37083": {
+    "fips": "37083",
+    "county": "Halifax",
+    "year": "2023",
+    "population": {
+      "total": 48219,
+      "median_age": 43.8,
+      "under18_pct": 21.3,
+      "over65_pct": 21.6
+    },
+    "economics": {
+      "median_household_income": 45071,
+      "poverty_pct": 25.2,
+      "unemployment_pct": 8.7
+    },
+    "housing": {
+      "median_home_value": 102500,
+      "median_gross_rent": 776,
+      "owner_occupied_pct": 63.5,
+      "renter_occupied_pct": 36.5
+    },
+    "education": {
+      "hs_or_higher_pct": 80.9,
+      "bachelors_or_higher_pct": 15.5
+    },
+    "race": {
+      "white_pct": 37.2,
+      "black_pct": 51.9,
+      "aian_pct": 3,
+      "asian_pct": 0.9,
+      "nhpi_pct": 0,
+      "other_pct": 1.6,
+      "multiracial_pct": 5.3,
+      "hispanic_pct": 3.2
+    }
+  },
+  "37085": {
+    "fips": "37085",
+    "county": "Harnett",
+    "year": "2023",
+    "population": {
+      "total": 136503,
+      "median_age": 35.4,
+      "under18_pct": 25.6,
+      "over65_pct": 13.4
+    },
+    "economics": {
+      "median_household_income": 69012,
+      "poverty_pct": 14.5,
+      "unemployment_pct": 4.6
+    },
+    "housing": {
+      "median_home_value": 220700,
+      "median_gross_rent": 1080,
+      "owner_occupied_pct": 69.5,
+      "renter_occupied_pct": 30.5
+    },
+    "education": {
+      "hs_or_higher_pct": 88.7,
+      "bachelors_or_higher_pct": 23.9
+    },
+    "race": {
+      "white_pct": 63,
+      "black_pct": 20.8,
+      "aian_pct": 1.2,
+      "asian_pct": 1.2,
+      "nhpi_pct": 0.2,
+      "other_pct": 5.9,
+      "multiracial_pct": 7.8,
+      "hispanic_pct": 14.6
+    }
+  },
+  "37087": {
+    "fips": "37087",
+    "county": "Haywood",
+    "year": "2023",
+    "population": {
+      "total": 62432,
+      "median_age": 47.8,
+      "under18_pct": 17.8,
+      "over65_pct": 25.4
+    },
+    "economics": {
+      "median_household_income": 61001,
+      "poverty_pct": 11.3,
+      "unemployment_pct": 3.3
+    },
+    "housing": {
+      "median_home_value": 254900,
+      "median_gross_rent": 1052,
+      "owner_occupied_pct": 75,
+      "renter_occupied_pct": 25
+    },
+    "education": {
+      "hs_or_higher_pct": 91.6,
+      "bachelors_or_higher_pct": 29.4
+    },
+    "race": {
+      "white_pct": 91.9,
+      "black_pct": 1,
+      "aian_pct": 0.6,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0,
+      "other_pct": 0.9,
+      "multiracial_pct": 5.2,
+      "hispanic_pct": 4.7
+    }
+  },
+  "37089": {
+    "fips": "37089",
+    "county": "Henderson",
+    "year": "2023",
+    "population": {
+      "total": 117387,
+      "median_age": 47.2,
+      "under18_pct": 19,
+      "over65_pct": 26
+    },
+    "economics": {
+      "median_household_income": 67623,
+      "poverty_pct": 11.7,
+      "unemployment_pct": 3.3
+    },
+    "housing": {
+      "median_home_value": 317800,
+      "median_gross_rent": 1120,
+      "owner_occupied_pct": 74.2,
+      "renter_occupied_pct": 25.8
+    },
+    "education": {
+      "hs_or_higher_pct": 91.1,
+      "bachelors_or_higher_pct": 35.1
+    },
+    "race": {
+      "white_pct": 84.1,
+      "black_pct": 3.3,
+      "aian_pct": 0.6,
+      "asian_pct": 1.3,
+      "nhpi_pct": 0.1,
+      "other_pct": 4.7,
+      "multiracial_pct": 5.9,
+      "hispanic_pct": 12.8
+    }
+  },
+  "37091": {
+    "fips": "37091",
+    "county": "Hertford",
+    "year": "2023",
+    "population": {
+      "total": 20492,
+      "median_age": 42.3,
+      "under18_pct": 18.9,
+      "over65_pct": 21.3
+    },
+    "economics": {
+      "median_household_income": 47472,
+      "poverty_pct": 21.4,
+      "unemployment_pct": 5.2
+    },
+    "housing": {
+      "median_home_value": 111100,
+      "median_gross_rent": 806,
+      "owner_occupied_pct": 66.4,
+      "renter_occupied_pct": 33.6
+    },
+    "education": {
+      "hs_or_higher_pct": 84.7,
+      "bachelors_or_higher_pct": 16.7
+    },
+    "race": {
+      "white_pct": 35.2,
+      "black_pct": 56.8,
+      "aian_pct": 2,
+      "asian_pct": 1,
+      "nhpi_pct": 0.1,
+      "other_pct": 1.9,
+      "multiracial_pct": 3,
+      "hispanic_pct": 6.5
+    }
+  },
+  "37093": {
+    "fips": "37093",
+    "county": "Hoke",
+    "year": "2023",
+    "population": {
+      "total": 53102,
+      "median_age": 33.7,
+      "under18_pct": 27.2,
+      "over65_pct": 11.4
+    },
+    "economics": {
+      "median_household_income": 60095,
+      "poverty_pct": 17.4,
+      "unemployment_pct": 6.5
+    },
+    "housing": {
+      "median_home_value": 196000,
+      "median_gross_rent": 1047,
+      "owner_occupied_pct": 71.7,
+      "renter_occupied_pct": 28.3
+    },
+    "education": {
+      "hs_or_higher_pct": 88.9,
+      "bachelors_or_higher_pct": 21.3
+    },
+    "race": {
+      "white_pct": 40.8,
+      "black_pct": 33.5,
+      "aian_pct": 7.2,
+      "asian_pct": 1.4,
+      "nhpi_pct": 0,
+      "other_pct": 7.8,
+      "multiracial_pct": 9.2,
+      "hispanic_pct": 15.3
+    }
+  },
+  "37095": {
+    "fips": "37095",
+    "county": "Hyde",
+    "year": "2023",
+    "population": {
+      "total": 4625,
+      "median_age": 48.5,
+      "under18_pct": 18.3,
+      "over65_pct": 22.8
+    },
+    "economics": {
+      "median_household_income": 47338,
+      "poverty_pct": 22.4,
+      "unemployment_pct": 3
+    },
+    "housing": {
+      "median_home_value": 119600,
+      "median_gross_rent": 1237,
+      "owner_occupied_pct": 71.5,
+      "renter_occupied_pct": 28.5
+    },
+    "education": {
+      "hs_or_higher_pct": 86.8,
+      "bachelors_or_higher_pct": 13.7
+    },
+    "race": {
+      "white_pct": 60.7,
+      "black_pct": 25,
+      "aian_pct": 1.1,
+      "asian_pct": 0,
+      "nhpi_pct": 0,
+      "other_pct": 0.6,
+      "multiracial_pct": 12.6,
+      "hispanic_pct": 7.7
+    }
+  },
+  "37097": {
+    "fips": "37097",
+    "county": "Iredell",
+    "year": "2023",
+    "population": {
+      "total": 191800,
+      "median_age": 40.9,
+      "under18_pct": 22.5,
+      "over65_pct": 16.4
+    },
+    "economics": {
+      "median_household_income": 78678,
+      "poverty_pct": 9.1,
+      "unemployment_pct": 4.4
+    },
+    "housing": {
+      "median_home_value": 292300,
+      "median_gross_rent": 1183,
+      "owner_occupied_pct": 71.5,
+      "renter_occupied_pct": 28.5
+    },
+    "education": {
+      "hs_or_higher_pct": 91.2,
+      "bachelors_or_higher_pct": 33.3
+    },
+    "race": {
+      "white_pct": 75.5,
+      "black_pct": 11.6,
+      "aian_pct": 0.2,
+      "asian_pct": 2.5,
+      "nhpi_pct": 0,
+      "other_pct": 4,
+      "multiracial_pct": 6.1,
+      "hispanic_pct": 8.9
+    }
+  },
+  "37099": {
+    "fips": "37099",
+    "county": "Jackson",
+    "year": "2023",
+    "population": {
+      "total": 43089,
+      "median_age": 38.9,
+      "under18_pct": 16.7,
+      "over65_pct": 20.4
+    },
+    "economics": {
+      "median_household_income": 53479,
+      "poverty_pct": 19.3,
+      "unemployment_pct": 6.4
+    },
+    "housing": {
+      "median_home_value": 253900,
+      "median_gross_rent": 855,
+      "owner_occupied_pct": 62.6,
+      "renter_occupied_pct": 37.4
+    },
+    "education": {
+      "hs_or_higher_pct": 89.8,
+      "bachelors_or_higher_pct": 30
+    },
+    "race": {
+      "white_pct": 79.5,
+      "black_pct": 2.4,
+      "aian_pct": 7.2,
+      "asian_pct": 1.2,
+      "nhpi_pct": 0,
+      "other_pct": 2.8,
+      "multiracial_pct": 6.9,
+      "hispanic_pct": 7.7
+    }
+  },
+  "37101": {
+    "fips": "37101",
+    "county": "Johnston",
+    "year": "2023",
+    "population": {
+      "total": 226623,
+      "median_age": 38.3,
+      "under18_pct": 25.1,
+      "over65_pct": 13.5
+    },
+    "economics": {
+      "median_household_income": 79838,
+      "poverty_pct": 11.2,
+      "unemployment_pct": 3.9
+    },
+    "housing": {
+      "median_home_value": 267600,
+      "median_gross_rent": 1007,
+      "owner_occupied_pct": 77.1,
+      "renter_occupied_pct": 22.9
+    },
+    "education": {
+      "hs_or_higher_pct": 89.5,
+      "bachelors_or_higher_pct": 27.6
+    },
+    "race": {
+      "white_pct": 66.6,
+      "black_pct": 16.6,
+      "aian_pct": 0.7,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0.1,
+      "other_pct": 8,
+      "multiracial_pct": 7.2,
+      "hispanic_pct": 16.2
+    }
+  },
+  "37103": {
+    "fips": "37103",
+    "county": "Jones",
+    "year": "2023",
+    "population": {
+      "total": 9245,
+      "median_age": 48.1,
+      "under18_pct": 18.4,
+      "over65_pct": 23.8
+    },
+    "economics": {
+      "median_household_income": 55659,
+      "poverty_pct": 21.3,
+      "unemployment_pct": 4.1
+    },
+    "housing": {
+      "median_home_value": 122600,
+      "median_gross_rent": 725,
+      "owner_occupied_pct": 75.6,
+      "renter_occupied_pct": 24.4
+    },
+    "education": {
+      "hs_or_higher_pct": 86.5,
+      "bachelors_or_higher_pct": 17.9
+    },
+    "race": {
+      "white_pct": 63.4,
+      "black_pct": 27.3,
+      "aian_pct": 0.6,
+      "asian_pct": 0.7,
+      "nhpi_pct": 0,
+      "other_pct": 0.6,
+      "multiracial_pct": 7.5,
+      "hispanic_pct": 4.8
+    }
+  },
+  "37105": {
+    "fips": "37105",
+    "county": "Lee",
+    "year": "2023",
+    "population": {
+      "total": 64565,
+      "median_age": 39.9,
+      "under18_pct": 23.9,
+      "over65_pct": 16.9
+    },
+    "economics": {
+      "median_household_income": 63060,
+      "poverty_pct": 15.5,
+      "unemployment_pct": 4
+    },
+    "housing": {
+      "median_home_value": 213800,
+      "median_gross_rent": 962,
+      "owner_occupied_pct": 66,
+      "renter_occupied_pct": 34
+    },
+    "education": {
+      "hs_or_higher_pct": 85.1,
+      "bachelors_or_higher_pct": 21.6
+    },
+    "race": {
+      "white_pct": 65.7,
+      "black_pct": 18.6,
+      "aian_pct": 0.1,
+      "asian_pct": 1.2,
+      "nhpi_pct": 0,
+      "other_pct": 5,
+      "multiracial_pct": 9.4,
+      "hispanic_pct": 21
+    }
+  },
+  "37107": {
+    "fips": "37107",
+    "county": "Lenoir",
+    "year": "2023",
+    "population": {
+      "total": 54917,
+      "median_age": 42.2,
+      "under18_pct": 22.7,
+      "over65_pct": 21.1
+    },
+    "economics": {
+      "median_household_income": 44795,
+      "poverty_pct": 22.5,
+      "unemployment_pct": 7.2
+    },
+    "housing": {
+      "median_home_value": 111400,
+      "median_gross_rent": 814,
+      "owner_occupied_pct": 59.3,
+      "renter_occupied_pct": 40.7
+    },
+    "education": {
+      "hs_or_higher_pct": 82.5,
+      "bachelors_or_higher_pct": 15.8
+    },
+    "race": {
+      "white_pct": 50.6,
+      "black_pct": 39.7,
+      "aian_pct": 0.3,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0.1,
+      "other_pct": 3.8,
+      "multiracial_pct": 4.7,
+      "hispanic_pct": 8.4
+    }
+  },
+  "37109": {
+    "fips": "37109",
+    "county": "Lincoln",
+    "year": "2023",
+    "population": {
+      "total": 90359,
+      "median_age": 44.3,
+      "under18_pct": 20.8,
+      "over65_pct": 19
+    },
+    "economics": {
+      "median_household_income": 78490,
+      "poverty_pct": 9,
+      "unemployment_pct": 3.5
+    },
+    "housing": {
+      "median_home_value": 279500,
+      "median_gross_rent": 977,
+      "owner_occupied_pct": 78.5,
+      "renter_occupied_pct": 21.5
+    },
+    "education": {
+      "hs_or_higher_pct": 90,
+      "bachelors_or_higher_pct": 27
+    },
+    "race": {
+      "white_pct": 84.7,
+      "black_pct": 5.8,
+      "aian_pct": 0.2,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 2.6,
+      "multiracial_pct": 5.8,
+      "hispanic_pct": 7.8
+    }
+  },
+  "37111": {
+    "fips": "37111",
+    "county": "McDowell",
+    "year": "2023",
+    "population": {
+      "total": 44679,
+      "median_age": 44.3,
+      "under18_pct": 19.7,
+      "over65_pct": 20.7
+    },
+    "economics": {
+      "median_household_income": 55527,
+      "poverty_pct": 14,
+      "unemployment_pct": 4.7
+    },
+    "housing": {
+      "median_home_value": 168300,
+      "median_gross_rent": 741,
+      "owner_occupied_pct": 74,
+      "renter_occupied_pct": 26
+    },
+    "education": {
+      "hs_or_higher_pct": 86.1,
+      "bachelors_or_higher_pct": 17.6
+    },
+    "race": {
+      "white_pct": 88.5,
+      "black_pct": 3.9,
+      "aian_pct": 0.4,
+      "asian_pct": 1.1,
+      "nhpi_pct": 0,
+      "other_pct": 2.1,
+      "multiracial_pct": 4,
+      "hispanic_pct": 6.8
+    }
+  },
+  "37113": {
+    "fips": "37113",
+    "county": "Macon",
+    "year": "2023",
+    "population": {
+      "total": 37533,
+      "median_age": 50.1,
+      "under18_pct": 18.1,
+      "over65_pct": 28.9
+    },
+    "economics": {
+      "median_household_income": 53298,
+      "poverty_pct": 14.4,
+      "unemployment_pct": 2.9
+    },
+    "housing": {
+      "median_home_value": 229000,
+      "median_gross_rent": 791,
+      "owner_occupied_pct": 76.3,
+      "renter_occupied_pct": 23.7
+    },
+    "education": {
+      "hs_or_higher_pct": 90,
+      "bachelors_or_higher_pct": 24.6
+    },
+    "race": {
+      "white_pct": 88.6,
+      "black_pct": 1.2,
+      "aian_pct": 0.3,
+      "asian_pct": 0.9,
+      "nhpi_pct": 0,
+      "other_pct": 4.9,
+      "multiracial_pct": 4,
+      "hispanic_pct": 9.7
+    }
+  },
+  "37115": {
+    "fips": "37115",
+    "county": "Madison",
+    "year": "2023",
+    "population": {
+      "total": 21640,
+      "median_age": 44.5,
+      "under18_pct": 17.5,
+      "over65_pct": 23.1
+    },
+    "economics": {
+      "median_household_income": 58628,
+      "poverty_pct": 11.4,
+      "unemployment_pct": 2.6
+    },
+    "housing": {
+      "median_home_value": 263500,
+      "median_gross_rent": 764,
+      "owner_occupied_pct": 77.9,
+      "renter_occupied_pct": 22.1
+    },
+    "education": {
+      "hs_or_higher_pct": 90.9,
+      "bachelors_or_higher_pct": 31.5
+    },
+    "race": {
+      "white_pct": 92,
+      "black_pct": 1,
+      "aian_pct": 0.1,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0.1,
+      "other_pct": 0.9,
+      "multiracial_pct": 5.4,
+      "hispanic_pct": 3.5
+    }
+  },
+  "37117": {
+    "fips": "37117",
+    "county": "Martin",
+    "year": "2023",
+    "population": {
+      "total": 21773,
+      "median_age": 46.7,
+      "under18_pct": 20.3,
+      "over65_pct": 25
+    },
+    "economics": {
+      "median_household_income": 46793,
+      "poverty_pct": 19.6,
+      "unemployment_pct": 7
+    },
+    "housing": {
+      "median_home_value": 109900,
+      "median_gross_rent": 729,
+      "owner_occupied_pct": 68.5,
+      "renter_occupied_pct": 31.5
+    },
+    "education": {
+      "hs_or_higher_pct": 83.3,
+      "bachelors_or_higher_pct": 15.1
+    },
+    "race": {
+      "white_pct": 51.6,
+      "black_pct": 41,
+      "aian_pct": 0.1,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0.1,
+      "other_pct": 1.4,
+      "multiracial_pct": 5.2,
+      "hispanic_pct": 4.3
+    }
+  },
+  "37119": {
+    "fips": "37119",
+    "county": "Mecklenburg",
+    "year": "2023",
+    "population": {
+      "total": 1130906,
+      "median_age": 35.4,
+      "under18_pct": 23.1,
+      "over65_pct": 11.7
+    },
+    "economics": {
+      "median_household_income": 83765,
+      "poverty_pct": 10.4,
+      "unemployment_pct": 4.2
+    },
+    "housing": {
+      "median_home_value": 371200,
+      "median_gross_rent": 1521,
+      "owner_occupied_pct": 55.5,
+      "renter_occupied_pct": 44.5
+    },
+    "education": {
+      "hs_or_higher_pct": 90.8,
+      "bachelors_or_higher_pct": 48.6
+    },
+    "race": {
+      "white_pct": 46.5,
+      "black_pct": 30.5,
+      "aian_pct": 0.4,
+      "asian_pct": 6.2,
+      "nhpi_pct": 0,
+      "other_pct": 7.8,
+      "multiracial_pct": 8.6,
+      "hispanic_pct": 15.4
+    }
+  },
+  "37121": {
+    "fips": "37121",
+    "county": "Mitchell",
+    "year": "2023",
+    "population": {
+      "total": 14973,
+      "median_age": 48,
+      "under18_pct": 17.9,
+      "over65_pct": 25.5
+    },
+    "economics": {
+      "median_household_income": 58089,
+      "poverty_pct": 13,
+      "unemployment_pct": 6.5
+    },
+    "housing": {
+      "median_home_value": 202100,
+      "median_gross_rent": 744,
+      "owner_occupied_pct": 77.6,
+      "renter_occupied_pct": 22.4
+    },
+    "education": {
+      "hs_or_higher_pct": 89.7,
+      "bachelors_or_higher_pct": 23.1
+    },
+    "race": {
+      "white_pct": 92.1,
+      "black_pct": 0.8,
+      "aian_pct": 0.4,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0,
+      "other_pct": 2.5,
+      "multiracial_pct": 3.8,
+      "hispanic_pct": 5.3
+    }
+  },
+  "37123": {
+    "fips": "37123",
+    "county": "Montgomery",
+    "year": "2023",
+    "population": {
+      "total": 25874,
+      "median_age": 43.6,
+      "under18_pct": 20.8,
+      "over65_pct": 21.8
+    },
+    "economics": {
+      "median_household_income": 55849,
+      "poverty_pct": 16.1,
+      "unemployment_pct": 2.9
+    },
+    "housing": {
+      "median_home_value": 150300,
+      "median_gross_rent": 753,
+      "owner_occupied_pct": 73.1,
+      "renter_occupied_pct": 26.9
+    },
+    "education": {
+      "hs_or_higher_pct": 84,
+      "bachelors_or_higher_pct": 19.3
+    },
+    "race": {
+      "white_pct": 66.8,
+      "black_pct": 16.7,
+      "aian_pct": 1.1,
+      "asian_pct": 1.6,
+      "nhpi_pct": 0,
+      "other_pct": 5.6,
+      "multiracial_pct": 8.2,
+      "hispanic_pct": 15.5
+    }
+  },
+  "37125": {
+    "fips": "37125",
+    "county": "Moore",
+    "year": "2023",
+    "population": {
+      "total": 102840,
+      "median_age": 42.8,
+      "under18_pct": 21.8,
+      "over65_pct": 24
+    },
+    "economics": {
+      "median_household_income": 82837,
+      "poverty_pct": 10,
+      "unemployment_pct": 4.3
+    },
+    "housing": {
+      "median_home_value": 315300,
+      "median_gross_rent": 1181,
+      "owner_occupied_pct": 76.3,
+      "renter_occupied_pct": 23.7
+    },
+    "education": {
+      "hs_or_higher_pct": 92.7,
+      "bachelors_or_higher_pct": 40.9
+    },
+    "race": {
+      "white_pct": 78,
+      "black_pct": 9.6,
+      "aian_pct": 0.5,
+      "asian_pct": 1.3,
+      "nhpi_pct": 0.1,
+      "other_pct": 3.4,
+      "multiracial_pct": 7,
+      "hispanic_pct": 7.6
+    }
+  },
+  "37127": {
+    "fips": "37127",
+    "county": "Nash",
+    "year": "2023",
+    "population": {
+      "total": 95451,
+      "median_age": 41.6,
+      "under18_pct": 22.1,
+      "over65_pct": 19
+    },
+    "economics": {
+      "median_household_income": 60704,
+      "poverty_pct": 14,
+      "unemployment_pct": 6.2
+    },
+    "housing": {
+      "median_home_value": 171100,
+      "median_gross_rent": 924,
+      "owner_occupied_pct": 63.7,
+      "renter_occupied_pct": 36.3
+    },
+    "education": {
+      "hs_or_higher_pct": 86.4,
+      "bachelors_or_higher_pct": 21.7
+    },
+    "race": {
+      "white_pct": 48.2,
+      "black_pct": 40.6,
+      "aian_pct": 0.7,
+      "asian_pct": 0.9,
+      "nhpi_pct": 0,
+      "other_pct": 5.2,
+      "multiracial_pct": 4.4,
+      "hispanic_pct": 7.9
+    }
+  },
+  "37129": {
+    "fips": "37129",
+    "county": "New Hanover",
+    "year": "2023",
+    "population": {
+      "total": 231214,
+      "median_age": 40.1,
+      "under18_pct": 18.2,
+      "over65_pct": 18.7
+    },
+    "economics": {
+      "median_household_income": 72892,
+      "poverty_pct": 12.4,
+      "unemployment_pct": 4.7
+    },
+    "housing": {
+      "median_home_value": 353700,
+      "median_gross_rent": 1343,
+      "owner_occupied_pct": 60.7,
+      "renter_occupied_pct": 39.3
+    },
+    "education": {
+      "hs_or_higher_pct": 93.6,
+      "bachelors_or_higher_pct": 44.8
+    },
+    "race": {
+      "white_pct": 77.4,
+      "black_pct": 11.3,
+      "aian_pct": 0.2,
+      "asian_pct": 1.4,
+      "nhpi_pct": 0,
+      "other_pct": 3.8,
+      "multiracial_pct": 5.9,
+      "hispanic_pct": 7.6
+    }
+  },
+  "37131": {
+    "fips": "37131",
+    "county": "Northampton",
+    "year": "2023",
+    "population": {
+      "total": 17212,
+      "median_age": 51.6,
+      "under18_pct": 17.9,
+      "over65_pct": 28.5
+    },
+    "economics": {
+      "median_household_income": 47935,
+      "poverty_pct": 20,
+      "unemployment_pct": 6.5
+    },
+    "housing": {
+      "median_home_value": 102200,
+      "median_gross_rent": 749,
+      "owner_occupied_pct": 73.2,
+      "renter_occupied_pct": 26.8
+    },
+    "education": {
+      "hs_or_higher_pct": 84.5,
+      "bachelors_or_higher_pct": 19
+    },
+    "race": {
+      "white_pct": 39.7,
+      "black_pct": 54.9,
+      "aian_pct": 0.2,
+      "asian_pct": 0.1,
+      "nhpi_pct": 0,
+      "other_pct": 0.7,
+      "multiracial_pct": 4.3,
+      "hispanic_pct": 2.3
+    }
+  },
+  "37133": {
+    "fips": "37133",
+    "county": "Onslow",
+    "year": "2023",
+    "population": {
+      "total": 208537,
+      "median_age": 27.1,
+      "under18_pct": 24.3,
+      "over65_pct": 9.7
+    },
+    "economics": {
+      "median_household_income": 64568,
+      "poverty_pct": 11.7,
+      "unemployment_pct": 3.7
+    },
+    "housing": {
+      "median_home_value": 219500,
+      "median_gross_rent": 1198,
+      "owner_occupied_pct": 61,
+      "renter_occupied_pct": 39
+    },
+    "education": {
+      "hs_or_higher_pct": 93.2,
+      "bachelors_or_higher_pct": 26.1
+    },
+    "race": {
+      "white_pct": 69.2,
+      "black_pct": 12.5,
+      "aian_pct": 0.8,
+      "asian_pct": 1.8,
+      "nhpi_pct": 0.1,
+      "other_pct": 2.6,
+      "multiracial_pct": 12.8,
+      "hispanic_pct": 13.8
+    }
+  },
+  "37135": {
+    "fips": "37135",
+    "county": "Orange",
+    "year": "2023",
+    "population": {
+      "total": 147292,
+      "median_age": 36.2,
+      "under18_pct": 19.4,
+      "over65_pct": 15.7
+    },
+    "economics": {
+      "median_household_income": 88553,
+      "poverty_pct": 12.4,
+      "unemployment_pct": 3.6
+    },
+    "housing": {
+      "median_home_value": 428500,
+      "median_gross_rent": 1387,
+      "owner_occupied_pct": 64.2,
+      "renter_occupied_pct": 35.8
+    },
+    "education": {
+      "hs_or_higher_pct": 93.2,
+      "bachelors_or_higher_pct": 61.8
+    },
+    "race": {
+      "white_pct": 70.5,
+      "black_pct": 10.6,
+      "aian_pct": 0.5,
+      "asian_pct": 7.9,
+      "nhpi_pct": 0,
+      "other_pct": 3.8,
+      "multiracial_pct": 6.8,
+      "hispanic_pct": 10.6
+    }
+  },
+  "37137": {
+    "fips": "37137",
+    "county": "Pamlico",
+    "year": "2023",
+    "population": {
+      "total": 12315,
+      "median_age": 54.1,
+      "under18_pct": 14.2,
+      "over65_pct": 30.7
+    },
+    "economics": {
+      "median_household_income": 61624,
+      "poverty_pct": 12.4,
+      "unemployment_pct": 4.5
+    },
+    "housing": {
+      "median_home_value": 209800,
+      "median_gross_rent": 909,
+      "owner_occupied_pct": 83.3,
+      "renter_occupied_pct": 16.7
+    },
+    "education": {
+      "hs_or_higher_pct": 90,
+      "bachelors_or_higher_pct": 25.4
+    },
+    "race": {
+      "white_pct": 74.6,
+      "black_pct": 18.6,
+      "aian_pct": 0.2,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0,
+      "other_pct": 1,
+      "multiracial_pct": 5.1,
+      "hispanic_pct": 4.6
+    }
+  },
+  "37139": {
+    "fips": "37139",
+    "county": "Pasquotank",
+    "year": "2023",
+    "population": {
+      "total": 40830,
+      "median_age": 39,
+      "under18_pct": 21.6,
+      "over65_pct": 18.1
+    },
+    "economics": {
+      "median_household_income": 63912,
+      "poverty_pct": 10,
+      "unemployment_pct": 6.4
+    },
+    "housing": {
+      "median_home_value": 223300,
+      "median_gross_rent": 1146,
+      "owner_occupied_pct": 65.1,
+      "renter_occupied_pct": 34.9
+    },
+    "education": {
+      "hs_or_higher_pct": 90,
+      "bachelors_or_higher_pct": 26.9
+    },
+    "race": {
+      "white_pct": 55.6,
+      "black_pct": 35.2,
+      "aian_pct": 0.4,
+      "asian_pct": 1.2,
+      "nhpi_pct": 0.3,
+      "other_pct": 1.6,
+      "multiracial_pct": 5.7,
+      "hispanic_pct": 5.9
+    }
+  },
+  "37141": {
+    "fips": "37141",
+    "county": "Pender",
+    "year": "2023",
+    "population": {
+      "total": 63475,
+      "median_age": 41.8,
+      "under18_pct": 22.5,
+      "over65_pct": 18
+    },
+    "economics": {
+      "median_household_income": 76838,
+      "poverty_pct": 10.7,
+      "unemployment_pct": 5.9
+    },
+    "housing": {
+      "median_home_value": 267100,
+      "median_gross_rent": 1072,
+      "owner_occupied_pct": 81.8,
+      "renter_occupied_pct": 18.2
+    },
+    "education": {
+      "hs_or_higher_pct": 90.5,
+      "bachelors_or_higher_pct": 29.8
+    },
+    "race": {
+      "white_pct": 75.7,
+      "black_pct": 12.4,
+      "aian_pct": 0.3,
+      "asian_pct": 0.7,
+      "nhpi_pct": 0.1,
+      "other_pct": 5.4,
+      "multiracial_pct": 5.4,
+      "hispanic_pct": 8.5
+    }
+  },
+  "37143": {
+    "fips": "37143",
+    "county": "Perquimans",
+    "year": "2023",
+    "population": {
+      "total": 13146,
+      "median_age": 50.5,
+      "under18_pct": 18.8,
+      "over65_pct": 28.4
+    },
+    "economics": {
+      "median_household_income": 61224,
+      "poverty_pct": 11.4,
+      "unemployment_pct": 5
+    },
+    "housing": {
+      "median_home_value": 211600,
+      "median_gross_rent": 1061,
+      "owner_occupied_pct": 72.7,
+      "renter_occupied_pct": 27.3
+    },
+    "education": {
+      "hs_or_higher_pct": 86.7,
+      "bachelors_or_higher_pct": 20.4
+    },
+    "race": {
+      "white_pct": 70.3,
+      "black_pct": 21.8,
+      "aian_pct": 0,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 2.4,
+      "multiracial_pct": 4.7,
+      "hispanic_pct": 3
+    }
+  },
+  "37145": {
+    "fips": "37145",
+    "county": "Person",
+    "year": "2023",
+    "population": {
+      "total": 39275,
+      "median_age": 43.9,
+      "under18_pct": 20.7,
+      "over65_pct": 21
+    },
+    "economics": {
+      "median_household_income": 64927,
+      "poverty_pct": 18.4,
+      "unemployment_pct": 3.8
+    },
+    "housing": {
+      "median_home_value": 192800,
+      "median_gross_rent": 796,
+      "owner_occupied_pct": 75.9,
+      "renter_occupied_pct": 24.1
+    },
+    "education": {
+      "hs_or_higher_pct": 89.1,
+      "bachelors_or_higher_pct": 19.8
+    },
+    "race": {
+      "white_pct": 65.7,
+      "black_pct": 25.5,
+      "aian_pct": 0.6,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0,
+      "other_pct": 1.4,
+      "multiracial_pct": 6.4,
+      "hispanic_pct": 5.9
+    }
+  },
+  "37147": {
+    "fips": "37147",
+    "county": "Pitt",
+    "year": "2023",
+    "population": {
+      "total": 172279,
+      "median_age": 33.6,
+      "under18_pct": 21.5,
+      "over65_pct": 14.3
+    },
+    "economics": {
+      "median_household_income": 58851,
+      "poverty_pct": 19.4,
+      "unemployment_pct": 7.5
+    },
+    "housing": {
+      "median_home_value": 194300,
+      "median_gross_rent": 971,
+      "owner_occupied_pct": 50.9,
+      "renter_occupied_pct": 49.1
+    },
+    "education": {
+      "hs_or_higher_pct": 90.9,
+      "bachelors_or_higher_pct": 33.9
+    },
+    "race": {
+      "white_pct": 53,
+      "black_pct": 35.1,
+      "aian_pct": 0.4,
+      "asian_pct": 1.8,
+      "nhpi_pct": 0,
+      "other_pct": 5.1,
+      "multiracial_pct": 4.7,
+      "hispanic_pct": 7.7
+    }
+  },
+  "37149": {
+    "fips": "37149",
+    "county": "Polk",
+    "year": "2023",
+    "population": {
+      "total": 19689,
+      "median_age": 54.4,
+      "under18_pct": 15.6,
+      "over65_pct": 32.1
+    },
+    "economics": {
+      "median_household_income": 61005,
+      "poverty_pct": 13.7,
+      "unemployment_pct": 4.3
+    },
+    "housing": {
+      "median_home_value": 281100,
+      "median_gross_rent": 1089,
+      "owner_occupied_pct": 76.6,
+      "renter_occupied_pct": 23.4
+    },
+    "education": {
+      "hs_or_higher_pct": 91.9,
+      "bachelors_or_higher_pct": 32.9
+    },
+    "race": {
+      "white_pct": 87.7,
+      "black_pct": 5.1,
+      "aian_pct": 0.2,
+      "asian_pct": 0.1,
+      "nhpi_pct": 0,
+      "other_pct": 0.6,
+      "multiracial_pct": 6.3,
+      "hispanic_pct": 5.5
+    }
+  },
+  "37151": {
+    "fips": "37151",
+    "county": "Randolph",
+    "year": "2023",
+    "population": {
+      "total": 145322,
+      "median_age": 41.4,
+      "under18_pct": 22.4,
+      "over65_pct": 18.1
+    },
+    "economics": {
+      "median_household_income": 59047,
+      "poverty_pct": 14.8,
+      "unemployment_pct": 3.7
+    },
+    "housing": {
+      "median_home_value": 171600,
+      "median_gross_rent": 857,
+      "owner_occupied_pct": 72.7,
+      "renter_occupied_pct": 27.3
+    },
+    "education": {
+      "hs_or_higher_pct": 84,
+      "bachelors_or_higher_pct": 17.6
+    },
+    "race": {
+      "white_pct": 80.2,
+      "black_pct": 6.1,
+      "aian_pct": 0.3,
+      "asian_pct": 1.1,
+      "nhpi_pct": 0,
+      "other_pct": 6.3,
+      "multiracial_pct": 6,
+      "hispanic_pct": 13.6
+    }
+  },
+  "37153": {
+    "fips": "37153",
+    "county": "Richmond",
+    "year": "2023",
+    "population": {
+      "total": 42818,
+      "median_age": 40.3,
+      "under18_pct": 23.6,
+      "over65_pct": 17.9
+    },
+    "economics": {
+      "median_household_income": 43626,
+      "poverty_pct": 25.2,
+      "unemployment_pct": 9.5
+    },
+    "housing": {
+      "median_home_value": 120800,
+      "median_gross_rent": 744,
+      "owner_occupied_pct": 64.7,
+      "renter_occupied_pct": 35.3
+    },
+    "education": {
+      "hs_or_higher_pct": 84.2,
+      "bachelors_or_higher_pct": 16.2
+    },
+    "race": {
+      "white_pct": 56.9,
+      "black_pct": 31.8,
+      "aian_pct": 2.1,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 4.8,
+      "multiracial_pct": 3.7,
+      "hispanic_pct": 7.5
+    }
+  },
+  "37155": {
+    "fips": "37155",
+    "county": "Robeson",
+    "year": "2023",
+    "population": {
+      "total": 116858,
+      "median_age": 36.5,
+      "under18_pct": 25.5,
+      "over65_pct": 15.8
+    },
+    "economics": {
+      "median_household_income": 40318,
+      "poverty_pct": 28.8,
+      "unemployment_pct": 6.3
+    },
+    "housing": {
+      "median_home_value": 88600,
+      "median_gross_rent": 784,
+      "owner_occupied_pct": 65.6,
+      "renter_occupied_pct": 34.4
+    },
+    "education": {
+      "hs_or_higher_pct": 78.9,
+      "bachelors_or_higher_pct": 14.6
+    },
+    "race": {
+      "white_pct": 24.8,
+      "black_pct": 23.3,
+      "aian_pct": 39.6,
+      "asian_pct": 0.8,
+      "nhpi_pct": 0,
+      "other_pct": 7.8,
+      "multiracial_pct": 3.6,
+      "hispanic_pct": 10.5
+    }
+  },
+  "37157": {
+    "fips": "37157",
+    "county": "Rockingham",
+    "year": "2023",
+    "population": {
+      "total": 91585,
+      "median_age": 44.7,
+      "under18_pct": 20.5,
+      "over65_pct": 20.8
+    },
+    "economics": {
+      "median_household_income": 55796,
+      "poverty_pct": 16.8,
+      "unemployment_pct": 6.3
+    },
+    "housing": {
+      "median_home_value": 156000,
+      "median_gross_rent": 789,
+      "owner_occupied_pct": 72.4,
+      "renter_occupied_pct": 27.6
+    },
+    "education": {
+      "hs_or_higher_pct": 84.4,
+      "bachelors_or_higher_pct": 16.1
+    },
+    "race": {
+      "white_pct": 72.6,
+      "black_pct": 17.6,
+      "aian_pct": 0.7,
+      "asian_pct": 0.2,
+      "nhpi_pct": 0.2,
+      "other_pct": 2.6,
+      "multiracial_pct": 6.1,
+      "hispanic_pct": 6.9
+    }
+  },
+  "37159": {
+    "fips": "37159",
+    "county": "Rowan",
+    "year": "2023",
+    "population": {
+      "total": 148487,
+      "median_age": 40.5,
+      "under18_pct": 22.3,
+      "over65_pct": 17.5
+    },
+    "economics": {
+      "median_household_income": 63196,
+      "poverty_pct": 15.8,
+      "unemployment_pct": 5.9
+    },
+    "housing": {
+      "median_home_value": 216100,
+      "median_gross_rent": 990,
+      "owner_occupied_pct": 71.2,
+      "renter_occupied_pct": 28.8
+    },
+    "education": {
+      "hs_or_higher_pct": 88.1,
+      "bachelors_or_higher_pct": 21.5
+    },
+    "race": {
+      "white_pct": 71.3,
+      "black_pct": 15.7,
+      "aian_pct": 0.5,
+      "asian_pct": 1,
+      "nhpi_pct": 0.1,
+      "other_pct": 4.6,
+      "multiracial_pct": 6.8,
+      "hispanic_pct": 11.3
+    }
+  },
+  "37161": {
+    "fips": "37161",
+    "county": "Rutherford",
+    "year": "2023",
+    "population": {
+      "total": 64850,
+      "median_age": 45.3,
+      "under18_pct": 20.3,
+      "over65_pct": 22.1
+    },
+    "economics": {
+      "median_household_income": 49771,
+      "poverty_pct": 17.6,
+      "unemployment_pct": 5.5
+    },
+    "housing": {
+      "median_home_value": 180800,
+      "median_gross_rent": 748,
+      "owner_occupied_pct": 74.1,
+      "renter_occupied_pct": 25.9
+    },
+    "education": {
+      "hs_or_higher_pct": 86.6,
+      "bachelors_or_higher_pct": 20.7
+    },
+    "race": {
+      "white_pct": 83,
+      "black_pct": 8.1,
+      "aian_pct": 0.2,
+      "asian_pct": 0.5,
+      "nhpi_pct": 0,
+      "other_pct": 2.6,
+      "multiracial_pct": 5.6,
+      "hispanic_pct": 5.4
+    }
+  },
+  "37163": {
+    "fips": "37163",
+    "county": "Sampson",
+    "year": "2023",
+    "population": {
+      "total": 59245,
+      "median_age": 39.7,
+      "under18_pct": 24.5,
+      "over65_pct": 18
+    },
+    "economics": {
+      "median_household_income": 53159,
+      "poverty_pct": 20.2,
+      "unemployment_pct": 5.2
+    },
+    "housing": {
+      "median_home_value": 128400,
+      "median_gross_rent": 811,
+      "owner_occupied_pct": 72.8,
+      "renter_occupied_pct": 27.2
+    },
+    "education": {
+      "hs_or_higher_pct": 84.3,
+      "bachelors_or_higher_pct": 15.8
+    },
+    "race": {
+      "white_pct": 53.2,
+      "black_pct": 24.9,
+      "aian_pct": 2.2,
+      "asian_pct": 0.5,
+      "nhpi_pct": 0,
+      "other_pct": 14.9,
+      "multiracial_pct": 4.3,
+      "hispanic_pct": 21.3
+    }
+  },
+  "37165": {
+    "fips": "37165",
+    "county": "Scotland",
+    "year": "2023",
+    "population": {
+      "total": 34353,
+      "median_age": 38.3,
+      "under18_pct": 22.5,
+      "over65_pct": 17.9
+    },
+    "economics": {
+      "median_household_income": 43500,
+      "poverty_pct": 26.6,
+      "unemployment_pct": 10.1
+    },
+    "housing": {
+      "median_home_value": 109900,
+      "median_gross_rent": 766,
+      "owner_occupied_pct": 58.9,
+      "renter_occupied_pct": 41.1
+    },
+    "education": {
+      "hs_or_higher_pct": 82.4,
+      "bachelors_or_higher_pct": 14.8
+    },
+    "race": {
+      "white_pct": 41,
+      "black_pct": 37.8,
+      "aian_pct": 11.4,
+      "asian_pct": 1,
+      "nhpi_pct": 0,
+      "other_pct": 2,
+      "multiracial_pct": 6.8,
+      "hispanic_pct": 3.7
+    }
+  },
+  "37167": {
+    "fips": "37167",
+    "county": "Stanly",
+    "year": "2023",
+    "population": {
+      "total": 63557,
+      "median_age": 40.6,
+      "under18_pct": 21.7,
+      "over65_pct": 19
+    },
+    "economics": {
+      "median_household_income": 61631,
+      "poverty_pct": 14.2,
+      "unemployment_pct": 4.1
+    },
+    "housing": {
+      "median_home_value": 214300,
+      "median_gross_rent": 830,
+      "owner_occupied_pct": 73.6,
+      "renter_occupied_pct": 26.4
+    },
+    "education": {
+      "hs_or_higher_pct": 87.1,
+      "bachelors_or_higher_pct": 19.7
+    },
+    "race": {
+      "white_pct": 80.4,
+      "black_pct": 11,
+      "aian_pct": 0.3,
+      "asian_pct": 1.9,
+      "nhpi_pct": 0.3,
+      "other_pct": 2.6,
+      "multiracial_pct": 3.5,
+      "hispanic_pct": 5.3
+    }
+  },
+  "37169": {
+    "fips": "37169",
+    "county": "Stokes",
+    "year": "2023",
+    "population": {
+      "total": 44889,
+      "median_age": 47.6,
+      "under18_pct": 18.6,
+      "over65_pct": 22.5
+    },
+    "economics": {
+      "median_household_income": 60039,
+      "poverty_pct": 12,
+      "unemployment_pct": 4.6
+    },
+    "housing": {
+      "median_home_value": 186800,
+      "median_gross_rent": 766,
+      "owner_occupied_pct": 78.4,
+      "renter_occupied_pct": 21.6
+    },
+    "education": {
+      "hs_or_higher_pct": 89.9,
+      "bachelors_or_higher_pct": 18.5
+    },
+    "race": {
+      "white_pct": 91.3,
+      "black_pct": 3.4,
+      "aian_pct": 0.2,
+      "asian_pct": 0,
+      "nhpi_pct": 0,
+      "other_pct": 1.1,
+      "multiracial_pct": 3.9,
+      "hispanic_pct": 3.6
+    }
+  },
+  "37171": {
+    "fips": "37171",
+    "county": "Surry",
+    "year": "2023",
+    "population": {
+      "total": 71407,
+      "median_age": 43.7,
+      "under18_pct": 21.1,
+      "over65_pct": 20.6
+    },
+    "economics": {
+      "median_household_income": 56095,
+      "poverty_pct": 16.7,
+      "unemployment_pct": 5
+    },
+    "housing": {
+      "median_home_value": 166400,
+      "median_gross_rent": 741,
+      "owner_occupied_pct": 73.3,
+      "renter_occupied_pct": 26.7
+    },
+    "education": {
+      "hs_or_higher_pct": 82.6,
+      "bachelors_or_higher_pct": 19.4
+    },
+    "race": {
+      "white_pct": 86.2,
+      "black_pct": 3.8,
+      "aian_pct": 0.2,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0.1,
+      "other_pct": 3.3,
+      "multiracial_pct": 5.9,
+      "hispanic_pct": 12.1
+    }
+  },
+  "37173": {
+    "fips": "37173",
+    "county": "Swain",
+    "year": "2023",
+    "population": {
+      "total": 14065,
+      "median_age": 42.6,
+      "under18_pct": 22,
+      "over65_pct": 19.7
+    },
+    "economics": {
+      "median_household_income": 55429,
+      "poverty_pct": 21.1,
+      "unemployment_pct": 8.3
+    },
+    "housing": {
+      "median_home_value": 209800,
+      "median_gross_rent": 715,
+      "owner_occupied_pct": 73.3,
+      "renter_occupied_pct": 26.7
+    },
+    "education": {
+      "hs_or_higher_pct": 87.1,
+      "bachelors_or_higher_pct": 21.3
+    },
+    "race": {
+      "white_pct": 61.2,
+      "black_pct": 1.5,
+      "aian_pct": 29.3,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0.1,
+      "other_pct": 0.2,
+      "multiracial_pct": 7.3,
+      "hispanic_pct": 5.1
+    }
+  },
+  "37175": {
+    "fips": "37175",
+    "county": "Transylvania",
+    "year": "2023",
+    "population": {
+      "total": 33243,
+      "median_age": 51.9,
+      "under18_pct": 15.8,
+      "over65_pct": 30.8
+    },
+    "economics": {
+      "median_household_income": 64523,
+      "poverty_pct": 14.2,
+      "unemployment_pct": 3.6
+    },
+    "housing": {
+      "median_home_value": 336100,
+      "median_gross_rent": 909,
+      "owner_occupied_pct": 75.1,
+      "renter_occupied_pct": 24.9
+    },
+    "education": {
+      "hs_or_higher_pct": 93.8,
+      "bachelors_or_higher_pct": 38.6
+    },
+    "race": {
+      "white_pct": 89.3,
+      "black_pct": 3.9,
+      "aian_pct": 0.1,
+      "asian_pct": 0.5,
+      "nhpi_pct": 0,
+      "other_pct": 0.8,
+      "multiracial_pct": 5.4,
+      "hispanic_pct": 4.9
+    }
+  },
+  "37177": {
+    "fips": "37177",
+    "county": "Tyrrell",
+    "year": "2023",
+    "population": {
+      "total": 3376,
+      "median_age": 46,
+      "under18_pct": 16.6,
+      "over65_pct": 25.5
+    },
+    "economics": {
+      "median_household_income": 43952,
+      "poverty_pct": 20.8,
+      "unemployment_pct": 5.1
+    },
+    "housing": {
+      "median_home_value": 138400,
+      "median_gross_rent": 612,
+      "owner_occupied_pct": 78.6,
+      "renter_occupied_pct": 21.4
+    },
+    "education": {
+      "hs_or_higher_pct": 80.5,
+      "bachelors_or_higher_pct": 14.7
+    },
+    "race": {
+      "white_pct": 56.4,
+      "black_pct": 32.7,
+      "aian_pct": 0.2,
+      "asian_pct": 0.9,
+      "nhpi_pct": 0,
+      "other_pct": 5.6,
+      "multiracial_pct": 4.4,
+      "hispanic_pct": 10
+    }
+  },
+  "37179": {
+    "fips": "37179",
+    "county": "Union",
+    "year": "2023",
+    "population": {
+      "total": 244975,
+      "median_age": 39.1,
+      "under18_pct": 26,
+      "over65_pct": 13.2
+    },
+    "economics": {
+      "median_household_income": 99243,
+      "poverty_pct": 7.7,
+      "unemployment_pct": 4.2
+    },
+    "housing": {
+      "median_home_value": 374400,
+      "median_gross_rent": 1390,
+      "owner_occupied_pct": 81.8,
+      "renter_occupied_pct": 18.2
+    },
+    "education": {
+      "hs_or_higher_pct": 90.4,
+      "bachelors_or_higher_pct": 39
+    },
+    "race": {
+      "white_pct": 71.1,
+      "black_pct": 11.2,
+      "aian_pct": 0.4,
+      "asian_pct": 4.1,
+      "nhpi_pct": 0,
+      "other_pct": 6.1,
+      "multiracial_pct": 7.1,
+      "hispanic_pct": 12.9
+    }
+  },
+  "37181": {
+    "fips": "37181",
+    "county": "Vance",
+    "year": "2023",
+    "population": {
+      "total": 42361,
+      "median_age": 39.9,
+      "under18_pct": 24.1,
+      "over65_pct": 18.8
+    },
+    "economics": {
+      "median_household_income": 46943,
+      "poverty_pct": 19,
+      "unemployment_pct": 6.8
+    },
+    "housing": {
+      "median_home_value": 146300,
+      "median_gross_rent": 860,
+      "owner_occupied_pct": 57.4,
+      "renter_occupied_pct": 42.6
+    },
+    "education": {
+      "hs_or_higher_pct": 85.4,
+      "bachelors_or_higher_pct": 18.5
+    },
+    "race": {
+      "white_pct": 38.5,
+      "black_pct": 49,
+      "aian_pct": 0.3,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0,
+      "other_pct": 5.4,
+      "multiracial_pct": 6.1,
+      "hispanic_pct": 9.1
+    }
+  },
+  "37183": {
+    "fips": "37183",
+    "county": "Wake",
+    "year": "2023",
+    "population": {
+      "total": 1151009,
+      "median_age": 37.2,
+      "under18_pct": 23.4,
+      "over65_pct": 12.5
+    },
+    "economics": {
+      "median_household_income": 101763,
+      "poverty_pct": 7.9,
+      "unemployment_pct": 4.1
+    },
+    "housing": {
+      "median_home_value": 422800,
+      "median_gross_rent": 1508,
+      "owner_occupied_pct": 64.4,
+      "renter_occupied_pct": 35.6
+    },
+    "education": {
+      "hs_or_higher_pct": 94,
+      "bachelors_or_higher_pct": 56.3
+    },
+    "race": {
+      "white_pct": 59.4,
+      "black_pct": 19.3,
+      "aian_pct": 0.3,
+      "asian_pct": 8.1,
+      "nhpi_pct": 0,
+      "other_pct": 4.8,
+      "multiracial_pct": 8.1,
+      "hispanic_pct": 11.4
+    }
+  },
+  "37185": {
+    "fips": "37185",
+    "county": "Warren",
+    "year": "2023",
+    "population": {
+      "total": 18751,
+      "median_age": 48.6,
+      "under18_pct": 18.1,
+      "over65_pct": 26.9
+    },
+    "economics": {
+      "median_household_income": 45279,
+      "poverty_pct": 22.2,
+      "unemployment_pct": 8
+    },
+    "housing": {
+      "median_home_value": 124700,
+      "median_gross_rent": 771,
+      "owner_occupied_pct": 69.7,
+      "renter_occupied_pct": 30.3
+    },
+    "education": {
+      "hs_or_higher_pct": 86.7,
+      "bachelors_or_higher_pct": 19
+    },
+    "race": {
+      "white_pct": 38.5,
+      "black_pct": 47.1,
+      "aian_pct": 5.1,
+      "asian_pct": 0.7,
+      "nhpi_pct": 0,
+      "other_pct": 2.9,
+      "multiracial_pct": 5.7,
+      "hispanic_pct": 4.4
+    }
+  },
+  "37187": {
+    "fips": "37187",
+    "county": "Washington",
+    "year": "2023",
+    "population": {
+      "total": 10905,
+      "median_age": 49.3,
+      "under18_pct": 18.5,
+      "over65_pct": 27.4
+    },
+    "economics": {
+      "median_household_income": 41750,
+      "poverty_pct": 24.7,
+      "unemployment_pct": 11.1
+    },
+    "housing": {
+      "median_home_value": 107000,
+      "median_gross_rent": 829,
+      "owner_occupied_pct": 68.7,
+      "renter_occupied_pct": 31.3
+    },
+    "education": {
+      "hs_or_higher_pct": 85.6,
+      "bachelors_or_higher_pct": 12.2
+    },
+    "race": {
+      "white_pct": 46.6,
+      "black_pct": 49.6,
+      "aian_pct": 0,
+      "asian_pct": 0.1,
+      "nhpi_pct": 0,
+      "other_pct": 0.2,
+      "multiracial_pct": 3.4,
+      "hispanic_pct": 3.9
+    }
+  },
+  "37189": {
+    "fips": "37189",
+    "county": "Watauga",
+    "year": "2023",
+    "population": {
+      "total": 54607,
+      "median_age": 32.2,
+      "under18_pct": 12.4,
+      "over65_pct": 16.7
+    },
+    "economics": {
+      "median_household_income": 51367,
+      "poverty_pct": 24.7,
+      "unemployment_pct": 9
+    },
+    "housing": {
+      "median_home_value": 321500,
+      "median_gross_rent": 1066,
+      "owner_occupied_pct": 61.2,
+      "renter_occupied_pct": 38.8
+    },
+    "education": {
+      "hs_or_higher_pct": 92.4,
+      "bachelors_or_higher_pct": 47.7
+    },
+    "race": {
+      "white_pct": 90.3,
+      "black_pct": 2.2,
+      "aian_pct": 0.4,
+      "asian_pct": 1.2,
+      "nhpi_pct": 0,
+      "other_pct": 1.3,
+      "multiracial_pct": 4.6,
+      "hispanic_pct": 6
+    }
+  },
+  "37191": {
+    "fips": "37191",
+    "county": "Wayne",
+    "year": "2023",
+    "population": {
+      "total": 117606,
+      "median_age": 37.4,
+      "under18_pct": 23.7,
+      "over65_pct": 16.7
+    },
+    "economics": {
+      "median_household_income": 58082,
+      "poverty_pct": 16.9,
+      "unemployment_pct": 5.1
+    },
+    "housing": {
+      "median_home_value": 162700,
+      "median_gross_rent": 932,
+      "owner_occupied_pct": 61.5,
+      "renter_occupied_pct": 38.5
+    },
+    "education": {
+      "hs_or_higher_pct": 86.4,
+      "bachelors_or_higher_pct": 21.3
+    },
+    "race": {
+      "white_pct": 55,
+      "black_pct": 30.6,
+      "aian_pct": 0.2,
+      "asian_pct": 1.2,
+      "nhpi_pct": 0.1,
+      "other_pct": 2.6,
+      "multiracial_pct": 10.4,
+      "hispanic_pct": 13.2
+    }
+  },
+  "37193": {
+    "fips": "37193",
+    "county": "Wilkes",
+    "year": "2023",
+    "population": {
+      "total": 65983,
+      "median_age": 45.3,
+      "under18_pct": 20,
+      "over65_pct": 22.7
+    },
+    "economics": {
+      "median_household_income": 50438,
+      "poverty_pct": 16.4,
+      "unemployment_pct": 4.9
+    },
+    "housing": {
+      "median_home_value": 161400,
+      "median_gross_rent": 715,
+      "owner_occupied_pct": 73.9,
+      "renter_occupied_pct": 26.1
+    },
+    "education": {
+      "hs_or_higher_pct": 81.9,
+      "bachelors_or_higher_pct": 16.7
+    },
+    "race": {
+      "white_pct": 87.2,
+      "black_pct": 3.7,
+      "aian_pct": 0.2,
+      "asian_pct": 0.6,
+      "nhpi_pct": 0.1,
+      "other_pct": 2.7,
+      "multiracial_pct": 5.4,
+      "hispanic_pct": 7.3
+    }
+  },
+  "37195": {
+    "fips": "37195",
+    "county": "Wilson",
+    "year": "2023",
+    "population": {
+      "total": 78648,
+      "median_age": 40.7,
+      "under18_pct": 23,
+      "over65_pct": 19
+    },
+    "economics": {
+      "median_household_income": 51381,
+      "poverty_pct": 21,
+      "unemployment_pct": 6
+    },
+    "housing": {
+      "median_home_value": 171800,
+      "median_gross_rent": 915,
+      "owner_occupied_pct": 59.1,
+      "renter_occupied_pct": 40.9
+    },
+    "education": {
+      "hs_or_higher_pct": 84.4,
+      "bachelors_or_higher_pct": 20.3
+    },
+    "race": {
+      "white_pct": 46.1,
+      "black_pct": 39.3,
+      "aian_pct": 0.2,
+      "asian_pct": 1,
+      "nhpi_pct": 0,
+      "other_pct": 8.2,
+      "multiracial_pct": 5.2,
+      "hispanic_pct": 11.9
+    }
+  },
+  "37197": {
+    "fips": "37197",
+    "county": "Yadkin",
+    "year": "2023",
+    "population": {
+      "total": 37419,
+      "median_age": 44.3,
+      "under18_pct": 20.7,
+      "over65_pct": 20.7
+    },
+    "economics": {
+      "median_household_income": 60321,
+      "poverty_pct": 13.6,
+      "unemployment_pct": 5.4
+    },
+    "housing": {
+      "median_home_value": 176400,
+      "median_gross_rent": 734,
+      "owner_occupied_pct": 77.1,
+      "renter_occupied_pct": 22.9
+    },
+    "education": {
+      "hs_or_higher_pct": 86.5,
+      "bachelors_or_higher_pct": 15.8
+    },
+    "race": {
+      "white_pct": 86.2,
+      "black_pct": 2.9,
+      "aian_pct": 0.5,
+      "asian_pct": 0.1,
+      "nhpi_pct": 0,
+      "other_pct": 4.3,
+      "multiracial_pct": 5.9,
+      "hispanic_pct": 12.1
+    }
+  },
+  "37199": {
+    "fips": "37199",
+    "county": "Yancey",
+    "year": "2023",
+    "population": {
+      "total": 18676,
+      "median_age": 47.9,
+      "under18_pct": 18.4,
+      "over65_pct": 26.5
+    },
+    "economics": {
+      "median_household_income": 54961,
+      "poverty_pct": 14.9,
+      "unemployment_pct": 6
+    },
+    "housing": {
+      "median_home_value": 222300,
+      "median_gross_rent": 807,
+      "owner_occupied_pct": 77.2,
+      "renter_occupied_pct": 22.8
+    },
+    "education": {
+      "hs_or_higher_pct": 88.1,
+      "bachelors_or_higher_pct": 23
+    },
+    "race": {
+      "white_pct": 92.5,
+      "black_pct": 0.6,
+      "aian_pct": 0.2,
+      "asian_pct": 0.4,
+      "nhpi_pct": 0,
+      "other_pct": 2.5,
+      "multiracial_pct": 3.8,
+      "hispanic_pct": 5.6
+    }
+  }
+}
