@@ -43,3 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# NCDPI raw source files are managed by data/raw/.gitignore
+# The processed output (data/dist/*.json) IS committed

@@ -1,0 +1,5 @@
+# Ignore large raw data files — only the data dictionary is committed
+*
+!.gitignore
+!README.md
+!SRC_Data Dictionary_202324.xlsx
