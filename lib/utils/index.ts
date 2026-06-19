@@ -5,6 +5,18 @@
 import type { PoliceIncident, IncidentFilters } from "@/types";
 import { toDateKey, toIncidentDateKey } from "@/lib/api/incidents";
 
+/** ArcGIS null-sentinel strings that should never surface as real field values. */
+export const NULL_SENTINELS = new Set(["NULL", "null", "N/A", "UNKNOWN"]);
+
+/**
+ * Returns a display-safe crime type string.
+ * Trims whitespace and replaces ArcGIS null-sentinel values with "Unknown".
+ */
+export function sanitizeCrimeType(value: string | undefined): string {
+  const cleaned = value?.trim();
+  return !cleaned || NULL_SENTINELS.has(cleaned) ? "Unknown" : cleaned;
+}
+
 /**
  * Formats an epoch millisecond timestamp to a human-readable date/time string.
  * Returns "N/A" for falsy values.

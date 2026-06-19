@@ -4,7 +4,7 @@
  */
 
 import type { PoliceIncident } from "@/types";
-import { formatDateTime, getCrimeBadgeColor } from "@/lib/utils";
+import { formatDateTime, getCrimeBadgeColor, sanitizeCrimeType } from "@/lib/utils";
 import EmptyState from "@/components/ui/EmptyState";
 
 interface IncidentTableProps {
@@ -49,6 +49,7 @@ export default function IncidentTable({ incidents, onReset }: IncidentTableProps
         <tbody className="divide-y divide-gray-50">
           {incidents.map((incident, idx) => {
             const attr = incident.attributes;
+            const crimeType = sanitizeCrimeType(attr.crime_type);
             const badgeColor = getCrimeBadgeColor(attr.crime_type);
 
             return (
@@ -63,7 +64,7 @@ export default function IncidentTable({ incidents, onReset }: IncidentTableProps
                   <span
                     className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${badgeColor}`}
                   >
-                    {attr.crime_type || "Unknown"}
+                    {crimeType}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-gray-700 max-w-[8rem] sm:max-w-xs truncate">

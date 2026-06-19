@@ -4,7 +4,7 @@
  */
 
 import type { PoliceIncident } from "@/types";
-import { formatDateTime, getCrimeBadgeColor } from "@/lib/utils";
+import { formatDateTime, getCrimeBadgeColor, sanitizeCrimeType } from "@/lib/utils";
 
 interface IncidentCardProps {
   incident: PoliceIncident;
@@ -12,6 +12,7 @@ interface IncidentCardProps {
 
 export default function IncidentCard({ incident }: IncidentCardProps) {
   const attr = incident.attributes;
+  const crimeType = sanitizeCrimeType(attr.crime_type);
   const badgeColor = getCrimeBadgeColor(attr.crime_type);
 
   return (
@@ -21,7 +22,7 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
         <span
           className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${badgeColor}`}
         >
-          {attr.crime_type || "Unknown"}
+          {crimeType}
         </span>
         {attr.district && (
           <span className="text-xs text-gray-400 whitespace-nowrap">

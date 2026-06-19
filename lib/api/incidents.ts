@@ -286,16 +286,17 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
     parts.push(`(${likeExpr})`);
   }
 
-  // Push date bounds as integer arithmetic on ArcGIS numeric date-part fields.
-  // This eliminates the need for fetchAll + in-memory post-filtering for date queries.
+  // Filter on the always-populated reported_date epoch-ms field rather than the
+  // reported_year/month/day integer fields, which are NULL for many ArcGIS records.
+  // UTC boundaries ensure alignment with how ArcGIS stores the timestamp.
   if (filters.dateFrom) {
-    const key = toDateKey(filters.dateFrom);
-    parts.push(`reported_year * 10000 + reported_month * 100 + reported_day >= ${key}`);
+    const [y, m, d] = filters.dateFrom.split("-").map(Number);
+    parts.push(`reported_date >= ${Date.UTC(y, m - 1, d, 0, 0, 0, 0)}`);
   }
 
   if (filters.dateTo) {
-    const key = toDateKey(filters.dateTo);
-    parts.push(`reported_year * 10000 + reported_month * 100 + reported_day <= ${key}`);
+    const [y, m, d] = filters.dateTo.split("-").map(Number);
+    parts.push(`reported_date <= ${Date.UTC(y, m - 1, d, 23, 59, 59, 999)}`);
   }
 
   return parts.length > 0 ? parts.join(" AND ") : "1=1";

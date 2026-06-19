@@ -5,15 +5,13 @@
  */
 
 import type { PoliceIncident } from "@/types";
+import { NULL_SENTINELS } from "@/lib/utils";
 import StatCard from "./StatCard";
 
 interface IncidentSummaryCardsProps {
   incidents: PoliceIncident[];
   loading?: boolean;
 }
-
-/** ArcGIS null-sentinel strings that should never be surfaced as real values. */
-const NULL_SENTINELS = new Set(["NULL", "null", "N/A", "UNKNOWN"]);
 
 /** Returns the most-frequent non-null value in an array, or a fallback string. */
 function topValue(values: (string | undefined)[], fallback = "—"): string {

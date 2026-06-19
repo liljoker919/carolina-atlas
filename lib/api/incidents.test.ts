@@ -363,12 +363,12 @@ describe("buildWhereClause", () => {
     expect(buildWhereClause({ district: "NORTH" })).toBe("district = 'NORTH'");
   });
 
-  it("builds date range predicates using reported_year/month/day integer arithmetic", () => {
+  it("builds date range predicates using reported_date epoch ms", () => {
     const result = buildWhereClause({ dateFrom: "2024-01-15", dateTo: "2024-01-31" });
+    const expectedStart = Date.UTC(2024, 0, 15, 0, 0, 0, 0);
+    const expectedEnd   = Date.UTC(2024, 0, 31, 23, 59, 59, 999);
     expect(result).toBe(
-      "reported_year * 10000 + reported_month * 100 + reported_day >= 20240115" +
-      " AND " +
-      "reported_year * 10000 + reported_month * 100 + reported_day <= 20240131"
+      `reported_date >= ${expectedStart} AND reported_date <= ${expectedEnd}`
     );
   });
 
@@ -389,10 +389,10 @@ describe("buildWhereClause", () => {
       dateFrom: "2024-06-01",
       dateTo: "2024-06-01",
     });
+    const expectedStart = Date.UTC(2024, 5, 1, 0, 0, 0, 0);
+    const expectedEnd   = Date.UTC(2024, 5, 1, 23, 59, 59, 999);
     expect(result).toBe(
-      "crime_type = 'THEFT' AND district = 'NORTH'" +
-      " AND reported_year * 10000 + reported_month * 100 + reported_day >= 20240601" +
-      " AND reported_year * 10000 + reported_month * 100 + reported_day <= 20240601"
+      `crime_type = 'THEFT' AND district = 'NORTH' AND reported_date >= ${expectedStart} AND reported_date <= ${expectedEnd}`
     );
   });
 
