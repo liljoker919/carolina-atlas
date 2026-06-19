@@ -35,7 +35,7 @@ const EXCLUDED_LEA_CODES = new Set([
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
-function readSheet<T extends Record<string, unknown>>(filename: string): T[] {
+function readSheet<T extends object>(filename: string): T[] {
   const filepath = path.join(RAW, filename);
   if (!fs.existsSync(filepath)) {
     console.warn(`  ⚠  Missing: ${filename} — skipping this data source`);
