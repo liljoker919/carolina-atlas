@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { GET } from "./route";
-import { buildWhereClause, fetchIncidents, filterIncidentsByDateParts } from "@/lib/api/incidents";
+import { buildWhereClause, fetchIncidents } from "@/lib/api/incidents";
 import {
   ApiError,
   ERROR_CODE_RATE_LIMIT,
@@ -14,7 +14,6 @@ import { enforceApiRateLimit } from "@/lib/api/rate-limit";
 vi.mock("@/lib/api/incidents", () => ({
   buildWhereClause: vi.fn(() => "1=1"),
   fetchIncidents: vi.fn(),
-  filterIncidentsByDateParts: vi.fn((incidents) => incidents),
 }));
 
 vi.mock("@/lib/api/rate-limit", () => ({
@@ -83,13 +82,7 @@ describe("GET /api/incidents", () => {
     expect(vi.mocked(fetchIncidents)).toHaveBeenCalledWith({
       where: "1=1",
       limit: 500,
-      fetchAll: true,
     });
-    expect(vi.mocked(filterIncidentsByDateParts)).toHaveBeenCalledWith(
-      [],
-      "2026-05-01",
-      "2026-05-10"
-    );
     await expect(response.json()).resolves.toEqual([]);
   });
 

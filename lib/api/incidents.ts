@@ -20,7 +20,7 @@ function createIncidentsUpstreamError(): ApiError {
   return new ApiError(INCIDENTS_UPSTREAM_ERROR_MESSAGE, ERROR_CODE_UPSTREAM, 502);
 }
 
-function toDateKey(date: string): number {
+export function toDateKey(date: string): number {
   if (!isValidDateFormat(date)) {
     throw new Error(`Invalid date format: "${date}". Expected YYYY-MM-DD.`);
   }
@@ -29,7 +29,7 @@ function toDateKey(date: string): number {
   return year * 10_000 + month * 100 + day;
 }
 
-function toIncidentDateKey(incident: PoliceIncident): number | null {
+export function toIncidentDateKey(incident: PoliceIncident): number | null {
   const { reported_year, reported_month, reported_day, reported_date } = incident.attributes;
 
   if (
@@ -44,8 +44,11 @@ function toIncidentDateKey(incident: PoliceIncident): number | null {
     return null;
   }
 
+  // Use UTC methods so the decomposed date matches timezone-neutral toDateKey output.
+  // local getDate() would shift incidents near UTC midnight to the wrong calendar day
+  // in western-hemisphere server environments.
   const date = new Date(reported_date);
-  return date.getFullYear() * 10_000 + (date.getMonth() + 1) * 100 + date.getDate();
+  return date.getUTCFullYear() * 10_000 + (date.getUTCMonth() + 1) * 100 + date.getUTCDate();
 }
 
 const BASE_URL =
@@ -188,22 +191,6 @@ export async function fetchIncidents(
 }
 
 /**
- * Fetch incidents with a date range filter.
- * Dates should be ISO date strings like "2024-01-01".
- */
-export async function fetchIncidentsByDateRange(
-  dateFrom: string,
-  dateTo: string,
-  limit?: number
-): Promise<PoliceIncident[]> {
-  toDateKey(dateFrom);
-  toDateKey(dateTo);
-  const effectiveLimit = limit ?? DEFAULT_RESULT_LIMIT;
-  const incidents = await fetchIncidents({ where: "1=1", fetchAll: true });
-  return filterIncidentsByDateParts(incidents, dateFrom, dateTo).slice(0, effectiveLimit);
-}
-
-/**
  * Returns a sorted, deduplicated list of crime types from an array of incidents.
  */
 export function extractCrimeTypes(incidents: PoliceIncident[]): string[] {
@@ -297,6 +284,18 @@ export function buildWhereClause(filters: IncidentQueryFilters): string {
       `district LIKE '%${q}%'`,
     ].join(" OR ");
     parts.push(`(${likeExpr})`);
+  }
+
+  // Push date bounds as integer arithmetic on ArcGIS numeric date-part fields.
+  // This eliminates the need for fetchAll + in-memory post-filtering for date queries.
+  if (filters.dateFrom) {
+    const key = toDateKey(filters.dateFrom);
+    parts.push(`reported_year * 10000 + reported_month * 100 + reported_day >= ${key}`);
+  }
+
+  if (filters.dateTo) {
+    const key = toDateKey(filters.dateTo);
+    parts.push(`reported_year * 10000 + reported_month * 100 + reported_day <= ${key}`);
   }
 
   return parts.length > 0 ? parts.join(" AND ") : "1=1";

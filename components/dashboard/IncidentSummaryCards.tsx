@@ -12,11 +12,17 @@ interface IncidentSummaryCardsProps {
   loading?: boolean;
 }
 
-/** Returns the most-frequent value in an array, or a fallback string. */
+/** ArcGIS null-sentinel strings that should never be surfaced as real values. */
+const NULL_SENTINELS = new Set(["NULL", "null", "N/A", "UNKNOWN"]);
+
+/** Returns the most-frequent non-null value in an array, or a fallback string. */
 function topValue(values: (string | undefined)[], fallback = "—"): string {
   const counts = new Map<string, number>();
   for (const v of values) {
-    if (v) counts.set(v, (counts.get(v) ?? 0) + 1);
+    const cleaned = v?.trim();
+    if (cleaned && !NULL_SENTINELS.has(cleaned)) {
+      counts.set(cleaned, (counts.get(cleaned) ?? 0) + 1);
+    }
   }
   let best = fallback;
   let max = 0;

@@ -19,6 +19,12 @@ interface RateLimitOptions {
 const DEFAULT_REQUEST_LIMIT = 60;
 const DEFAULT_WINDOW_MS = 60_000;
 const PRUNE_INTERVAL_MS = 10_000;
+
+// NOTE: This Map is module-level in-process state. In a serverless / edge
+// deployment (Vercel, AWS Lambda) each function instance maintains its own
+// independent copy, so the limit is enforced per-instance rather than
+// globally. For true distributed rate limiting, replace this Map with a
+// shared store such as Upstash Redis before tightening the limits.
 const rateLimitBuckets = new Map<string, RateLimitBucket>();
 let lastPrunedAt = 0;
 
@@ -39,11 +45,12 @@ function maybePruneExpiredBuckets(now: number) {
 function getClientIp(request: NextRequest): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (forwardedFor) {
-    const [firstForwardedEntry] = forwardedFor.split(",");
-    const ip = firstForwardedEntry?.trim();
-    if (ip) {
-      return ip;
-    }
+    // Reverse proxies (Vercel, Nginx, CDNs) APPEND the real client IP as the
+    // last entry. The first entry is client-controlled and must not be trusted
+    // — an attacker can rotate it to bypass per-IP limits.
+    const entries = forwardedFor.split(",");
+    const ip = entries[entries.length - 1]?.trim();
+    if (ip) return ip;
   }
 
   const realIp = request.headers.get("x-real-ip")?.trim();

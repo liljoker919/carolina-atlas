@@ -3,28 +3,7 @@
  */
 
 import type { PoliceIncident, IncidentFilters } from "@/types";
-
-function dateKeyFromIso(dateStr: string): number {
-  const [year, month, day] = dateStr.split("-").map(Number);
-  return year * 10_000 + month * 100 + day;
-}
-
-function incidentDateKey(incident: PoliceIncident): number | null {
-  const { reported_year, reported_month, reported_day, reported_date } = incident.attributes;
-
-  if (
-    Number.isFinite(reported_year) &&
-    Number.isFinite(reported_month) &&
-    Number.isFinite(reported_day)
-  ) {
-    return Number(reported_year) * 10_000 + Number(reported_month) * 100 + Number(reported_day);
-  }
-
-  if (!reported_date) return null;
-
-  const d = new Date(reported_date);
-  return d.getFullYear() * 10_000 + (d.getMonth() + 1) * 100 + d.getDate();
-}
+import { toDateKey, toIncidentDateKey } from "@/lib/api/incidents";
 
 /**
  * Formats an epoch millisecond timestamp to a human-readable date/time string.
@@ -93,8 +72,8 @@ export function filterIncidents(
   const { searchQuery, crimeType, district, dateFrom, dateTo } = filters;
 
   const query = searchQuery.toLowerCase().trim();
-  const fromKey = dateFrom ? dateKeyFromIso(dateFrom) : null;
-  const toKey = dateTo ? dateKeyFromIso(dateTo) : null;
+  const fromKey = dateFrom ? toDateKey(dateFrom) : null;
+  const toKey = dateTo ? toDateKey(dateTo) : null;
 
   return incidents.filter((incident) => {
     const attr = incident.attributes;
@@ -121,7 +100,7 @@ export function filterIncidents(
 
     // Date range filter
     if (fromKey || toKey) {
-      const key = incidentDateKey(incident);
+      const key = toIncidentDateKey(incident);
       if (key == null) return false;
       if (fromKey && key < fromKey) return false;
       if (toKey && key > toKey) return false;

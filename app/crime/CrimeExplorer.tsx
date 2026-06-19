@@ -24,8 +24,70 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
-import MapPlaceholder from "@/components/maps/MapPlaceholder";
-import ChartPlaceholder from "@/components/charts/ChartPlaceholder";
+import ComingSoon from "@/components/ui/ComingSoon";
+
+// ── Shared Tailwind utility for every filter control ────────────────────────
+const INPUT_CLS =
+  "w-full rounded-lg border border-gray-200 px-3 py-2 text-sm " +
+  "focus:outline-none focus:ring-2 focus:ring-[#4B9CD3] focus:border-transparent";
+
+// ── Local filter-control components ─────────────────────────────────────────
+
+interface FilterSelectProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: string[];
+  placeholder: string;
+}
+
+function FilterSelect({ id, label, value, onChange, options, placeholder }: FilterSelectProps) {
+  return (
+    <div>
+      <label className="block text-xs font-medium text-gray-500 mb-1" htmlFor={id}>
+        {label}
+      </label>
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={INPUT_CLS}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((o) => (
+          <option key={o} value={o}>{o}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+interface FilterDateInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function FilterDateInput({ id, label, value, onChange }: FilterDateInputProps) {
+  return (
+    <div>
+      <label className="block text-xs font-medium text-gray-500 mb-1" htmlFor={id}>
+        {label}
+      </label>
+      <input
+        id={id}
+        type="date"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={INPUT_CLS}
+      />
+    </div>
+  );
+}
+
+// ── Constants ────────────────────────────────────────────────────────────────
 
 const EMPTY_FILTERS: IncidentFilters = {
   searchQuery: "",
@@ -54,6 +116,11 @@ export default function CrimeExplorer() {
 
   // Debounced search — only used for the server fetch; the input reflects `filters.searchQuery` immediately.
   const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  // Tracks whether the *completed* fetch was driven by active filters.
+  // Used for the result count label so it always describes the data that is
+  // currently displayed, not the filter state the user may be mid-editing.
+  const [fetchedWithFilters, setFetchedWithFilters] = useState(false);
 
   // Retry counter — incrementing triggers a re-fetch
   const [retryCount, setRetryCount] = useState(0);
@@ -107,7 +174,20 @@ export default function CrimeExplorer() {
           throw new Error(body.error?.message ?? `Server error: ${res.status}`);
         }
         const data = await res.json() as PoliceIncident[];
-        if (!cancelled) setIncidents(data);
+        if (!cancelled) {
+          setIncidents(data);
+          // Record whether the completed fetch used any active filter so the
+          // count label always matches the data that is actually shown.
+          setFetchedWithFilters(
+            Boolean(
+              filters.crimeType ||
+              filters.district  ||
+              filters.dateFrom  ||
+              filters.dateTo    ||
+              debouncedSearch
+            )
+          );
+        }
       } catch (err) {
         if (!cancelled)
           setError(
@@ -140,6 +220,9 @@ export default function CrimeExplorer() {
 
   const handleRetry = () => setRetryCount((n) => n + 1);
 
+  // Used exclusively to control "Clear all filters" button visibility —
+  // updates instantly on keystroke so the button appears without waiting for
+  // the debounce to fire.
   const hasActiveFilters = Object.values(filters).some(Boolean);
 
   return (
@@ -164,17 +247,12 @@ export default function CrimeExplorer() {
           )}
         </section>
 
-        {/* ── Map Placeholder ─────────────────────────────────────────── */}
+        {/* ── Geographic View ──────────────────────────────────────────── */}
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold text-[#123047]">
-              Geographic View
-            </h2>
-            <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">
-              Coming Soon
-            </span>
-          </div>
-          <MapPlaceholder />
+          <ComingSoon
+            title="Geographic View"
+            description="An interactive map will visualize incidents by district and location. Coming in a future release."
+          />
         </section>
 
         {/* ── Filters ─────────────────────────────────────────────────── */}
@@ -205,90 +283,50 @@ export default function CrimeExplorer() {
                 placeholder="Location, crime type, case #…"
                 value={filters.searchQuery}
                 onChange={(e) => handleFilterChange("searchQuery", e.target.value)}
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4B9CD3] focus:border-transparent"
+                className={INPUT_CLS}
               />
             </div>
 
-            {/* Crime Type */}
-            <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1" htmlFor="crime-type">
-                Crime Type
-              </label>
-              <select
-                id="crime-type"
-                value={filters.crimeType}
-                onChange={(e) => handleFilterChange("crimeType", e.target.value)}
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4B9CD3] focus:border-transparent"
-              >
-                <option value="">All types</option>
-                {crimeTypes.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
-            </div>
+            <FilterSelect
+              id="crime-type"
+              label="Crime Type"
+              value={filters.crimeType}
+              onChange={(v) => handleFilterChange("crimeType", v)}
+              options={crimeTypes}
+              placeholder="All types"
+            />
 
-            {/* District */}
-            <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1" htmlFor="district">
-                District
-              </label>
-              <select
-                id="district"
-                value={filters.district}
-                onChange={(e) => handleFilterChange("district", e.target.value)}
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4B9CD3] focus:border-transparent"
-              >
-                <option value="">All districts</option>
-                {districts.map((d) => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
-            </div>
+            <FilterSelect
+              id="district"
+              label="District"
+              value={filters.district}
+              onChange={(v) => handleFilterChange("district", v)}
+              options={districts}
+              placeholder="All districts"
+            />
 
-            {/* Date From */}
-            <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1" htmlFor="date-from">
-                Date From
-              </label>
-              <input
-                id="date-from"
-                type="date"
-                value={filters.dateFrom}
-                onChange={(e) => handleFilterChange("dateFrom", e.target.value)}
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4B9CD3] focus:border-transparent"
-              />
-            </div>
+            <FilterDateInput
+              id="date-from"
+              label="Date From"
+              value={filters.dateFrom}
+              onChange={(v) => handleFilterChange("dateFrom", v)}
+            />
 
-            {/* Date To */}
-            <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1" htmlFor="date-to">
-                Date To
-              </label>
-              <input
-                id="date-to"
-                type="date"
-                value={filters.dateTo}
-                onChange={(e) => handleFilterChange("dateTo", e.target.value)}
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4B9CD3] focus:border-transparent"
-              />
-            </div>
+            <FilterDateInput
+              id="date-to"
+              label="Date To"
+              value={filters.dateTo}
+              onChange={(v) => handleFilterChange("dateTo", v)}
+            />
           </div>
         </section>
 
-        {/* ── Chart Placeholders ──────────────────────────────────────── */}
+        {/* ── Analytics ───────────────────────────────────────────────── */}
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold text-[#123047]">
-              Analytics
-            </h2>
-            <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">
-              Coming Soon
-            </span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <ChartPlaceholder title="Incidents by Crime Type" />
-            <ChartPlaceholder title="Incidents by District" />
-          </div>
+          <ComingSoon
+            title="Analytics"
+            description="Charts and trend analysis for incidents by crime type and district will be available in a future release."
+          />
         </section>
 
         {/* ── Results ─────────────────────────────────────────────────── */}
@@ -300,7 +338,7 @@ export default function CrimeExplorer() {
               </h2>
               {!loading && !error && (
                 <p className="text-sm text-gray-500">
-                  {hasActiveFilters ? (
+                  {fetchedWithFilters ? (
                     <>
                       <span className="font-medium text-[#123047]">
                         {incidents.length}
@@ -358,7 +396,7 @@ export default function CrimeExplorer() {
           )}
 
           {!loading && !error && viewMode === "table" && (
-            <IncidentTable incidents={incidents} />
+            <IncidentTable incidents={incidents} onReset={handleReset} />
           )}
 
           {!loading && !error && viewMode === "cards" && (

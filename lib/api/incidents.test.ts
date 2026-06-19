@@ -22,7 +22,6 @@ import {
   filterIncidentsByDateParts,
   fetchDistinctValues,
   fetchIncidents,
-  fetchIncidentsByDateRange,
 } from "./incidents";
 
 // ---------------------------------------------------------------------------
@@ -241,55 +240,6 @@ describe("fetchIncidents", () => {
 });
 
 // ---------------------------------------------------------------------------
-// fetchIncidentsByDateRange
-// ---------------------------------------------------------------------------
-
-describe("fetchIncidentsByDateRange", () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it("fetches broadly and filters by numeric date parts in TypeScript", async () => {
-    const incidents = [
-      makeIncident({ OBJECTID: 1, reported_year: 2024, reported_month: 1, reported_day: 10 }),
-      makeIncident({ OBJECTID: 2, reported_year: 2024, reported_month: 2, reported_day: 1 }),
-    ];
-    const mockFetch = mockFetchOnce(makeArcGISResponse(incidents));
-    vi.stubGlobal("fetch", mockFetch);
-
-    const result = await fetchIncidentsByDateRange("2024-01-01", "2024-01-31");
-
-    expect(result.map((r) => r.attributes.OBJECTID)).toEqual([1]);
-
-    const calledUrl: string = mockFetch.mock.calls[0][0] as string;
-    const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
-    expect(decodedUrl).toContain("where=1=1");
-    expect(decodedUrl).not.toContain("reported_date >=");
-  });
-
-  it("supports inclusive same-day date ranges via reported_year/month/day", async () => {
-    const mockFetch = mockFetchOnce(makeArcGISResponse([]));
-    vi.stubGlobal("fetch", mockFetch);
-
-    await fetchIncidentsByDateRange("2024-01-01", "2024-01-01");
-
-    const calledUrl: string = mockFetch.mock.calls[0][0] as string;
-    const decodedUrl = decodeURIComponent(calledUrl).replace(/\+/g, " ");
-    expect(decodedUrl).toContain("where=1=1");
-  });
-
-  it("rejects invalid dates before executing an ArcGIS request", async () => {
-    const mockFetch = mockFetchOnce(makeArcGISResponse([]));
-    vi.stubGlobal("fetch", mockFetch);
-
-    await expect(fetchIncidentsByDateRange("2024-99-01", "2024-01-31")).rejects.toThrow(
-      'Invalid date format: "2024-99-01". Expected YYYY-MM-DD.'
-    );
-    expect(mockFetch).not.toHaveBeenCalled();
-  });
-});
-
-// ---------------------------------------------------------------------------
 // filterIncidentsByDateParts
 // ---------------------------------------------------------------------------
 
@@ -413,9 +363,13 @@ describe("buildWhereClause", () => {
     expect(buildWhereClause({ district: "NORTH" })).toBe("district = 'NORTH'");
   });
 
-  it("does not add ArcGIS reported_date predicates for dateFrom/dateTo", () => {
+  it("builds date range predicates using reported_year/month/day integer arithmetic", () => {
     const result = buildWhereClause({ dateFrom: "2024-01-15", dateTo: "2024-01-31" });
-    expect(result).toBe("1=1");
+    expect(result).toBe(
+      "reported_year * 10000 + reported_month * 100 + reported_day >= 20240115" +
+      " AND " +
+      "reported_year * 10000 + reported_month * 100 + reported_day <= 20240131"
+    );
   });
 
   it("builds a searchQuery LIKE clause across multiple fields", () => {
@@ -428,14 +382,18 @@ describe("buildWhereClause", () => {
     expect(result).toMatch(/^\(/);
   });
 
-  it("combines non-date filters with AND", () => {
+  it("combines all filters with AND, including date predicates", () => {
     const result = buildWhereClause({
       crimeType: "THEFT",
       district: "NORTH",
       dateFrom: "2024-06-01",
       dateTo: "2024-06-01",
     });
-    expect(result).toBe("crime_type = 'THEFT' AND district = 'NORTH'");
+    expect(result).toBe(
+      "crime_type = 'THEFT' AND district = 'NORTH'" +
+      " AND reported_year * 10000 + reported_month * 100 + reported_day >= 20240601" +
+      " AND reported_year * 10000 + reported_month * 100 + reported_day <= 20240601"
+    );
   });
 
   it("escapes single quotes in crimeType to prevent SQL injection", () => {

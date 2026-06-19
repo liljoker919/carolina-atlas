@@ -9,14 +9,17 @@ import EmptyState from "@/components/ui/EmptyState";
 
 interface IncidentTableProps {
   incidents: PoliceIncident[];
+  onReset?: () => void;
 }
 
-export default function IncidentTable({ incidents }: IncidentTableProps) {
+export default function IncidentTable({ incidents, onReset }: IncidentTableProps) {
   if (incidents.length === 0) {
     return (
       <EmptyState
         title="No incidents found"
         description="No incidents match your current filters. Try adjusting or clearing your search."
+        actionLabel={onReset ? "Clear filters" : undefined}
+        onAction={onReset}
       />
     );
   }
