@@ -3,8 +3,8 @@ import PageHeader from "@/components/ui/PageHeader";
 import ComingSoon from "@/components/ui/ComingSoon";
 
 export const metadata: Metadata = {
-  title: "Schools",
-  description: "School performance metrics and education data across North Carolina.",
+  title: "NC Schools Dashboard — Education Data & Performance",
+  description: "School performance metrics, test scores, and education data across all 100 North Carolina counties.",
 };
 
 export default function SchoolsPage() {

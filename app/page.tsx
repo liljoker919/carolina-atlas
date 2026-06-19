@@ -9,6 +9,14 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Carolina Atlas — Transparent Civic Data for NC Communities",
+  description:
+    "Explore live crime data, school performance, and community demographics for North Carolina. Carolina Atlas makes public government data accessible to every resident.",
+  openGraph: {
+    title: "Carolina Atlas — Transparent Civic Data for NC Communities",
+    description:
+      "Explore live crime data, school performance, and community demographics for North Carolina.",
+    url: "https://carolina-atlas.com",
+  },
 };
 
 // ─── Stat card data (illustrative; will be live data in future releases) ───

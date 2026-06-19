@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://carolina-atlas.com"),
   title: {
     default: "Carolina Atlas",
     template: "%s | Carolina Atlas",
@@ -16,12 +17,22 @@ export const metadata: Metadata = {
     "crime statistics",
     "public transparency",
     "Raleigh",
+    "NC open data",
+    "community data",
   ],
   openGraph: {
+    siteName: "Carolina Atlas",
     title: "Carolina Atlas",
     description:
-      "Transparent civic data for North Carolina communities.",
+      "Transparent civic data for North Carolina communities — crime, education, demographics, and public insight.",
     type: "website",
+    url: "https://carolina-atlas.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Carolina Atlas",
+    description:
+      "Transparent civic data for North Carolina communities — crime, education, demographics, and public insight.",
   },
   verification: {
     google: "9VLfVBIWfxOIUFSbWr5wdwKixfbvskgVWyfoD1rixh0",

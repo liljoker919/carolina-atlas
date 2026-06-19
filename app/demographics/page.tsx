@@ -3,8 +3,8 @@ import PageHeader from "@/components/ui/PageHeader";
 import ComingSoon from "@/components/ui/ComingSoon";
 
 export const metadata: Metadata = {
-  title: "Demographics",
-  description: "Population trends, income levels, housing, and census data for North Carolina communities.",
+  title: "NC Demographics — Census & Community Data",
+  description: "Population trends, income levels, housing, and US Census Bureau data for North Carolina communities.",
 };
 
 export default function DemographicsPage() {

@@ -3,8 +3,15 @@ import PageHeader from "@/components/ui/PageHeader";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Learn about Carolina Atlas — our mission, data sources, and commitment to public transparency.",
+  title: "About — NC Civic Data Platform",
+  description:
+    "Learn about Carolina Atlas — our mission to make North Carolina public data accessible, our data sources, and our commitment to privacy and transparency.",
+  openGraph: {
+    title: "About Carolina Atlas — NC Civic Data Platform",
+    description:
+      "Learn about Carolina Atlas — our mission to make North Carolina public data accessible, our data sources, and our commitment to privacy and transparency.",
+    url: "https://carolina-atlas.com/about",
+  },
 };
 
 export default function AboutPage() {
@@ -125,7 +132,7 @@ export default function AboutPage() {
           <p className="text-gray-600 leading-relaxed text-base mb-4">
             Carolina Atlas is built with modern open-source technologies
             including Next.js, TypeScript, Tailwind CSS, and is deployed on
-            AWS Amplify. The source code reflects our commitment to open and
+            Vercel. The source code reflects our commitment to open and
             transparent software.
           </p>
           <p className="text-gray-600 leading-relaxed text-base">

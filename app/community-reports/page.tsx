@@ -3,8 +3,8 @@ import PageHeader from "@/components/ui/PageHeader";
 import ComingSoon from "@/components/ui/ComingSoon";
 
 export const metadata: Metadata = {
-  title: "Community Reports",
-  description: "Public transparency reports and community trend analysis for North Carolina.",
+  title: "NC Community Reports — Transparency & Trend Data",
+  description: "Public transparency reports and community trend analysis for North Carolina municipalities.",
 };
 
 export default function CommunityReportsPage() {
