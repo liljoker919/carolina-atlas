@@ -23,6 +23,9 @@ export const metadata: Metadata = {
       "Transparent civic data for North Carolina communities.",
     type: "website",
   },
+  verification: {
+    google: "9VLfVBIWfxOIUFSbWr5wdwKixfbvskgVWyfoD1rixh0",
+  },
 };
 
 export default function RootLayout({
