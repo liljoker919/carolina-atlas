@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "About — NC Civic Data Platform",
   description:
     "Learn about Carolina Atlas — our mission to make North Carolina public data accessible, our data sources, and our commitment to privacy and transparency.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "About Carolina Atlas — NC Civic Data Platform",
     description:

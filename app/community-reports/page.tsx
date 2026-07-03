@@ -5,6 +5,9 @@ import ComingSoon from "@/components/ui/ComingSoon";
 export const metadata: Metadata = {
   title: "NC Community Reports — Transparency & Trend Data",
   description: "Public transparency reports and community trend analysis for North Carolina municipalities.",
+  alternates: {
+    canonical: "/community-reports",
+  },
 };
 
 export default function CommunityReportsPage() {
